@@ -1,0 +1,18 @@
+# ignore everything
+/*
+
+# files to not ignore
+!/.gitignore
+
+!/nvim/
+/nvim/.git/
+/nvim/.gitignore
+/nvim/
+
+!/zsh/
+/zsh/plugins
+!/sway/
+!/foot/
+!/neofetch/
+!/npm/
+!/ruff/

@@ -1,0 +1,33 @@
+# init
+autoload -Uz compinit; compinit
+zmodload zsh/complist
+# keybinds
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'w' vi-forward-blank-word
+bindkey -M menuselect 'b' vi-backward-blank-word
+# cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+# setopt
+setopt globdots
+setopt ALWAYS_TO_END
+setopt AUTO_MENU
+setopt AUTO_PARAM_SLASH
+setopt LIST_ROWS_FIRST
+
+# some basic setup
+zstyle ':completion:*' menu select hidden
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:*:*:*:descriptions' format '%F{14}-- %d --%f'
+zstyle ':completion:*:*:*:*:corrections' format '%F{11}!- %d (errors: %e) -!%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red} -- no matches found --%f'
+# completion rules
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*:*:-command-' group-order alias builtins functions commands
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' file-sort
