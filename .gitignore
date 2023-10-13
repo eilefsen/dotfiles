@@ -5,9 +5,7 @@
 !/.gitignore
 
 !/nvim/
-/nvim/.git/
-/nvim/.gitignore
-/nvim/
+/nvim/.git*
 
 !/zsh/
 /zsh/plugins
