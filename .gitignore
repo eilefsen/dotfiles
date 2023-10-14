@@ -4,12 +4,14 @@
 # files to not ignore
 !/.gitignore
 
+
 !/nvim/
 /nvim/.git*
 /nvim/plugin/
 
 !/zsh/
-/zsh/plugins
+/zsh/.antidote/
+
 !/sway/
 !/foot/
 !/neofetch/
