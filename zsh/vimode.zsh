@@ -23,4 +23,7 @@ cursor_mode() {
     zle -N zle-line-init
 }
 
+bindkey -v
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+
 cursor_mode
