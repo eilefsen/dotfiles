@@ -4,6 +4,13 @@ select = [
 ]
 
 extend-select = [
-    "ARG",
-    "I",
+    "I",    # isort
+
+    # Flake8
+    "ARG",  # unused-arguments
+    "COM",  # commas
+    "DTZ",  # datetimez
+    "EM",   # errmsg
+    "EXE",  # executable
+    "ISC",  # implicit-str-concat
 ]
