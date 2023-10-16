@@ -15,14 +15,14 @@ return require('packer').startup(function(use)
     -- packer
 	use ('wbthomason/packer.nvim')
     -- essential basics
-	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+	-- use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 	use('tpope/vim-commentary')
 	use('tpope/vim-fugitive')
     use{'folke/trouble.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }
     -- theme
-    use('git@github.com:eilefsen/nvim-base16')
+    use('https://github.com/eilefsen/nvim-base16')
     -- lsp
     use {'neovim/nvim-lspconfig'}
     use {'folke/neodev.nvim'}

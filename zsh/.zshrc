@@ -10,7 +10,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 # Base16 theme
-base16_helios
+base16_3024
 
 # Set the strategy used by autosuggest plugin
 ZSH_AUTOSUGGEST_STRATEGY=(completion)

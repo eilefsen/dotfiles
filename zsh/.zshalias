@@ -1,5 +1,5 @@
 # ls
-alias ls='lsd'
+alias ls='ls --color=auto --group-directories-first'
 alias ll="ls -lAh"
 # color support
 if [ -x /usr/bin/dircolors ]; then

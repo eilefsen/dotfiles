@@ -9,7 +9,6 @@ mason.setup()
 mason_config.setup({
     ensure_installed = {
         'lua_ls',
-        'pyright',
     }
 })
 
@@ -26,9 +25,9 @@ mason_config.setup_handlers({
     end,
 })
 
-require('lsp/null_ls')
 require('lsp/lua_ls')
-require('lsp/python/pyright')
-require('lsp/python/ruff')
+-- require('lsp/null_ls')
+-- require('lsp/python/pyright')
+-- require('lsp/python/ruff')
 
 require('lsp/lsp_mappings')
