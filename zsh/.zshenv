@@ -1,3 +1,6 @@
+# Ensure compinit doesnt needlessly slow down startup time
+skip_global_compinit=1
+
 # PATH
 fpath=("$ZDOTDIR/prompts" "$fpath[@]")
 path+=("$HOME/.local/bin")
@@ -42,4 +45,3 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export W3M_DIR="$XDG_DATA_HOME"/w3m
 export ANDROID_HOME="$XDG_DATA_HOME"/android
-
