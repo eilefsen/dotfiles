@@ -73,6 +73,7 @@ return require('packer').startup(function(use)
 	use {'echasnovski/mini.indentscope', branch = 'stable'}
 	use {'echasnovski/mini.cursorword', branch = 'stable'}
 	use {'echasnovski/mini.surround', branch = 'stable'}
+	use {'echasnovski/mini.ai', branch = 'stable'}
 	use {'echasnovski/mini.move', branch = 'stable'}
 
     if packer_bootstrap then
