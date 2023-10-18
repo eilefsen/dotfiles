@@ -1,5 +1,8 @@
-zsh-users/zsh-autosuggestions
-zdharma-continuum/fast-syntax-highlighting
-jeffreytse/zsh-vi-mode
+# vim: set syntax=conf:
 
+jeffreytse/zsh-vi-mode
 chriskempson/base16-shell
+
+# Defer (lazy-load)
+zsh-users/zsh-autosuggestions kind:defer
+zdharma-continuum/fast-syntax-highlighting kind:defer
