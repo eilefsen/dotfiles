@@ -13,16 +13,16 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     -- packer
-	use ('wbthomason/packer.nvim')
+	use {'wbthomason/packer.nvim'}
     -- essential basics
-	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-	use('tpope/vim-commentary')
-	use('tpope/vim-fugitive')
-    use{'folke/trouble.nvim',
+	use {'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}
+	use {'tpope/vim-commentary'}
+	use {'tpope/vim-fugitive'}
+    use {'folke/trouble.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }
     -- theme
-    use('git@github.com:eilefsen/nvim-base16')
+    use {'git@github.com:eilefsen/nvim-base16'}
     -- lsp
     use {'neovim/nvim-lspconfig'}
     use {'folke/neodev.nvim'}
@@ -55,11 +55,11 @@ return require('packer').startup(function(use)
 
     -- nice to have
     use {'ibhagwan/smartyank.nvim'}
-    use('mbbill/undotree')
+    use {'mbbill/undotree'}
     use {"windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
-    use('lambdalisue/suda.vim')
+    use {'lambdalisue/suda.vim'}
     use {'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true }
     }
