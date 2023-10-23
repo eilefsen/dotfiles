@@ -15,8 +15,7 @@ return require('packer').startup(function(use)
     -- packer
 	use {'wbthomason/packer.nvim'}
     -- essential basics
-	use {'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}
-	use {'tpope/vim-commentary'}
+	use {'nvim-treesitter/nvim-treesitter', run = {':TSUpdate'}}
 	use {'tpope/vim-fugitive'}
     use {'folke/trouble.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
@@ -27,31 +26,31 @@ return require('packer').startup(function(use)
     use {'neovim/nvim-lspconfig'}
     use {'folke/neodev.nvim'}
         -- null-ls
-    use {'jose-elias-alvarez/null-ls.nvim',
-        requires = {
-            {'nvim-lua/plenary.nvim'},
+        use {'jose-elias-alvarez/null-ls.nvim',
+            requires = {
+                {'nvim-lua/plenary.nvim'},
+            }
         }
-    }
         -- mason
-    use {'williamboman/mason.nvim'}
-    use {'williamboman/mason-lspconfig.nvim'}
-    use {'jay-babu/mason-null-ls.nvim',
-        requires = {
-            {'williamboman/mason.nvim'},
-            {'jose-elias-alvarez/null-ls.nvim'},
+        use {'williamboman/mason.nvim'}
+        use {'williamboman/mason-lspconfig.nvim'}
+        use {'jay-babu/mason-null-ls.nvim',
+            requires = {
+                {'williamboman/mason.nvim'},
+                {'jose-elias-alvarez/null-ls.nvim'},
+            }
         }
-    }
-    -- autocompletion
-    use {'hrsh7th/cmp-nvim-lsp'}
-    use {'hrsh7th/cmp-buffer'}
-    use {'hrsh7th/cmp-path'}
-    use {'hrsh7th/cmp-cmdline'}
-    use {'hrsh7th/cmp-nvim-lua'}
-    use {'hrsh7th/nvim-cmp'}
-    -- Snippets
-    use {'L3MON4D3/LuaSnip'}
-    use {'saadparwaiz1/cmp_luasnip'}
-    use {'rafamadriz/friendly-snippets'}
+        -- autocompletion
+        use {'hrsh7th/cmp-nvim-lsp'}
+        use {'hrsh7th/cmp-buffer'}
+        use {'hrsh7th/cmp-path'}
+        use {'hrsh7th/cmp-cmdline'}
+        use {'hrsh7th/cmp-nvim-lua'}
+        use {'hrsh7th/nvim-cmp'}
+        -- Snippets
+        use {'L3MON4D3/LuaSnip'}
+        use {'saadparwaiz1/cmp_luasnip'}
+        use {'rafamadriz/friendly-snippets'}
 
     -- nice to have
     use {'ibhagwan/smartyank.nvim'}
@@ -70,11 +69,17 @@ return require('packer').startup(function(use)
 		}
 
     -- mini.nvim
-	use {'echasnovski/mini.indentscope', branch = 'stable'}
-	use {'echasnovski/mini.cursorword', branch = 'stable'}
-	use {'echasnovski/mini.surround', branch = 'stable'}
-	use {'echasnovski/mini.ai', branch = 'stable'}
-	use {'echasnovski/mini.move', branch = 'stable'}
+    use {'echasnovski/mini.ai'}             -- better around/in textobjects
+    use {'echasnovski/mini.align'}          -- interactively align text
+    use {'echasnovski/mini.bracketed'}      -- navigate with brackets
+    use {'echasnovski/mini.clue'}           -- keybind clues
+    use {'echasnovski/mini.comment'}        -- vim-commentary replacement
+    use {'echasnovski/mini.cursorword'}     -- highlights words matching the one under your cursor
+    use {'echasnovski/mini.hipatterns'}     -- highlights specified patterns
+	use {'echasnovski/mini.indentscope'}    -- shows scope of indents dynamically
+    use {'echasnovski/mini.map'}            -- shows a minimap of the current buffer
+    use {'echasnovski/mini.move'}           -- moves selected text around
+	use {'echasnovski/mini.surround'}       -- add, replace, delete, etc. brackets and such
 
     if packer_bootstrap then
         require('packer').sync()

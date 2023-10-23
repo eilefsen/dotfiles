@@ -6,10 +6,9 @@ vim.g.mapleader = ' '
     -- unmap s (substitute) to play nice with mini.surround
     vim.keymap.set({"x", "n"}, "s", '<nop>')
     vim.keymap.set({"x", "n"}, "S", '<nop>')
+    -- unmap q: (show command history) because it is annoying
+    vim.keymap.set('n', 'q:', '<nop>')
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- center cursor
     -- while scrolling
@@ -21,14 +20,16 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
     -- keep cursor in same column while joining lines
     vim.keymap.set("n", "J", "mzJ`z")
 
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- delete to void clipboard
 vim.keymap.set({"n", "v"}, "<leader>d", "\"_d")
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("n", "<del>", "\"_x")
 
--- Splits
-vim.keymap.set("n", "<Leader>h", "<cmd>split<CR>")
-vim.keymap.set("n", "<Leader>v", "<cmd>vsplit<CR>")
+-- TODO: probably remove these:
 -- navigating splits
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")

@@ -13,3 +13,6 @@ fi
 # set different hsts location for wget
 alias -g wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias vim="nvim"
+
+# Python
+alias vactivate='source ./venv/bin/activate'
