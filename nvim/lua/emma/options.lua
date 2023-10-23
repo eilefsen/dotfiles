@@ -42,7 +42,7 @@ vim.opt.wrap = false
 
 -- folding
 vim.opt.foldmethod = 'marker'
-vim.opt.foldenable = false
+vim.opt.foldenable = true
 
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
