@@ -11,8 +11,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-return require('packer').startup(function(use)
-    -- packer
+return require('packer').startup(function(use) -- packer
 	use {'wbthomason/packer.nvim'}
     -- essential basics
 	use {'nvim-treesitter/nvim-treesitter', run = {':TSUpdate'}}
