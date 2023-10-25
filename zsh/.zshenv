@@ -1,18 +1,6 @@
 # Ensure compinit doesnt needlessly slow down startup time
 skip_global_compinit=1
 
-# PATH
-fpath=("$ZDOTDIR/prompts" "$fpath[@]")
-path+=("$HOME/.local/bin")
-path+=("$HOME/.cargo/env")
-path+="$HOME/.poetry/bin:$PATH"
-
-if [[ $(uname) == "Darwin" ]]; then # Checks if OS is MacOS
-    fpath+=("/opt/homebrew/share/zsh/site-functions")
-    path+=/opt/homebrew/bin
-else # Linux etc
-    fpath+=("/usr/local/share/zsh/site-functions")
-fi
 
 # General variables
 export EDITOR="nvim"
@@ -45,3 +33,16 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export W3M_DIR="$XDG_DATA_HOME"/w3m
 export ANDROID_HOME="$XDG_DATA_HOME"/android
+
+# PATH
+fpath=("$ZDOTDIR/prompts" "$fpath[@]")
+path+=("$HOME/.local/bin")
+path+="$HOME/.poetry/bin:$PATH"
+path+=("$CARGO_HOME/bin/")
+
+if [[ $(uname) == "Darwin" ]]; then # Checks if OS is MacOS
+    fpath+=("/opt/homebrew/share/zsh/site-functions")
+    path+=/opt/homebrew/bin
+else # Linux etc
+    fpath+=("/usr/local/share/zsh/site-functions")
+fi
