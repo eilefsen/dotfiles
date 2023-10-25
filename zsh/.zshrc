@@ -3,6 +3,8 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 antidote load
 
+$ZDOTDIR/base16_theme.sh
+
 # History
 setopt histignorealldups sharehistory
 setopt HIST_SAVE_NO_DUPS
@@ -10,7 +12,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 # Base16 theme
-base16_helios
+# base16_helios
 
 # Set the strategy used by autosuggest plugin
 ZSH_AUTOSUGGEST_STRATEGY=(completion)

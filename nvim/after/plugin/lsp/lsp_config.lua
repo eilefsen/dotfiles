@@ -25,10 +25,3 @@ mason_config.setup_handlers({
         lspconfig[server_name].setup({})
     end,
 })
-
-require('lsp/null_ls')
-require('lsp/lua_ls')
-require('lsp/python/pyright')
-require('lsp/python/ruff')
-
-require('lsp/lsp_mappings')

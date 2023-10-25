@@ -21,7 +21,8 @@ return require('packer').startup(function(use)
         requires = {'kyazdani42/nvim-web-devicons'}
     }
     -- theme
-    use {'git@github.com:eilefsen/nvim-base16'}
+    -- use {'git@github.com:eilefsen/nvim-base16'}
+    use {'bradcush/nvim-base16'}
     -- lsp
     use {'neovim/nvim-lspconfig'}
     use {'folke/neodev.nvim'}

@@ -2,7 +2,6 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
-## colors
     include colorscheme
 
     #                       Border  BG      Text    Ind     Child Border
@@ -11,19 +10,25 @@
     client.unfocused        $base00 $base00 $base05 $base01 $base01
     client.urgent           $base08 $base08 $base00 $base08 $base08
 
+## Status Bar:
     bar {
-      colors {
-        background $base00
-        separator  $base01
-        statusline $base04
+        position top
 
-        #                   Border  BG      Text
-        focused_workspace   $base05 $base0D $base00
-        active_workspace    $base05 $base03 $base00
-        inactive_workspace  $base03 $base01 $base05
-        urgent_workspace    $base08 $base08 $base00
-        binding_mode        $base00 $base0A $base00
-      }
+        # When the status_command prints a new line to stdout, swaybar updates.
+        # The default just shows the current date and time.
+        status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+        colors {
+            background $base00
+            separator  $base01
+            statusline $base04
+
+            #                   Border  BG      Text
+            focused_workspace   $base05 $base0D $base00
+            active_workspace    $base05 $base03 $base00
+            inactive_workspace  $base03 $base01 $base05
+            urgent_workspace    $base08 $base08 $base00
+            binding_mode        $base00 $base0A $base00
+        }
     }
 
 ## basics
@@ -63,7 +68,7 @@
 # More info: `man sway-output`
 
     # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-    output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+    output * bg /usr/share/backgrounds/Copper_Mountain_by_Eduardo_Battaglia.jpg fill
 
     # Rotate second monitor to vertical
     output DP-2 transform 270
@@ -208,22 +213,5 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline $base0A
-        background $base00
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
 
 include /etc/sway/config.d/*

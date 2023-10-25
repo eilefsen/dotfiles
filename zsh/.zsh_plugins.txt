@@ -1,7 +1,7 @@
 # vim: set syntax=conf:
 
 jeffreytse/zsh-vi-mode
-chriskempson/base16-shell
+# chriskempson/base16-shell
 
 # Defer (lazy-load)
 zsh-users/zsh-autosuggestions kind:defer
