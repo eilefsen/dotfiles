@@ -1,1 +1,60 @@
-user: red
+# Base16 Default Dark - alacritty color config
+# Emma Eilefsen Glenna (http://eilefsen.net)
+
+user: [252, 252, 246]
+group: [192, 192, 189]
+permission:
+  read: [2, 216, 73]
+  write: [255, 182, 39]
+  exec: [241, 18, 53]
+  exec-sticky: [251, 85, 0]
+  no-access: [96, 97, 93]
+  octal: [251, 85, 0]
+  acl: [13, 217, 214]
+  context: [13, 217, 214]
+date:
+  hour-old: [2, 216, 73]
+  day-old: [2, 216, 73]
+  older: [2, 216, 73]
+size:
+  none: [72, 78, 84]
+  small: [96, 97, 93]
+  medium: [192, 192, 189]
+  large: [192, 192, 189]
+inode:
+  valid: [230, 29, 132]
+  invalid: [96, 97, 93]
+links:
+  valid: [230, 29, 132]
+  invalid: [96, 97, 93]
+tree-edge: [192, 192, 189]
+git-status:
+  default: [192, 192, 189]
+  unmodified: [192, 192, 189]
+  ignored: [192, 192, 189]
+  new-in-index: [2, 216, 73]
+  new-in-workdir: [2, 216, 73]
+  typechange: [255, 182, 39]
+  deleted: [241, 18, 53]
+  renamed: [2, 216, 73]
+  modified: [255, 182, 39]
+  conflicted: [241, 18, 53]
+
+### COLORS
+#
+# [35, 38, 41]
+# [51, 59, 61]
+# [72, 78, 84]
+# [96, 97, 93]
+# [192, 192, 189]
+# [248, 248, 242]
+# [252, 252, 246]
+# [252, 252, 252]
+# [241, 18, 53]
+# [255, 149, 5]
+# [255, 182, 39]
+# [2, 216, 73]
+# [13, 217, 214]
+# [0, 166, 251]
+# [230, 29, 132]
+# [251, 85, 0]

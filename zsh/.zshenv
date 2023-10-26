@@ -33,6 +33,8 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export W3M_DIR="$XDG_DATA_HOME"/w3m
 export ANDROID_HOME="$XDG_DATA_HOME"/android
+export FLAVOURS_DATA_DIRECTORY="${XDG_DATA_HOME}/flavours"
+export FLAVOURS_CONFIG_FILE="${XDG_CONFIG_HOME}/flavours/config.toml"
 
 # PATH
 fpath=("$ZDOTDIR/prompts" "$fpath[@]")

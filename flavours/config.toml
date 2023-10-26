@@ -1,7 +1,7 @@
 shell = "zsh -c '{}'"
 
 [[items]]
-file = "~/.config/sway/colorscheme"
+file = "$XDG_CONFIG_HOME/sway/colorscheme"
 template = "sway"
 subtemplate = "colors"
 hook = "swaymsg reload"
@@ -9,17 +9,22 @@ hook = "swaymsg reload"
 light = false
 
 [[items]]
-file = "/home/ee/.config/zsh/base16_theme.sh"
+file = "$ZDOTDIR/base16_theme.sh"
 template = "shell"
 rewrite = true
-hook = "/home/ee/.config/zsh/base16_theme.sh"
+hook = "$ZDOTDIR/base16_theme.sh"
 
 [[items]]
-file = "/home/ee/.config/foot/colors.ini"
+file = "$XDG_CONFIG_HOME/foot/colors.ini"
 template = "foot"
 rewrite = true
 
 [[items]]
 file = "$XDG_CONFIG_HOME/nvim/lua/emma/colors.lua"
 template = "neovim"
+rewrite = true
+
+[[items]]
+file = "$XDG_CONFIG_HOME/lsd/colors.yaml"
+template = "lsd"
 rewrite = true
