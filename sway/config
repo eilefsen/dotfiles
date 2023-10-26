@@ -6,8 +6,8 @@
 
     #                       Border  BG      Text    Ind     Child Border
     client.focused          $base01 $base09 $base00 $base0D $base09
-    client.focused_inactive $base02 $base03 $base00 $base02 $base03
-    client.unfocused        $base00 $base01 $base05 $base01 $base01
+    client.focused_inactive $base03 $base03 $base00 $base02 $base03
+    client.unfocused        $base01 $base01 $base03 $base01 $base01
     client.urgent           $base08 $base08 $base00 $base08 $base08
 
 ## Status Bar:
@@ -18,14 +18,14 @@
         # The default just shows the current date and time.
         status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
         colors {
-            background $base01
+            background $base00
             separator  $base04
-            statusline $base06
+            statusline $base04
 
             #                   Border  BG      Text
             focused_workspace   $base09 $base09 $base00
-            active_workspace    $base03 $base03 $base00
-            inactive_workspace  $base02 $base02 $base06
+            active_workspace    $base03 $base03 $base05
+            inactive_workspace  $base02 $base02 $base03
             urgent_workspace    $base08 $base08 $base00
             binding_mode        $base0A $base0A $base00
         }

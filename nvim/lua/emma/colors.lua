@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Helios scheme by Alex Meyer (https://github.com/reyemxela)
+-- Default Dark scheme by Emma Eilefsen Glenna (http://eilefsen.net)
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -8,22 +8,22 @@
 -- by Adam P. Regasz-Rethy (https://github.com/RRethy)
 -- Base16 color variables
 local colors = {
-    base00 = "#1d2021",
-    base01 = "#383c3e",
-    base02 = "#53585b",
-    base03 = "#6f7579",
-    base04 = "#cdcdcd",
-    base05 = "#d5d5d5",
-    base06 = "#dddddd",
-    base07 = "#e5e5e5",
-    base08 = "#d72638",
-    base09 = "#eb8413",
-    base0A = "#f19d1a",
-    base0B = "#88b92d",
-    base0C = "#1ba595",
-    base0D = "#1e8bac",
-    base0E = "#be4264",
-    base0F = "#c85e0d"
+    base00 = "#232629",
+    base01 = "#333b3d",
+    base02 = "#484e54",
+    base03 = "#60615d",
+    base04 = "#c0c0bd",
+    base05 = "#f8f8f2",
+    base06 = "#fcfcf6",
+    base07 = "#fcfcfc",
+    base08 = "#f11235",
+    base09 = "#ff9505",
+    base0A = "#ffb627",
+    base0B = "#02d849",
+    base0C = "#0dd9d6",
+    base0D = "#00a6fb",
+    base0E = "#e61d84",
+    base0F = "#fb5500"
 }
 
 -- Highlighting for indiividual groups
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-helios"
+    vim.g.colors_name = "base16-felinoid"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do

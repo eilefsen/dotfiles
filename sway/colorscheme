@@ -1,21 +1,21 @@
 # Start flavours
-## Base16 Helios
-# Author: Alex Meyer (https://github.com/reyemxela)
+## Base16 Default Dark
+# Author: Emma Eilefsen Glenna (http://eilefsen.net)
 
-set $base00 #1d2021
-set $base01 #383c3e
-set $base02 #53585b
-set $base03 #6f7579
-set $base04 #cdcdcd
-set $base05 #d5d5d5
-set $base06 #dddddd
-set $base07 #e5e5e5
-set $base08 #d72638
-set $base09 #eb8413
-set $base0A #f19d1a
-set $base0B #88b92d
-set $base0C #1ba595
-set $base0D #1e8bac
-set $base0E #be4264
-set $base0F #c85e0d
+set $base00 #232629
+set $base01 #333b3d
+set $base02 #484e54
+set $base03 #60615d
+set $base04 #c0c0bd
+set $base05 #f8f8f2
+set $base06 #fcfcf6
+set $base07 #fcfcfc
+set $base08 #f11235
+set $base09 #ff9505
+set $base0A #ffb627
+set $base0B #02d849
+set $base0C #0dd9d6
+set $base0D #00a6fb
+set $base0E #e61d84
+set $base0F #fb5500
 # End flavours

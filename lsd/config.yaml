@@ -7,7 +7,7 @@ blocks:
   - name
 color:
   when: auto
-  theme: default
+  theme: base16.yaml
 icons:
   when: auto
   theme: fancy
