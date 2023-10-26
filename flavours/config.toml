@@ -1,0 +1,25 @@
+shell = "zsh -c '{}'"
+
+[[items]]
+file = "~/.config/sway/colorscheme"
+template = "sway"
+subtemplate = "colors"
+hook = "swaymsg reload"
+# Swaymsg reload temporarily freezes input, so it's marked as not light
+light = false
+
+[[items]]
+file = "/home/ee/.config/zsh/base16_theme.sh"
+template = "shell"
+rewrite = true
+hook = "/home/ee/.config/zsh/base16_theme.sh"
+
+[[items]]
+file = "/home/ee/.config/foot/colors.ini"
+template = "foot"
+rewrite = true
+
+[[items]]
+file = "$XDG_CONFIG_HOME/nvim/lua/emma/colors.lua"
+template = "neovim"
+rewrite = true

@@ -77,7 +77,11 @@
 # More info: `man sway-input`
 
     # Set keyrepeat rate
-    input type:keyboard repeat_rate 40
+    input type:keyboard {
+        repeat_rate 40
+        xkb_layout us(mac)
+    }
+
 
 ### Idle configuration
 #
