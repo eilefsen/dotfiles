@@ -74,4 +74,5 @@ vim.diagnostic.config({
 })
 
 -- command aliases
+vim.api.nvim_create_user_command('E', 'Explore', {}) -- open explore mode
 vim.api.nvim_create_user_command('V', 'Vexplore', {}) -- open a vertical split in explore mode

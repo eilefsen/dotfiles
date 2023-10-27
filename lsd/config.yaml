@@ -5,6 +5,7 @@ blocks:
   - group
   - size
   - name
+date: '+%Y-%b-%d'
 color:
   when: auto
   theme: custom
