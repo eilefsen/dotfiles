@@ -1,44 +1,48 @@
 # Base16 Default Dark - alacritty color config
 # Emma Eilefsen Glenna (http://eilefsen.net)
+# Template author: Emma Eilefsen Glenna (https://eilefsen.net)
+#
+# color values are rgb because lsd does not support hex.
+# at the end of this file you will find some helpful lines
 
 user: [252, 252, 246]
 group: [192, 192, 189]
 permission:
-  read: [2, 216, 73]
-  write: [255, 182, 39]
-  exec: [241, 18, 53]
+  read: [0, 251, 85]
+  write: [251, 211, 0]
+  exec: [251, 0, 41]
   exec-sticky: [251, 85, 0]
   no-access: [96, 97, 93]
   octal: [251, 85, 0]
-  acl: [13, 217, 214]
-  context: [13, 217, 214]
+  acl: [200, 0, 133]
+  context: [200, 0, 133]
 date:
-  hour-old: [2, 216, 73]
-  day-old: [2, 216, 73]
-  older: [2, 216, 73]
+  hour-old: [0, 251, 85]
+  day-old: [0, 251, 85]
+  older: [0, 251, 85]
 size:
   none: [72, 78, 84]
   small: [96, 97, 93]
   medium: [192, 192, 189]
   large: [192, 192, 189]
 inode:
-  valid: [230, 29, 132]
+  valid: [251, 0, 166]
   invalid: [96, 97, 93]
 links:
-  valid: [230, 29, 132]
+  valid: [251, 0, 166]
   invalid: [96, 97, 93]
 tree-edge: [192, 192, 189]
 git-status:
   default: [192, 192, 189]
   unmodified: [192, 192, 189]
   ignored: [192, 192, 189]
-  new-in-index: [2, 216, 73]
-  new-in-workdir: [2, 216, 73]
-  typechange: [255, 182, 39]
-  deleted: [241, 18, 53]
-  renamed: [2, 216, 73]
-  modified: [255, 182, 39]
-  conflicted: [241, 18, 53]
+  new-in-index: [0, 251, 85]
+  new-in-workdir: [0, 251, 85]
+  typechange: [251, 211, 0]
+  deleted: [251, 0, 41]
+  renamed: [0, 251, 85]
+  modified: [251, 211, 0]
+  conflicted: [251, 0, 41]
 
 ### COLORS
 #
@@ -50,11 +54,11 @@ git-status:
 # [248, 248, 242]
 # [252, 252, 246]
 # [252, 252, 252]
-# [241, 18, 53]
-# [255, 149, 5]
-# [255, 182, 39]
-# [2, 216, 73]
-# [13, 217, 214]
+# [251, 0, 41]
+# [251, 169, 0]
+# [251, 211, 0]
+# [0, 251, 85]
+# [200, 0, 133]
 # [0, 166, 251]
-# [230, 29, 132]
+# [251, 0, 166]
 # [251, 85, 0]
