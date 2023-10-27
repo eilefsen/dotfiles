@@ -9,10 +9,14 @@ lspconfig.lua_ls.setup({
             },
             diagnostics = {
                 -- Fix undefined global 'vim'
-                globals = {'vim',}
+                globals = {'vim',},
             },
             workspace = {
 					checkThirdParty = false,
+            },
+            hint = {
+                enable = true,
+                arrayIndex = "Disable"
             },
         }
     }

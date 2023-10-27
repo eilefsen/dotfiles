@@ -1,5 +1,6 @@
 -- Mappings
 vim.api.nvim_create_autocmd('LspAttach', {
+
     desc = 'LSP actions',
     callback = function()
         local bufmap = function(mode, lhs, rhs)
@@ -19,9 +20,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
         bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')                -- go to next diagnostic
         bufmap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>')        -- shows diagnostic in floating window
         bufmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async = true})<cr>') -- formats buffer
-
-        -- When not using Trouble.nvim
-            -- bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')              -- lists all references 
-            -- bufmap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<cr>')    -- shows diagnostic list
     end,
 })
