@@ -8,7 +8,7 @@ vim.g.mapleader = ' '
     vim.keymap.set({"x", "n"}, "S", '<nop>')
     -- unmap q: (show command history) because it is annoying
     vim.keymap.set('n', 'q:', '<nop>')
-
+    vim.keymap.set('c', '<C-f>', '<nop>')
 
 -- center cursor
     -- while scrolling
