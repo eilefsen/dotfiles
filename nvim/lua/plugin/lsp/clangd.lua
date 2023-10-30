@@ -1,6 +1,6 @@
--- require('lspconfig').clangd.setup {
---     cmd = {
---         "clangd",
---         -- "--function-arg-placeholders=0"
---     },
--- }
+require('lspconfig').clangd.setup {
+    cmd = {
+        "clangd",
+        "--inlay-hints=true",
+    },
+}

@@ -6,6 +6,7 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 -- require('emma.base16')
 require('emma.colors')
 vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
+vim.cmd("highlight link LspInlayHint StatusLine")
 vim.g.base16_background_transparent = 1
 
 -- Enable mouse mode
