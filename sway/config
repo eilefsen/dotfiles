@@ -67,7 +67,7 @@
 ### Output configuration
 # More info: `man sway-output`
 
-    # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+    # Wallpaper
     output * bg /usr/share/backgrounds/Copper_Mountain_by_Eduardo_Battaglia.jpg fill
 
     # Rotate second monitor to vertical
@@ -87,11 +87,11 @@
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
