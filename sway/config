@@ -2,7 +2,7 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
-    include colorscheme
+    include theme
 
     #                       Border  BG      Text    Ind     Child Border
     client.focused          $base01 $base09 $base00 $base0D $base09
