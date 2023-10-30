@@ -1,9 +1,9 @@
 shell = "zsh -c '{}'"
 
 [[items]]
-file = "$XDG_CONFIG_HOME/sway/colorscheme"
+file = "$XDG_CONFIG_HOME/sway/theme"
 template = "sway"
-subtemplate = "colors"
+subtemplate = "colors_extra"
 hook = "swaymsg reload"
 # Swaymsg reload temporarily freezes input, so it's marked as not light
 light = false

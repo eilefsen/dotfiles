@@ -49,7 +49,6 @@
     # on the original workspace that the command was run on.
     set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
-
     # Workspace aliases
     set $workspace1 number 1
     set $workspace2 number 2
@@ -60,6 +59,19 @@
     set $workspace7 number 7
     set $workspace8 number 8
     set $workspace9 number 9
+
+    set $lockCmd swaylock -f \
+                   --screenshots \
+                   --clock \
+                   --indicator-idle-visible \
+                   --indicator-thickness 10 \
+                   --effect-blur 7x5 \
+                   --effect-vignette 0.5:0.5 \
+                   --ring-color $noHashBase09 \
+                   --key-hl-color $noHashBase0D \
+                   --line-color $noHashBase00 \
+                   --inside-color $noHashBase01 \
+                   --separator-color $noHashBase00 \
 
     # include system wide sway variables
     include /etc/sway/config-vars.d/*
@@ -87,10 +99,10 @@
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 10 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -99,6 +111,9 @@ exec swayidle -w \
 
 ### Key bindings
 # Basics:
+    # Lock screen
+    bindsym $mod+Escape exec $lockCmd
+
     # Start a terminal
     bindsym $mod+Return exec $term
 
