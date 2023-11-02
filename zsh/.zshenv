@@ -1,7 +1,6 @@
 # Ensure compinit doesnt needlessly slow down startup time
 skip_global_compinit=1
 
-
 # General variables
 export EDITOR="nvim"
 export VISUAL="nvim"

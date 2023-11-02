@@ -1,5 +1,7 @@
 zmodload zsh/complist
 
+fpath=($ZDOTDIR/completions $fpath)
+
 # cache
 autoload -Uz compinit
 
