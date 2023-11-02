@@ -20,6 +20,7 @@ export HISTFILE="$XDG_STATE_HOME"/zsh/zhistory
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 export ADOTDIR="$ZDOTDIR/plugins"
+export SHELL_COMPLETIONS_DIR="$ZDOTDIR/completions"
     # Other
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup

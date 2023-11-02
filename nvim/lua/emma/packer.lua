@@ -56,6 +56,7 @@ return require('packer').startup(function(use) -- packer
     use {'ibhagwan/smartyank.nvim'}
     use {'mbbill/undotree'}
     use {"windwp/nvim-autopairs"}
+    use {"lewis6991/gitsigns.nvim"}
     use {'lambdalisue/suda.vim'}
     use {'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true }
