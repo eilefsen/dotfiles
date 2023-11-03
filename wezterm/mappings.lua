@@ -199,6 +199,11 @@ local mappings = {
         action = wez.action.HideApplication,
     },
     {
+        key = 'q',
+        mods = 'CMD',
+        action = wez.action.QuitApplication,
+    },
+    {
         key = 'PageUp',
         mods = 'SHIFT',
         action = wez.action.ScrollByPage(-1),
