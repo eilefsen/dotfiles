@@ -1,0 +1,6 @@
+default-fix:
+  extension: .toml
+  output: themes
+extra:
+  extension: .toml
+  output: themes

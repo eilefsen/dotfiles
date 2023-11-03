@@ -20,6 +20,17 @@ template = "foot"
 rewrite = true
 
 [[items]]
+file = "$XDG_CONFIG_HOME/kitty/colors.conf"
+template = "kitty"
+rewrite = true
+
+[[items]]
+file = "$XDG_CONFIG_HOME/wezterm/base16.toml"
+template = "wezterm"
+subtemplate = "extra"
+rewrite = true
+
+[[items]]
 file = "$XDG_CONFIG_HOME/nvim/lua/emma/colors.lua"
 template = "neovim"
 rewrite = true

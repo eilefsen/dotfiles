@@ -1,5 +1,5 @@
 # Start flavours
-## Base16 Default Dark
+## Base16 Felinoid
 # Author: Emma Eilefsen Glenna (http://eilefsen.net)
 
 set $noHashBase00 232629
@@ -14,7 +14,7 @@ set $noHashBase08 fb0029
 set $noHashBase09 fba900
 set $noHashBase0A fbd300
 set $noHashBase0B 00fb55
-set $noHashBase0C c80085
+set $noHashBase0C c379e4
 set $noHashBase0D 00a6fb
 set $noHashBase0E fb00a6
 set $noHashBase0F fb5500
@@ -31,7 +31,7 @@ set $base08 #fb0029
 set $base09 #fba900
 set $base0A #fbd300
 set $base0B #00fb55
-set $base0C #c80085
+set $base0C #c379e4
 set $base0D #00a6fb
 set $base0E #fb00a6
 set $base0F #fb5500

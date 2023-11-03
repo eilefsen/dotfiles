@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Default Dark scheme by Emma Eilefsen Glenna (http://eilefsen.net)
+-- Felinoid scheme by Emma Eilefsen Glenna (http://eilefsen.net)
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -20,7 +20,7 @@ local colors = {
     base09 = "#fba900",
     base0A = "#fbd300",
     base0B = "#00fb55",
-    base0C = "#c80085",
+    base0C = "#c379e4",
     base0D = "#00a6fb",
     base0E = "#fb00a6",
     base0F = "#fb5500"

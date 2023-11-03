@@ -1,4 +1,4 @@
-# Base16 Default Dark - alacritty color config
+# Base16 Felinoid - alacritty color config
 # Emma Eilefsen Glenna (http://eilefsen.net)
 # Template author: Emma Eilefsen Glenna (https://eilefsen.net)
 #
@@ -14,8 +14,8 @@ permission:
   exec-sticky: [251, 85, 0]
   no-access: [96, 97, 93]
   octal: [251, 85, 0]
-  acl: [200, 0, 133]
-  context: [200, 0, 133]
+  acl: [195, 121, 228]
+  context: [195, 121, 228]
 date:
   hour-old: [0, 251, 85]
   day-old: [0, 251, 85]
@@ -58,7 +58,7 @@ git-status:
 # [251, 169, 0]
 # [251, 211, 0]
 # [0, 251, 85]
-# [200, 0, 133]
+# [195, 121, 228]
 # [0, 166, 251]
 # [251, 0, 166]
 # [251, 85, 0]

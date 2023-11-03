@@ -1,7 +1,7 @@
 #!/bin/sh
 # base16-shell (https://github.com/chriskempson/base16-shell)
 # Base16 Shell template by Chris Kempson (http://chriskempson.com)
-# Default Dark scheme by Emma Eilefsen Glenna (http://eilefsen.net)
+# Felinoid scheme by Emma Eilefsen Glenna (http://eilefsen.net)
 export BASE16_THEME=felinoid
 
 color00="23/26/29" # Base 00 - Black
@@ -10,7 +10,7 @@ color02="00/fb/55" # Base 0B - Green
 color03="fb/d3/00" # Base 0A - Yellow
 color04="00/a6/fb" # Base 0D - Blue
 color05="fb/00/a6" # Base 0E - Magenta
-color06="c8/00/85" # Base 0C - Cyan
+color06="c3/79/e4" # Base 0C - Cyan
 color07="f8/f8/f2" # Base 05 - White
 color08="60/61/5d" # Base 03 - Bright Black
 color09=$color01 # Base 08 - Bright Red
