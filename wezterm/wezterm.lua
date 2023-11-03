@@ -11,6 +11,8 @@ local font = require('font')
 font.apply(config)
 local colors = require('colors')
 colors.apply(config)
+local mappings = require('mappings')
+mappings.apply(config)
 
 -- config starts here
 
@@ -21,7 +23,6 @@ config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_close_confirmation = 'NeverPrompt'
 
 config.window_frame = {
