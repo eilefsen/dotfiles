@@ -6,3 +6,4 @@ jeffreytse/zsh-vi-mode
 # Defer (lazy-load)
 zsh-users/zsh-autosuggestions kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer
+olets/zsh-window-title kind:defer

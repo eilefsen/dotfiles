@@ -4,7 +4,6 @@
 # files to not ignore
 !/.gitignore
 
-
 !/nvim/
 /nvim/.git*
 /nvim/plugin/
@@ -32,7 +31,8 @@
 
 !/ruff/
 
-
 !/npm/
+
+!/cava/
 
 .DS_Store

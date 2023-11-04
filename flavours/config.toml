@@ -39,3 +39,7 @@ rewrite = true
 file = "$XDG_CONFIG_HOME/lsd/colors.yaml"
 template = "lsd"
 rewrite = true
+
+[[items]]
+file = "$XDG_CONFIG_HOME/cava/config"
+template = "cava"
