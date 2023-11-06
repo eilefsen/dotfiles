@@ -36,3 +36,5 @@ alias ga='git add'
 alias gc='git commit'
 
 ssh () { command ssh "$@"; exec zsh; }
+# kittens
+alias icat='kitty +kitten icat'
