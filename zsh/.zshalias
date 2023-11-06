@@ -34,3 +34,5 @@ alias vactivate='source ./venv/bin/activate'
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
+
+ssh () { command ssh "$@"; exec zsh; }
