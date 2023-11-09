@@ -6,8 +6,8 @@ vim.g.mapleader = ' '
     -- unmap s (substitute) to play nice with mini.surround
     vim.keymap.set({"x", "n"}, "s", '<nop>')
     vim.keymap.set({"x", "n"}, "S", '<nop>')
-    -- unmap q: (show command history) because it is annoying
-    vim.keymap.set('n', 'q:', '<nop>')
+    -- unmap q (start recording) because it is annoying and messes with cmp
+    vim.keymap.set('n', 'q', '<nop>')
     vim.keymap.set('c', '<C-f>', '<nop>')
 
 -- center cursor
