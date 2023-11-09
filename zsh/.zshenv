@@ -12,9 +12,9 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_STATE_HOME=$HOME/.local/state
+export XDG_STATE_HOME="$HOME/.local/state"
 
-# Put various dotfiles in XDG directories
+### Put various dotfiles in XDG directories
     # ZSH
 export HISTFILE="$XDG_STATE_HOME"/zsh/zhistory
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
@@ -38,6 +38,7 @@ export FLAVOURS_CONFIG_FILE="${XDG_CONFIG_HOME}/flavours/config.toml"
 
 # PATH
 fpath=("$ZDOTDIR/prompts" "$fpath[@]")
+fpath=("$ZDOTDIR/functions" "$fpath[@]")
 path+=("$HOME/.local/bin")
 path+="$HOME/.poetry/bin:$PATH"
 path+=("$CARGO_HOME/bin/")

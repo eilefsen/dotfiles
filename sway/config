@@ -2,6 +2,8 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
+    focus_follows_mouse no
+
     include theme
 
     #                       Border  BG      Text    Ind     Child Border
@@ -42,7 +44,7 @@
     set $right l
 
     # Your preferred terminal emulator
-    set $term foot
+    set $term kitty
 
     # Your preferred application launcher
     # Note: pass the final command to swaymsg so that the resulting window can be opened

@@ -26,8 +26,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- delete to void clipboard
 vim.keymap.set({"n", "v"}, "<leader>d", "\"_d")
-vim.keymap.set("n", "x", "\"_x")
-vim.keymap.set("n", "<del>", "\"_x")
+vim.keymap.set({"n", "v"}, "x", "\"_x")
+vim.keymap.set({"n", "v"}, "<del>", "\"_x")
+vim.keymap.set({"n", "v"}, "<leader>c", "\"_c")
 
 -- TODO: probably remove these:
 -- navigating splits
