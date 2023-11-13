@@ -97,6 +97,12 @@
         xkb_layout us(mac)
     }
 
+    # Set Mouse sensitivity
+    input type:pointer {
+        accel_profile flat
+        pointer_accel -0.1
+    }
+
 
 ### Idle configuration
 #

@@ -42,7 +42,7 @@ lspconfig.pyright.setup({
                     reportUndefinedVariable = "none",                   -- "warning":"error":"error"
                     reportAssertAlwaysTrue = "none",                    -- "none":"warning":"error"
                     reportInvalidStringEscapeSequence = "none",         -- "none":"warning":"error"
-                    -- reportInvalidTypeVarUse = "warning"              -- "none":"warning":"error"
+                    reportInvalidTypeVarUse = "none",            -- "none":"warning":"error"
                     -- reportMissingTypeStubs = "warning"               -- "none":"warning":"error"
                     reportSelfClsParameterName = "none",                -- "none":"warning":"error"
                     reportUnsupportedDunderAll = "none",                -- "none":"warning":"error"
