@@ -6,13 +6,13 @@
 # at the end of this file you will find some helpful lines
 
 user: [252, 252, 246]
-group: [192, 192, 189]
+group: [201, 205, 209]
 permission:
   read: [0, 251, 85]
   write: [251, 211, 0]
   exec: [251, 0, 41]
   exec-sticky: [251, 85, 0]
-  no-access: [96, 97, 93]
+  no-access: [98, 107, 115]
   octal: [251, 85, 0]
   acl: [195, 121, 228]
   context: [195, 121, 228]
@@ -21,21 +21,21 @@ date:
   day-old: [0, 251, 85]
   older: [0, 251, 85]
 size:
-  none: [72, 78, 84]
-  small: [96, 97, 93]
-  medium: [192, 192, 189]
-  large: [192, 192, 189]
+  none: [71, 77, 83]
+  small: [98, 107, 115]
+  medium: [201, 205, 209]
+  large: [201, 205, 209]
 inode:
   valid: [251, 0, 166]
-  invalid: [96, 97, 93]
+  invalid: [98, 107, 115]
 links:
   valid: [251, 0, 166]
-  invalid: [96, 97, 93]
-tree-edge: [192, 192, 189]
+  invalid: [98, 107, 115]
+tree-edge: [201, 205, 209]
 git-status:
-  default: [192, 192, 189]
-  unmodified: [192, 192, 189]
-  ignored: [192, 192, 189]
+  default: [201, 205, 209]
+  unmodified: [201, 205, 209]
+  ignored: [201, 205, 209]
   new-in-index: [0, 251, 85]
   new-in-workdir: [0, 251, 85]
   typechange: [251, 211, 0]
@@ -47,10 +47,10 @@ git-status:
 ### COLORS
 #
 # [35, 38, 41]
-# [51, 59, 61]
-# [72, 78, 84]
-# [96, 97, 93]
-# [192, 192, 189]
+# [62, 67, 73]
+# [71, 77, 83]
+# [98, 107, 115]
+# [201, 205, 209]
 # [248, 248, 242]
 # [252, 252, 246]
 # [252, 252, 252]

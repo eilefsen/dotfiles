@@ -12,6 +12,10 @@
     client.unfocused        $base01 $base01 $base03 $base01 $base01
     client.urgent           $base08 $base08 $base00 $base08 $base08
 
+    gaps inner 4
+    smart_gaps off
+
+
 ## Status Bar:
     bar {
         position top

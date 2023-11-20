@@ -9,10 +9,10 @@
 -- Base16 color variables
 local colors = {
     base00 = "#232629",
-    base01 = "#333b3d",
-    base02 = "#484e54",
-    base03 = "#60615d",
-    base04 = "#c0c0bd",
+    base01 = "#3e4349",
+    base02 = "#474d53",
+    base03 = "#626b73",
+    base04 = "#c9cdd1",
     base05 = "#f8f8f2",
     base06 = "#fcfcf6",
     base07 = "#fcfcfc",
