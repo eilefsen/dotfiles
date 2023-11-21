@@ -1,3 +1,7 @@
+if [ -f $ZDOTDIR/workaliases.zsh ]; then
+    source $ZDOTDIR/workaliases.zsh
+fi
+
 # ls (lsd)
     alias ls='lsd -1'
     alias ll="ls -lAh"
