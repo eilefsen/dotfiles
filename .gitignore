@@ -14,6 +14,7 @@
 /zsh/*.zwc
 /zsh/.zsh_history
 /zsh/.zcompdump
+/zsh/workaliases.zsh
 
 !/lsd
 
