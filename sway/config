@@ -2,6 +2,9 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
+    set $lockscreen_lock_after	300
+    set $lockscreen_turnoff_after	10
+
     focus_follows_mouse no
 
     include theme
@@ -66,19 +69,7 @@
     set $workspace8 number 8
     set $workspace9 number 9
 
-    set $lockCmd swaylock -f \
-                   --screenshots \
-                   --clock \
-                   --indicator-idle-visible \
-                   --indicator-thickness 10 \
-                   --effect-blur 7x5 \
-                   --effect-vignette 0.5:0.5 \
-                   --ring-color $noHashBase09 \
-                   --key-hl-color $noHashBase0D \
-                   --line-color $noHashBase00 \
-                   --inside-color $noHashBase01 \
-                   --separator-color $noHashBase00 \
-
+    set $lockCmd swaylock -f --screenshots --clock j --indicator-idle-visible --indicator-thickness 10 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color $noHashBase09 --key-hl-color $noHashBase0D --line-color $noHashBase00 --inside-color $noHashBase01 --separator-color $noHashBase00
     # include system wide sway variables
     include /etc/sway/config-vars.d/*
 
@@ -109,17 +100,12 @@
 
 
 ### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 10 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+exec swayidle -w \
+        timeout $lockscreen_lock_after '$lockCmd' \
+        timeout $lockscreen_turnoff_after 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' \
+        resume 'swaymsg "output * dpms on"' \
+        before-sleep '$lockCmd'
 
 
 ### Key bindings
