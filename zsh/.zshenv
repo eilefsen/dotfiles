@@ -36,6 +36,9 @@ export ANDROID_HOME="$XDG_DATA_HOME"/android
 export FLAVOURS_DATA_DIRECTORY="${XDG_DATA_HOME}/flavours"
 export FLAVOURS_CONFIG_FILE="${XDG_CONFIG_HOME}/flavours/config.toml"
 
+# Various
+MOZ_ENABLE_WAYLAND=1
+
 # PATH
 fpath=("$ZDOTDIR/prompts" "$fpath[@]")
 fpath=("$ZDOTDIR/functions" "$fpath[@]")

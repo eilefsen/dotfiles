@@ -60,7 +60,7 @@ vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"
 vim.opt.undofile = true
 
 -- NetRW
-vim.g.netrw_list_hide = "^./$,^../$" -- hide ./ and ../
+-- vim.g.netrw_list_hide = "^./$,^../$" -- hide ./ and ../
 
 -- Diagnostics
 vim.diagnostic.config({
