@@ -48,7 +48,10 @@ return require('packer').startup(function(use) -- packer
         use {'hrsh7th/nvim-cmp'}
         use {'onsails/lspkind.nvim'}
         -- Snippets
-        use {'L3MON4D3/LuaSnip'}
+        use {
+            'L3MON4D3/LuaSnip',
+            run = "make install_jsregexp",
+        }
         use {'saadparwaiz1/cmp_luasnip'}
         use {'rafamadriz/friendly-snippets'}
 
@@ -56,6 +59,7 @@ return require('packer').startup(function(use) -- packer
     use {'ibhagwan/smartyank.nvim'}
     use {'mbbill/undotree'}
     use {"windwp/nvim-autopairs"}
+    use {"windwp/nvim-ts-autotag"}
     use {"lewis6991/gitsigns.nvim"}
     use {'lambdalisue/suda.vim'}
     use {'nvim-lualine/lualine.nvim',

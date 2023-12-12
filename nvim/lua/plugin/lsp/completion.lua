@@ -1,6 +1,7 @@
 ---@class vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip").filetype_extend("htmldjango", {"html"})
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
@@ -21,7 +22,7 @@ cmp.setup({
         {name = 'path'},
         {name = 'nvim_lsp', keyword_length = 1},
         {name = 'buffer', keyword_length = 3},
-        {name = 'luasnip', keyword_length = 2},
+        {name = 'luasnip', keyword_length = 1},
     },
     window = {
         -- documentation = cmp.config.window.bordered(),
