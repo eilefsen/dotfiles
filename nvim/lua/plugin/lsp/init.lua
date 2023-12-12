@@ -8,5 +8,6 @@ require('plugin.lsp.lua_ls')
 require('plugin.lsp.pyright')
 require('plugin.lsp.ruff')
 require('plugin.lsp.clangd')
+require('plugin.lsp.html')
 
 require('plugin.lsp.lspkind')
