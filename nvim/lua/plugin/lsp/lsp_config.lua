@@ -9,8 +9,9 @@ mason.setup()
 mason_config.setup({
     ensure_installed = {
         'lua_ls',
-        'pyright',
+        'jedi_language_server',
         'clangd',
+        'html',
     }
 })
 
