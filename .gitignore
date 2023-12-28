@@ -7,7 +7,7 @@
 !/nvim/
 /nvim/.git*
 /nvim/plugin/
-/nvim/*.lock
+/nvim/lazy-lock.json
 
 !/zsh/
 /zsh/.antidote/
