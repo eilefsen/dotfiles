@@ -28,6 +28,7 @@ require('lazy').setup({
 }, {})
 
 -- Basic lua stuff
+require 'custom.colors'
 require 'custom.options'
 require 'custom.keymaps'
 require 'custom.functions'

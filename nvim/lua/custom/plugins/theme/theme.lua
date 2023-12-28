@@ -1,8 +1,7 @@
   return {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'eilefsen/bradcush-nvim-base16',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'base16-default-dark'
     end,
   }
