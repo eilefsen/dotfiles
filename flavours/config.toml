@@ -31,7 +31,7 @@ subtemplate = "extra"
 rewrite = true
 
 [[items]]
-file = "$XDG_CONFIG_HOME/nvim/lua/emma/colors.lua"
+file = "$XDG_CONFIG_HOME/nvim/lua/custom/colors.lua"
 template = "neovim"
 rewrite = true
 
