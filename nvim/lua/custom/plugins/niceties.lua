@@ -12,6 +12,11 @@ return {
         dependencies = {
             'kyazdani42/nvim-web-devicons',
         },
+        config = function ()
+            local trouble = require('trouble')
+            vim.keymap.set("n", "<leader>tt", trouble.toggle)
+            trouble.setup()
+        end
     },
     {
         -- Shows valid keymaps while typing them
