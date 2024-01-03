@@ -32,7 +32,7 @@ rewrite = true
 
 [[items]]
 file = "$XDG_CONFIG_HOME/nvim/lua/custom/colors.lua"
-template = "neovim"
+template = "nvim"
 rewrite = true
 
 [[items]]
