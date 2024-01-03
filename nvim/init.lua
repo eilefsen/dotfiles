@@ -38,3 +38,5 @@ require 'custom.configs.treesitter'
 require 'custom.configs.telescope'
 require 'custom.configs.which_key'
 require 'custom.configs.lualine'
+require 'custom.configs.ibl'
+
