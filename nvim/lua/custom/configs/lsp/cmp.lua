@@ -14,6 +14,21 @@ cmp.setup {
     completion = {
         completeopt = 'menu,menuone,noinsert',
     },
+    formatting = {
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+            -- set cmp menu icons here
+            local menu_icon = {
+                nvim_lsp = 'λ',
+                luasnip = '⋗',
+                buffer = 'Ω',
+                path = '',
+            }
+            item.menu = menu_icon[entry.source.name]
+            return item
+        end,
+        expandable_indicator = true,
+    },
     mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-p>'] = cmp.mapping.select_prev_item(),
