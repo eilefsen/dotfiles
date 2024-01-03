@@ -1,35 +1,18 @@
-local colors = {
-  black   = vim.g.terminal_color_0,
-  maroon  = vim.g.terminal_color_1,
-  green   = vim.g.terminal_color_2,
-  olive   = vim.g.terminal_color_2,
-  navy    = vim.g.terminal_color_4,
-  purple  = vim.g.terminal_color_5,
-  teal    = vim.g.terminal_color_6,
-  silver  = vim.g.terminal_color_8,
-  gray    = vim.g.terminal_color_8,
-  red     = vim.g.terminal_color_1,
-  lime    = vim.g.terminal_color_2,
-  yellow  = vim.g.terminal_color_3,
-  blue    = vim.g.terminal_color_4,
-  fuchsia = vim.g.terminal_color_5,
-  aqua    = vim.g.terminal_color_6,
-  white   = vim.g.terminal_color_15,
-}
-
 local myBase16 = {
     normal = {
-        a = { fg = colors.white, bg = colors.blue, gui = 'bold' },
-        b = { fg = colors.white, bg = colors.gray },
-        c = { fg = colors.silver, bg = colors.black },
+        a = { fg = Colors.base05, bg = Colors.base0D, gui = 'bold' },
+        b = { fg = Colors.base05, bg = Colors.base03 },
+        c = { fg = Colors.base04, bg = Colors.base01 },
     },
-    insert = { a = { fg = colors.white, bg = colors.green, gui = 'bold' } },
-    visual = { a = { fg = colors.white, bg = colors.purple, gui = 'bold' } },
-    replace = { a = { fg = colors.white, bg = colors.red, gui = 'bold' } },
+    insert = { a = { fg = Colors.base00, bg = Colors.base0B, gui = 'bold' } },
+
+
+    visual = { a = { fg = Colors.base05, bg = Colors.base0E, gui = 'bold' } },
+    replace = { a = { fg = Colors.base05, bg = Colors.base08, gui = 'bold' } },
     inactive = {
-        a = { fg = colors.silver, bg = colors.gray, gui = 'bold' },
-        b = { fg = colors.gray, bg = colors.black },
-        c = { fg = colors.silver, bg = colors.black },
+        a = { fg = Colors.base04, bg = Colors.base03, gui = 'bold' },
+        b = { fg = Colors.base03, bg = Colors.base02 },
+        c = { fg = Colors.base04, bg = Colors.base02 },
     },
 }
 
