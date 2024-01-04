@@ -20,7 +20,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     { import = 'custom.plugins.lsp' },
     { import = 'custom.plugins.git' },
-    { import = 'custom.plugins.theme' },
     { import = 'custom.plugins' },
     -- require 'kickstart.plugins.autoformat',
     -- require 'kickstart.plugins.debug',
@@ -39,4 +38,3 @@ require 'custom.configs.telescope'
 require 'custom.configs.which_key'
 require 'custom.configs.lualine'
 require 'custom.configs.ibl'
-
