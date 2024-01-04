@@ -28,15 +28,6 @@ return {
         'ibhagwan/smartyank.nvim',
     },
     {
-        -- autopairs
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        opts = {} -- this is equalent to setup({}) function
-    },
-    {
-        "windwp/nvim-ts-autotag",
-    },
-    {
         -- allows saving file without reopening as superuser
         'lambdalisue/suda.vim',
     },
