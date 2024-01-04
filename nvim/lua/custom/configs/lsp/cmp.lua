@@ -2,7 +2,7 @@
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.filetype_extend("htmldjango", {"html"})
+luasnip.filetype_extend("htmldjango", { "html" })
 luasnip.config.setup {}
 
 cmp.setup {
@@ -14,8 +14,14 @@ cmp.setup {
     completion = {
         completeopt = 'menu,menuone,noinsert',
     },
+    sources = {
+        { name = 'nvim_lsp', keyword_length = 1 },
+        { name = 'luasnip',  keyword_length = 1 },
+        { name = 'path',     priority = 3 },
+        { name = 'buffer',   keyword_length = 3 },
+    },
     formatting = {
-        fields = {'menu', 'abbr', 'kind'},
+        fields = { 'menu', 'abbr', 'kind' },
         format = function(entry, item)
             -- set cmp menu icons here
             local menu_icon = {
@@ -35,11 +41,11 @@ cmp.setup {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<CR>'] = 
-        cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-        },
+        ['<CR>'] =
+            cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+            },
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm {
