@@ -4,9 +4,7 @@ local myBase16 = {
         b = { fg = Colors.base05, bg = Colors.base03 },
         c = { fg = Colors.base04, bg = Colors.base01 },
     },
-    insert = { a = { fg = Colors.base00, bg = Colors.base0B, gui = 'bold' } },
-
-
+    insert = { a = { fg = Colors.base01, bg = Colors.base0B, gui = 'bold' } },
     visual = { a = { fg = Colors.base05, bg = Colors.base0E, gui = 'bold' } },
     replace = { a = { fg = Colors.base05, bg = Colors.base08, gui = 'bold' } },
     inactive = {
