@@ -1,5 +1,4 @@
 return {
-	'echasnovski/mini.surround',
     {
         'echasnovski/mini.hipatterns',
         opts = {},
