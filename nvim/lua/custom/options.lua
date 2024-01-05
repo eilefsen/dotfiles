@@ -1,5 +1,4 @@
 vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
-vim.cmd("highlight link LspInlayHint StatusLine")
 
 vim.g.base16_background_transparent = 1
 -- [[ Setting options ]]
@@ -25,7 +24,7 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "screenline"
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-vim.opt.cmdheight=1
+vim.opt.cmdheight = 1
 
 -- Search
 vim.opt.hlsearch = false
@@ -67,7 +66,7 @@ vim.diagnostic.config({
 })
 
 -- command aliases
-vim.api.nvim_create_user_command('E', 'Explore', {}) -- open explore mode
+vim.api.nvim_create_user_command('E', 'Explore', {})  -- open explore mode
 vim.api.nvim_create_user_command('V', 'Vexplore', {}) -- open a vertical split in explore mode
 
 -- Keep signcolumn on by default
