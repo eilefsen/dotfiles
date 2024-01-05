@@ -12,6 +12,7 @@ mason_config.setup({
         'jedi_language_server',
         'clangd',
         'html',
+        'tsserver'
     }
 })
 
