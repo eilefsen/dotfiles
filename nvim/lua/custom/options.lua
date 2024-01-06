@@ -1,10 +1,6 @@
-vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
-
-vim.g.base16_background_transparent = 1
 -- [[ Setting options ]]
 -- Global variables
 vim.g.python3_host_prog = "/usr/bin/python3"
-vim.g.base16_background_transparent = 1
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
