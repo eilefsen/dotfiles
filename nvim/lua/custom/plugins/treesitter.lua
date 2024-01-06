@@ -23,8 +23,8 @@ return {
         event = "InsertEnter",
         opts = {},
         config = function()
-            local npairs = require'nvim-autopairs'
-            local Rule = require'nvim-autopairs.rule'
+            local npairs = require 'nvim-autopairs'
+            local Rule = require 'nvim-autopairs.rule'
             npairs.setup({
                 check_ts = true,
             })
@@ -35,13 +35,26 @@ return {
             -- press % => %% only while inside a comment or string
             npairs.add_rules({
                 Rule("%", "%", "lua")
-                    :with_pair(ts_conds.is_ts_node({'string','comment'})),
+                    :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
                 Rule("$", "$", "lua")
-                    :with_pair(ts_conds.is_not_ts_node({'function'}))
+                    :with_pair(ts_conds.is_not_ts_node({ 'function' }))
             })
         end,
     },
     {
         "windwp/nvim-ts-autotag",
+    },
+    {
+        'Wansmer/treesj',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+        },
+        config = function()
+            local treesj = require('treesj')
+            treesj.setup {
+                use_default_keymaps = false,
+            }
+            vim.keymap.set('n', '<leader>m', treesj.toggle)
+        end,
     },
 }
