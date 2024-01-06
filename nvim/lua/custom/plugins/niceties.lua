@@ -1,20 +1,13 @@
 return {
     {
-        -- saves all undos as a browsable tree
-        'mbbill/undotree',
-        config = function ()
-            vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-        end
-    },
-    {
         -- Error list
         'folke/trouble.nvim',
         dependencies = {
             'kyazdani42/nvim-web-devicons',
         },
-        config = function ()
+        config = function()
             local trouble = require('trouble')
-            vim.keymap.set("n", "<leader>tt", trouble.toggle)
+            vim.keymap.set('n', '<leader>tt', trouble.toggle)
             trouble.setup()
         end
     },
