@@ -43,9 +43,6 @@ vim.opt.wrap = false
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 500
 
--- folding
-vim.opt.foldmethod = 'marker'
-vim.opt.foldenable = false
 
 -- tmp files
 vim.opt.swapfile = false
