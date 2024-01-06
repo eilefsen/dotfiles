@@ -3,9 +3,9 @@
 # Author: Emma Eilefsen Glenna (http://eilefsen.net)
 
 set $noHashBase00 232629
-set $noHashBase01 3e4349
-set $noHashBase02 474d53
-set $noHashBase03 626b73
+set $noHashBase01 2f3337
+set $noHashBase02 464c52
+set $noHashBase03 69727b
 set $noHashBase04 c9cdd1
 set $noHashBase05 f8f8f2
 set $noHashBase06 fcfcf6
@@ -20,9 +20,9 @@ set $noHashBase0E fb00a6
 set $noHashBase0F fb5500
 
 set $base00 #232629
-set $base01 #3e4349
-set $base02 #474d53
-set $base03 #626b73
+set $base01 #2f3337
+set $base02 #464c52
+set $base03 #69727b
 set $base04 #c9cdd1
 set $base05 #f8f8f2
 set $base06 #fcfcf6

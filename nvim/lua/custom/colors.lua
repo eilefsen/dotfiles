@@ -30,9 +30,9 @@ vim.g.colors_name = "base16-felinoid"
 
 Colors = {
     base00 = "#232629",
-    base01 = "#3e4349",
-    base02 = "#474d53",
-    base03 = "#626b73",
+    base01 = "#2f3337",
+    base02 = "#464c52",
+    base03 = "#69727b",
     base04 = "#c9cdd1",
     base05 = "#f8f8f2",
     base06 = "#fcfcf6",
@@ -56,7 +56,7 @@ vim.api.nvim_set_hl(0, 'Error', { fg = Colors.base00, bg = Colors.base08, ctermf
 vim.api.nvim_set_hl(0, 'ErrorMsg', { fg = Colors.base08, bg = Colors.base00, ctermfg = cterm08, ctermbg = cterm00 })
 vim.api.nvim_set_hl(0, 'Exception', { fg = Colors.base08, ctermfg = cterm08 })
 vim.api.nvim_set_hl(0, 'FoldColumn', { fg = Colors.base0C, bg = Colors.base01, ctermfg = cterm0C, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'Folded', { fg = Colors.base03, bg = Colors.base01, ctermfg = cterm03, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'Folded', { fg = Colors.base04, bg = Colors.base01, ctermfg = cterm04, ctermbg = cterm01 })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = Colors.base01, bg = Colors.base09, ctermfg = cterm01, ctermbg = cterm09 })
 vim.api.nvim_set_hl(0, 'Italic', {})
 vim.api.nvim_set_hl(0, 'Macro', { fg = Colors.base08, ctermfg = cterm08 })
@@ -78,10 +78,10 @@ vim.api.nvim_set_hl(0, 'Conceal', { fg = Colors.base0D, bg = Colors.base00, cter
 vim.api.nvim_set_hl(0, 'Cursor', { fg = Colors.base00, bg = Colors.base05, ctermfg = cterm00, ctermbg = cterm05 })
 vim.api.nvim_set_hl(0, 'NonText', { fg = Colors.base03, ctermfg = cterm03 })
 vim.api.nvim_set_hl(0, 'LineNr', { fg = Colors.base03, bg = Colors.base01, ctermfg = cterm03, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'SignColumn', { fg = Colors.base03, bg = Colors.base01, ctermfg = cterm03, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
 vim.api.nvim_set_hl(0, 'StatusLine', { fg = Colors.base04, bg = Colors.base02, ctermfg = cterm04, ctermbg = cterm02 })
 vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = Colors.base03, bg = Colors.base01, ctermfg = cterm03, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'VertSplit', { fg = Colors.base02, bg = Colors.base02, ctermfg = cterm02, ctermbg = cterm02 })
+vim.api.nvim_set_hl(0, 'VertSplit', { fg = Colors.base04, bg = Colors.base00, ctermfg = cterm04, ctermbg = cterm00 })
 vim.api.nvim_set_hl(0, 'ColorColumn', { bg = Colors.base01, ctermbg = cterm01 })
 vim.api.nvim_set_hl(0, 'CursorColumn', { bg = Colors.base01, ctermbg = cterm01 })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = Colors.base01, ctermbg = cterm01 })
@@ -141,15 +141,15 @@ vim.api.nvim_set_hl(0, 'cssClassName', { fg = Colors.base0E, ctermfg = cterm0E }
 vim.api.nvim_set_hl(0, 'cssColor', { fg = Colors.base0C, ctermfg = cterm0C })
 
 -- Diff highlighting
-vim.api.nvim_set_hl(0, 'DiffAdd', { fg = Colors.base0B, bg = Colors.base01, ctermfg =  cterm0B, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'DiffChange', { fg = Colors.base03, bg = Colors.base01, ctermfg =  cterm03, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'DiffDelete', { fg = Colors.base08, bg = Colors.base01, ctermfg =  cterm08, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'DiffText', { fg = Colors.base0D, bg = Colors.base01, ctermfg =  cterm0D, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'DiffAdded', { fg = Colors.base0B, bg = Colors.base00, ctermfg =  cterm0B, ctermbg = cterm00 })
-vim.api.nvim_set_hl(0, 'DiffFile', { fg = Colors.base08, bg = Colors.base00, ctermfg =  cterm08, ctermbg = cterm00 })
-vim.api.nvim_set_hl(0, 'DiffNewFile', { fg = Colors.base0B, bg = Colors.base00, ctermfg =  cterm0B, ctermbg = cterm00 })
-vim.api.nvim_set_hl(0, 'DiffLine', { fg = Colors.base0D, bg = Colors.base00, ctermfg =  cterm0D, ctermbg = cterm00 })
-vim.api.nvim_set_hl(0, 'DiffRemoved', { fg = Colors.base08, bg = Colors.base00, ctermfg =  cterm08, ctermbg = cterm00 })
+vim.api.nvim_set_hl(0, 'DiffAdd', { fg = Colors.base0B, bg = Colors.base01, ctermfg = cterm0B, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'DiffChange', { fg = Colors.base03, bg = Colors.base01, ctermfg = cterm03, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = Colors.base08, bg = Colors.base01, ctermfg = cterm08, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'DiffText', { fg = Colors.base0D, bg = Colors.base01, ctermfg = cterm0D, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'DiffAdded', { fg = Colors.base0B, bg = Colors.base00, ctermfg = cterm0B, ctermbg = cterm00 })
+vim.api.nvim_set_hl(0, 'DiffFile', { fg = Colors.base08, bg = Colors.base00, ctermfg = cterm08, ctermbg = cterm00 })
+vim.api.nvim_set_hl(0, 'DiffNewFile', { fg = Colors.base0B, bg = Colors.base00, ctermfg = cterm0B, ctermbg = cterm00 })
+vim.api.nvim_set_hl(0, 'DiffLine', { fg = Colors.base0D, bg = Colors.base00, ctermfg = cterm0D, ctermbg = cterm00 })
+vim.api.nvim_set_hl(0, 'DiffRemoved', { fg = Colors.base08, bg = Colors.base00, ctermfg = cterm08, ctermbg = cterm00 })
 
 -- Git highlighting
 vim.api.nvim_set_hl(0, 'gitcommitOverflow', { fg = Colors.base08, ctermfg = cterm08 })
@@ -170,9 +170,12 @@ vim.api.nvim_set_hl(0, 'gitcommitSelectedFile', { fg = Colors.base0B, ctermfg = 
 
 -- GitGutter highlighting
 vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg = Colors.base0B, bg = Colors.base01, ctermfg = cterm0B, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'GitGutterChange', { fg = Colors.base0D, bg = Colors.base01, ctermfg = cterm0D, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'GitGutterDelete', { fg = Colors.base08, bg = Colors.base01, ctermfg = cterm08, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'GitGutterChangeDelete', { fg = Colors.base0E, bg = Colors.base01, ctermfg = cterm0E, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'GitGutterChange',
+    { fg = Colors.base0D, bg = Colors.base01, ctermfg = cterm0D, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'GitGutterDelete',
+    { fg = Colors.base08, bg = Colors.base01, ctermfg = cterm08, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'GitGutterChangeDelete',
+    { fg = Colors.base0E, bg = Colors.base01, ctermfg = cterm0E, ctermbg = cterm01 })
 
 -- HTML highlighting
 vim.api.nvim_set_hl(0, 'htmlBold', { fg = Colors.base0A, ctermfg = cterm0A })
@@ -203,19 +206,53 @@ vim.api.nvim_set_hl(0, 'jsExceptions', { fg = Colors.base0A, ctermfg = cterm0A }
 vim.api.nvim_set_hl(0, 'jsBuiltins', { fg = Colors.base0A, ctermfg = cterm0A })
 
 -- LSP highlighting
-vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultError', { fg = Colors.base08, ctermfg = cterm08})
-vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultWarning', { fg = Colors.base09, ctermfg = cterm09 })
-vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultInformation', { fg = Colors.base05, ctermfg = cterm05 })
-vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultHint', { fg = Colors.base03, ctermfg = cterm03 })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultError', { link = 'DiagnosticError' })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultWarning', { link = 'DiagnosticWarn' })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultInformation', { link = 'DiagnosticInfo' })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultHint', { link = 'DiagnosticHint' })
 -- Diagnostics undercurl
-vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineError', { fg = nil, ctermfg = nil, sp=Colors.base08, undercurl = true })
-vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineWarning', { fg = nil, ctermfg = nil, sp=Colors.base09, undercurl = true  })
-vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineInformation', { fg = nil, ctermfg = nil, sp=Colors.base05, undercurl = true })
-vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineHint', { fg = nil, ctermfg = nil, sp=Colors.base03, undercurl = true })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { fg = nil, ctermfg = nil, sp=Colors.base08, undercurl = true })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { fg = nil, ctermfg = nil, sp=Colors.base09, undercurl = true })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', { fg = nil, ctermfg = nil, sp=Colors.base05, undercurl = true })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { fg = nil, ctermfg = nil, sp=Colors.base03, undercurl = true })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineError', { fg = nil, ctermfg = nil, sp = Colors.base08, undercurl = true })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineWarning',
+    { fg = nil, ctermfg = nil, sp = Colors.base09, undercurl = true })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineInformation',
+    { fg = nil, ctermfg = nil, sp = Colors.base05, undercurl = true })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineHint', { fg = nil, ctermfg = nil, sp = Colors.base03, undercurl = true })
+
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { fg = nil, ctermfg = nil, sp = Colors.base08, undercurl = true })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { fg = nil, ctermfg = nil, sp = Colors.base09, undercurl = true })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', { fg = nil, ctermfg = nil, sp = Colors.base04, undercurl = true })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { fg = nil, ctermfg = nil, sp = Colors.base03, undercurl = true })
+
+vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = Colors.base08, ctermfg = cterm08 })
+vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = Colors.base09, ctermfg = cterm09 })
+vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = Colors.base04, ctermfg = cterm04 })
+vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = Colors.base03, ctermfg = cterm03 })
+
+vim.api.nvim_set_hl(0, 'DiagnosticSignError', {
+    fg = Colors.base08,
+    ctermfg = cterm08,
+    bg = Colors.base01,
+    ctermbg = cterm01,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', {
+    fg = Colors.base09,
+    ctermfg = cterm09,
+    bg = Colors.base01,
+    ctermbg = cterm01,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', {
+    fg = Colors.base04,
+    ctermfg = cterm04,
+    bg = Colors.base01,
+    ctermbg = cterm01,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticSignHint', {
+    fg = Colors.base03,
+    ctermfg = cterm03,
+    bg = Colors.base01,
+    ctermbg = cterm01,
+})
+
 
 -- Mail highlighting
 vim.api.nvim_set_hl(0, 'mailQuoted1', { fg = Colors.base0A, ctermfg = cterm0A })
@@ -266,8 +303,10 @@ vim.api.nvim_set_hl(0, 'sassMixinName', { fg = Colors.base0D, ctermfg = cterm0D 
 
 -- Signify highlighting
 vim.api.nvim_set_hl(0, 'SignifySignAdd', { fg = Colors.base0B, bg = Colors.base01, ctermfg = cterm0B, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'SignifySignChange', { fg = Colors.base0D, bg = Colors.base01, ctermfg = cterm0D, ctermbg = cterm01 })
-vim.api.nvim_set_hl(0, 'SignifySignDelete', { fg = Colors.base08, bg = Colors.base01, ctermfg = cterm08, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'SignifySignChange',
+    { fg = Colors.base0D, bg = Colors.base01, ctermfg = cterm0D, ctermbg = cterm01 })
+vim.api.nvim_set_hl(0, 'SignifySignDelete',
+    { fg = Colors.base08, bg = Colors.base01, ctermfg = cterm08, ctermbg = cterm01 })
 
 -- Spelling highlighting
 vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true })

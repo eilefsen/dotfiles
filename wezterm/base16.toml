@@ -7,21 +7,21 @@ background    = "#232629"
 cursor_bg     = "#f8f8f2"
 cursor_border = "#f8f8f2"
 cursor_fg     = "#232629"
-selection_bg  = "#474d53"
+selection_bg  = "#464c52"
 #selection_fg  = "#f8f8f2"
 
 scrollbar_thumb = "#c9cdd1"
-split           = "#626b73"
+split           = "#69727b"
 compose_cursor  = "#fba900"
 
-#copy_mode_active_highlight_bg   = { Color = '#474d53' }
+#copy_mode_active_highlight_bg   = { Color = '#464c52' }
 #copy_mode_active_highlight_fg   = { Color = '#f8f8f2' }
-#copy_mode_inactive_highlight_bg = { Color = '#474d53' }
+#copy_mode_inactive_highlight_bg = { Color = '#464c52' }
 #copy_mode_inactive_highlight_fg = { Color = '#c9cdd1' }
 
-#quick_select_label_bg = { Color = '#474d53)' },
+#quick_select_label_bg = { Color = '#464c52)' },
 #quick_select_label_fg = { Color = '#f8f8f2' },
-#quick_select_match_bg = { Color = '#474d53' },
+#quick_select_match_bg = { Color = '#464c52' },
 #quick_select_match_fg = { Color = '#c9cdd1' },
 
 ansi = [
@@ -36,7 +36,7 @@ ansi = [
 ]
 
 brights = [
-  "#626b73",
+  "#69727b",
   "#fb0029",
   "#00fb55",
   "#fbd300",
@@ -50,7 +50,7 @@ brights = [
 background = "#232629"
 
 [colors.tab_bar.active_tab]
-bg_color    = "#474d53"
+bg_color    = "#464c52"
 fg_color    = "#f8f8f2"
 intensity   = "Normal"
 underline   = "None"
@@ -58,7 +58,7 @@ italic      = true
 strikethrough = false
 
 [colors.tab_bar.inactive_tab]
-bg_color    = "#3e4349"
+bg_color    = "#2f3337"
 fg_color    = "#c9cdd1"
 intensity   = "Normal"
 underline   = "None"
@@ -66,7 +66,7 @@ italic      = true
 strikethrough = false
 
 [colors.tab_bar.inactive_tab_hover]
-bg_color    = "#3e4349"
+bg_color    = "#2f3337"
 fg_color    = "#f8f8f2"
 intensity   = "Normal"
 underline   = "None"
@@ -74,7 +74,7 @@ italic      = true
 strikethrough = false
 
 [colors.tab_bar.new_tab]
-bg_color    = "#3e4349"
+bg_color    = "#2f3337"
 fg_color    = "#c9cdd1"
 intensity   = "Normal"
 underline   = "None"
@@ -82,7 +82,7 @@ italic      = true
 strikethrough = false
 
 [colors.tab_bar.new_tab_hover]
-bg_color    = "#3e4349"
+bg_color    = "#2f3337"
 fg_color    = "#f8f8f2"
 intensity   = "Normal"
 underline   = "None"
