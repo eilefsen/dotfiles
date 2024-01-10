@@ -6,6 +6,7 @@ local servers = {
     jedi_language_server = require 'custom.configs.lsp.servers.jedi_language_server',
     ruff_lsp = require 'custom.configs.lsp.servers.ruff_lsp',
     clangd = require 'custom.configs.lsp.servers.clangd',
+    gopls = require 'custom.configs.lsp.servers.gopls',
 }
 
 return servers
