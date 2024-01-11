@@ -1,9 +1,7 @@
+[lint]
 select = [
     "E",
     "F",
-]
-
-extend-select = [
     "I",    # isort
 
     # Flake8
