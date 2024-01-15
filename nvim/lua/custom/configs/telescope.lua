@@ -25,6 +25,7 @@ pcall(telescope.load_extension, 'fzf')
 pcall(telescope.load_extension, 'undo')
 vim.keymap.set("n", "<leader>u", telescope.extensions.undo.undo, { desc = "Show [u]ndo history" })
 
+
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
 local function find_git_root()
@@ -49,6 +50,12 @@ local function find_git_root()
     return git_root
 end
 
+
+
+local builtin = require('telescope.builtin')
+
+local themes = require('telescope.themes')
+
 -- Custom live_grep function to search in git root
 local function live_grep_git_root()
     local git_root = find_git_root()
@@ -58,16 +65,13 @@ local function live_grep_git_root()
         }
     end
 end
-
 vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
-
-local builtin = require('telescope.builtin')
-local themes = require('telescope.themes')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files', })
 vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers', })
 vim.keymap.set('n', '<leader>/',
+
     function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(themes.get_dropdown {
@@ -81,6 +85,7 @@ local function telescope_live_grep_open_files()
         prompt_title = 'Live Grep in Open Files',
     }
 end
+
 vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
@@ -91,3 +96,5 @@ vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]re
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+
+vim.keymap.set("n", "<leader>sp", builtin.symbols, { desc = "[s]ymbol [p]icker" })
