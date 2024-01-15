@@ -6,20 +6,20 @@
 -- Felinoid scheme by Emma Eilefsen Glenna (http://eilefsen.net)
 
 local cterm00 = 0
+local cterm01 = 10
+local cterm02 = 11
 local cterm03 = 8
+local cterm04 = 12
 local cterm05 = 7
+local cterm06 = 13
 local cterm07 = 15
 local cterm08 = 1
+local cterm09 = 9
 local cterm0A = 3
 local cterm0B = 2
 local cterm0C = 6
 local cterm0D = 4
 local cterm0E = 5
-local cterm01 = 10
-local cterm02 = 11
-local cterm04 = 12
-local cterm06 = 13
-local cterm09 = 9
 local cterm0F = 14
 
 vim.cmd [[
@@ -328,5 +328,8 @@ vim.api.nvim_set_hl(0, 'StartifySpecial', { fg = Colors.base03, ctermfg = cterm0
 
 -- Java highlighting
 vim.api.nvim_set_hl(0, 'javaOperator', { fg = Colors.base0D, ctermfg = cterm0D })
+
+-- CoC highlights
+vim.api.nvim_set_hl(0, 'CocFloating', { bg = Colors.base02, ctermbg = cterm02 })
 
 -- vim: filetype=lua
