@@ -35,4 +35,45 @@ return {
         main = 'ibl',
         opts = {},
     },
+    {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+            local builtin = require("statuscol.builtin")
+            require("statuscol").setup({
+                relculright = true,
+                setopt = true,
+                segments = {
+                    {
+                        sign = {
+                            name = {
+                                "Dap",
+                                "Coc",
+                                "neotest",
+                            },
+                            maxwidth = 1,
+                            colwidth = 2,
+                            auto = true,
+                        },
+                        click = "v:lua.ScSa",
+                    },
+                    {
+                        text = { builtin.lnumfunc },
+                        click = "v:lua.ScLa",
+                    },
+                    {
+                        text = { " " },
+                    },
+                    {
+                        sign = {
+                            namespace = { "gitsign" },
+                            maxwidth = 1,
+                            colwidth = 2,
+                            auto = true,
+                        },
+                        click = "v:lua.ScSa",
+                    },
+                },
+            })
+        end,
+    }
 }
