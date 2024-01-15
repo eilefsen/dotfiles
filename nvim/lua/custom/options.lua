@@ -19,7 +19,6 @@ vim.opt.guicursor = ""
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "screenline"
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
 vim.opt.cmdheight = 1
 
 -- Search
@@ -59,11 +58,9 @@ vim.diagnostic.config({
 })
 
 -- command aliases
-vim.api.nvim_create_user_command('E', 'Explore', {})  -- open explore mode
-vim.api.nvim_create_user_command('V', 'Vexplore', {}) -- open a vertical split in explore mode
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.api.nvim_create_user_command('E', 'Explore', {})   -- open explore mode
+vim.api.nvim_create_user_command('V', 'Vexplore', {})  -- open a vertical split in explore mode
+vim.api.nvim_create_user_command('C', 'CocConfig', {}) -- open a vertical split in explore mode
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
