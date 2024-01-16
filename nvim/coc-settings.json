@@ -28,6 +28,8 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.enableMessage": "jump",
     // Language specific stuff
+    // Typescript
+    "typescript.format.semicolons": "insert",
     // CSS Lint
     "css.lint.float": "warning",
     "css.lint.important": "warning",
@@ -85,6 +87,5 @@
                 "python.analysis.useLibraryCodeForTypes": true
             }
         }
-    },
-    "typescript.format.semicolons": "insert"
+    }
 }
