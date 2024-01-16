@@ -31,9 +31,11 @@ subtemplate = "extra"
 rewrite = true
 
 [[items]]
-file = "$XDG_CONFIG_HOME/nvim/lua/custom/colors.lua"
+file = "$XDG_CONFIG_HOME/nvim/lua/custom/plugins/mini.lua"
 template = "nvim"
-rewrite = true
+rewrite = false
+start = "-- Start flavours"
+end = "-- End flavours"
 
 [[items]]
 file = "$XDG_CONFIG_HOME/lsd/colors.yaml"
