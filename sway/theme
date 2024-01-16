@@ -2,14 +2,14 @@
 ## Base16 Felinoid
 # Author: Emma Eilefsen Glenna (http://eilefsen.net)
 
-set $noHashBase00 232629
-set $noHashBase01 2f3337
-set $noHashBase02 464c52
-set $noHashBase03 69727b
-set $noHashBase04 c9cdd1
-set $noHashBase05 f8f8f2
-set $noHashBase06 fcfcf6
-set $noHashBase07 fcfcfc
+set $noHashBase00 292f37
+set $noHashBase01 515a65
+set $noHashBase02 717b87
+set $noHashBase03 98a0a9
+set $noHashBase04 c0c5cb
+set $noHashBase05 f6f8fa
+set $noHashBase06 dee0e3
+set $noHashBase07 f3f5f7
 set $noHashBase08 fb0029
 set $noHashBase09 fba900
 set $noHashBase0A fbd300
@@ -19,14 +19,14 @@ set $noHashBase0D 00a6fb
 set $noHashBase0E fb00a6
 set $noHashBase0F fb5500
 
-set $base00 #232629
-set $base01 #2f3337
-set $base02 #464c52
-set $base03 #69727b
-set $base04 #c9cdd1
-set $base05 #f8f8f2
-set $base06 #fcfcf6
-set $base07 #fcfcfc
+set $base00 #292f37
+set $base01 #515a65
+set $base02 #717b87
+set $base03 #98a0a9
+set $base04 #c0c5cb
+set $base05 #f6f8fa
+set $base06 #dee0e3
+set $base07 #f3f5f7
 set $base08 #fb0029
 set $base09 #fba900
 set $base0A #fbd300
