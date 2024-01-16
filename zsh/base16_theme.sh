@@ -4,30 +4,30 @@
 # Felinoid scheme by Emma Eilefsen Glenna (http://eilefsen.net)
 export BASE16_THEME=felinoid
 
-color00="23/26/29" # Base 00 - Black
+color00="29/2f/37" # Base 00 - Black
 color01="fb/00/29" # Base 08 - Red
 color02="00/fb/55" # Base 0B - Green
 color03="fb/d3/00" # Base 0A - Yellow
 color04="00/a6/fb" # Base 0D - Blue
 color05="fb/00/a6" # Base 0E - Magenta
 color06="c3/79/e4" # Base 0C - Cyan
-color07="f8/f8/f2" # Base 05 - White
-color08="69/72/7b" # Base 03 - Bright Black
+color07="f6/f8/fa" # Base 05 - White
+color08="98/a0/a9" # Base 03 - Bright Black
 color09=$color01 # Base 08 - Bright Red
 color10=$color02 # Base 0B - Bright Green
 color11=$color03 # Base 0A - Bright Yellow
 color12=$color04 # Base 0D - Bright Blue
 color13=$color05 # Base 0E - Bright Magenta
 color14=$color06 # Base 0C - Bright Cyan
-color15="fc/fc/fc" # Base 07 - Bright White
+color15="f3/f5/f7" # Base 07 - Bright White
 color16="fb/a9/00" # Base 09
 color17="fb/55/00" # Base 0F
-color18="2f/33/37" # Base 01
-color19="46/4c/52" # Base 02
-color20="c9/cd/d1" # Base 04
-color21="fc/fc/f6" # Base 06
-color_foreground="f8/f8/f2" # Base 05
-color_background="23/26/29" # Base 00
+color18="51/5a/65" # Base 01
+color19="71/7b/87" # Base 02
+color20="c0/c5/cb" # Base 04
+color21="de/e0/e3" # Base 06
+color_foreground="f6/f8/fa" # Base 05
+color_background="29/2f/37" # Base 00
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -79,13 +79,13 @@ put_template 21 $color21
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg f8f8f2 # foreground
-  put_template_custom Ph 232629 # background
-  put_template_custom Pi f8f8f2 # bold color
-  put_template_custom Pj 464c52 # selection color
-  put_template_custom Pk f8f8f2 # selected text color
-  put_template_custom Pl f8f8f2 # cursor
-  put_template_custom Pm 232629 # cursor text
+  put_template_custom Pg f6f8fa # foreground
+  put_template_custom Ph 292f37 # background
+  put_template_custom Pi f6f8fa # bold color
+  put_template_custom Pj 717b87 # selection color
+  put_template_custom Pk f6f8fa # selected text color
+  put_template_custom Pl f6f8fa # cursor
+  put_template_custom Pm 292f37 # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$BASE16_SHELL_SET_BACKGROUND" != false ]; then

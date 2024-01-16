@@ -5,14 +5,14 @@
 # color values are rgb because lsd does not support hex.
 # at the end of this file you will find some helpful lines
 
-user: [252, 252, 246]
-group: [201, 205, 209]
+user: [222, 224, 227]
+group: [192, 197, 203]
 permission:
   read: [0, 251, 85]
   write: [251, 211, 0]
   exec: [251, 0, 41]
   exec-sticky: [251, 85, 0]
-  no-access: [105, 114, 123]
+  no-access: [152, 160, 169]
   octal: [251, 85, 0]
   acl: [195, 121, 228]
   context: [195, 121, 228]
@@ -21,21 +21,21 @@ date:
   day-old: [0, 251, 85]
   older: [0, 251, 85]
 size:
-  none: [70, 76, 82]
-  small: [105, 114, 123]
-  medium: [201, 205, 209]
-  large: [201, 205, 209]
+  none: [113, 123, 135]
+  small: [152, 160, 169]
+  medium: [192, 197, 203]
+  large: [192, 197, 203]
 inode:
   valid: [251, 0, 166]
-  invalid: [105, 114, 123]
+  invalid: [152, 160, 169]
 links:
   valid: [251, 0, 166]
-  invalid: [105, 114, 123]
-tree-edge: [201, 205, 209]
+  invalid: [152, 160, 169]
+tree-edge: [192, 197, 203]
 git-status:
-  default: [201, 205, 209]
-  unmodified: [201, 205, 209]
-  ignored: [201, 205, 209]
+  default: [192, 197, 203]
+  unmodified: [192, 197, 203]
+  ignored: [192, 197, 203]
   new-in-index: [0, 251, 85]
   new-in-workdir: [0, 251, 85]
   typechange: [251, 211, 0]
@@ -46,14 +46,14 @@ git-status:
 
 ### COLORS
 #
-# [35, 38, 41]
-# [47, 51, 55]
-# [70, 76, 82]
-# [105, 114, 123]
-# [201, 205, 209]
-# [248, 248, 242]
-# [252, 252, 246]
-# [252, 252, 252]
+# [41, 47, 55]
+# [81, 90, 101]
+# [113, 123, 135]
+# [152, 160, 169]
+# [192, 197, 203]
+# [246, 248, 250]
+# [222, 224, 227]
+# [243, 245, 247]
 # [251, 0, 41]
 # [251, 169, 0]
 # [251, 211, 0]
