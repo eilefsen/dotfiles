@@ -1,64 +1,38 @@
-# Base16 Felinoid - alacritty color config
-# Emma Eilefsen Glenna (http://eilefsen.net)
-# Template author: Emma Eilefsen Glenna (https://eilefsen.net)
-#
-# color values are rgb because lsd does not support hex.
-# at the end of this file you will find some helpful lines
-
-user: [222, 224, 227]
-group: [192, 197, 203]
+user: 15
+group: 12 
 permission:
-  read: [0, 251, 85]
-  write: [251, 211, 0]
-  exec: [251, 0, 41]
-  exec-sticky: [251, 85, 0]
-  no-access: [152, 160, 169]
-  octal: [251, 85, 0]
-  acl: [195, 121, 228]
-  context: [195, 121, 228]
+  read: 2
+  write: 3
+  exec: 1
+  exec-sticky: 9
+  no-access: 8
+  octal: 9
+  acl: 6
+  context: 6
 date:
-  hour-old: [0, 251, 85]
-  day-old: [0, 251, 85]
-  older: [0, 251, 85]
+  hour-old: 2
+  day-old: 2
+  older: 2
 size:
-  none: [113, 123, 135]
-  small: [152, 160, 169]
-  medium: [192, 197, 203]
-  large: [192, 197, 203]
+  none: 11
+  small: 8
+  medium: 12
+  large: 12
 inode:
-  valid: [251, 0, 166]
-  invalid: [152, 160, 169]
+  valid: 5
+  invalid: 8
 links:
-  valid: [251, 0, 166]
-  invalid: [152, 160, 169]
-tree-edge: [192, 197, 203]
+  valid: 5
+  invalid: 8
+tree-edge: 12
 git-status:
-  default: [192, 197, 203]
-  unmodified: [192, 197, 203]
-  ignored: [192, 197, 203]
-  new-in-index: [0, 251, 85]
-  new-in-workdir: [0, 251, 85]
-  typechange: [251, 211, 0]
-  deleted: [251, 0, 41]
-  renamed: [0, 251, 85]
-  modified: [251, 211, 0]
-  conflicted: [251, 0, 41]
-
-### COLORS
-#
-# [41, 47, 55]
-# [81, 90, 101]
-# [113, 123, 135]
-# [152, 160, 169]
-# [192, 197, 203]
-# [246, 248, 250]
-# [222, 224, 227]
-# [243, 245, 247]
-# [251, 0, 41]
-# [251, 169, 0]
-# [251, 211, 0]
-# [0, 251, 85]
-# [195, 121, 228]
-# [0, 166, 251]
-# [251, 0, 166]
-# [251, 85, 0]
+  default: 12
+  unmodified: 12
+  ignored: 12
+  new-in-index: 2
+  new-in-workdir: 2
+  typechange: 3
+  deleted: 1
+  renamed: 2
+  modified: 3
+  conflicted: 1
