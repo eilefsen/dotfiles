@@ -8,11 +8,11 @@ hook = "swaymsg reload"
 # Swaymsg reload temporarily freezes input, so it's marked as not light
 light = false
 
-[[items]]
-file = "$ZDOTDIR/base16_theme.sh"
-template = "shell"
-rewrite = true
-hook = "$ZDOTDIR/base16_theme.sh"
+# [[items]]
+# file = "$ZDOTDIR/base16_theme.sh"
+# template = "shell"
+# rewrite = true
+# hook = "$ZDOTDIR/base16_theme.sh"
 
 [[items]]
 file = "$XDG_CONFIG_HOME/foot/colors.ini"
@@ -36,11 +36,6 @@ template = "nvim"
 rewrite = false
 start = "-- Start flavours"
 end = "-- End flavours"
-
-[[items]]
-file = "$XDG_CONFIG_HOME/lsd/colors.yaml"
-template = "lsd"
-rewrite = true
 
 [[items]]
 file = "$XDG_CONFIG_HOME/cava/config"
