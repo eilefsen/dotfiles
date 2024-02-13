@@ -5,8 +5,6 @@ antidote load
 
 autoload -Uz md
 
-$ZDOTDIR/base16_theme.sh
-
 # if [ $HOME/.local/opt/nerdsymbols/i_all.sh ]; then
 #     source $HOME/.local/opt/nerdsymbols/i_all.sh
 # fi
