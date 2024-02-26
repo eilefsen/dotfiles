@@ -1,13 +1,11 @@
+# path (macos fucks with path order so it goes in zshrc instead of zshenv)
+source ${ZDOTDIR:-~}/.zpath
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 antidote load
 
 autoload -Uz md
-
-# if [ $HOME/.local/opt/nerdsymbols/i_all.sh ]; then
-#     source $HOME/.local/opt/nerdsymbols/i_all.sh
-# fi
 
 # History
 setopt histignorealldups sharehistory
