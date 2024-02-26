@@ -1,5 +1,13 @@
 // vim: ft=jsonc
 {
+    "Lua.diagnostics.globals": [
+        "vim"
+    ],
+    "workspace.ignoredFolders": [
+        "$HOME",
+        "$HOME/.cargo/**",
+        "$HOME/.rustup/**"
+    ],
     // Basic preferences.
     "coc.preferences.formatOnSave": true,
     // floatConfig
