@@ -1,11 +1,4 @@
-# Language stuff
+# 💤 LazyVim
 
-## Pylance
-
-This part of the config is arguably the most likely to break.  
-Most likely, you cant use the newest version of pylance.
-
-1. Simply install the extension in vscode.
-2. If you need an older version, click the arrow next to "uninstall", then "install another version".
-3. Paste everything below the "pylance" key in coc-settings.json.
-    * Most important of these, the "env" key
+A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
+Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
