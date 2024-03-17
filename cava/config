@@ -184,14 +184,14 @@ bit_format = 8bit
 gradient = 1
 
 # Start flavours
-# Base16 Felinoid - kitty color config
-# Scheme by Emma Eilefsen Glenna (http://eilefsen.net)
+# Base16 OneDark - kitty color config
+# Scheme by Lalit Magant (http://github.com/tilal6991)
 
 gradient_count = 4
-gradient_color_1 = '#00fb55'
-gradient_color_2 = '#fbd300'
-gradient_color_3 = '#fba900'
-gradient_color_4 = '#fb0029'
+gradient_color_1 = '#98c379'
+gradient_color_2 = '#e5c07b'
+gradient_color_3 = '#d19a66'
+gradient_color_4 = '#e06c75'
 # End flavours
 
 
