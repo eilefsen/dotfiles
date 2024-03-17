@@ -37,7 +37,7 @@ M.new_stuff = {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},
-		opts = {},
+		config = true,
 	},
 }
 
