@@ -6,7 +6,16 @@ M.typescript = {
 		-- Replaces tsserver in lspconfig
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
+		opts = {
+			settings = {
+				separate_diagnostic_server = true,
+				expose_as_code_action = "all",
+				tsserver_max_memory = "auto",
+				tsserver_locale = "en",
+				complete_function_calls = false,
+				include_completions_with_insert_text = true,
+			},
+		},
 	},
 }
 
