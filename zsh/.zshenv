@@ -24,6 +24,7 @@ export SHELL_COMPLETIONS_DIR="$ZDOTDIR/completions"
     # Other
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export LIBCLANG_PATH="$RUSTUP_HOME/toolchains/esp/xtensa-esp32-elf-clang/esp-16.0.4-20231113/esp-clang/lib"
 export GOPATH="$XDG_DATA_HOME"/go
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
@@ -38,4 +39,3 @@ export FLAVOURS_CONFIG_FILE="${XDG_CONFIG_HOME}/flavours/config.toml"
 
 # Various
 MOZ_ENABLE_WAYLAND=1
-

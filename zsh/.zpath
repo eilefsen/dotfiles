@@ -1,10 +1,16 @@
+# vim: ft=zsh
 path+=$HOME/.cargo/env:$PATH
 path+=$HOME/.local/bin:$PATH
 path+=$HOME/.poetry/bin:$PATH
 path+=$CARGO_HOME/bin/:$PATH
-path+=:$HOME/.local/share/go/bin/
+path+=$GOPATH/bin/
 
-PATH=/opt/homebrew/bin/:$PATH
+
+PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PATH
+
+PATH="/Users/emma/.local/share/rustup/toolchains/esp/xtensa-esp-elf/esp-13.2.0_20230928/xtensa-esp-elf/bin:$PATH"
+export LIBCLANG_PATH="/Users/emma/.local/share/rustup/toolchains/esp/xtensa-esp32-elf-clang/esp-16.0.4-20231113/esp-clang/lib"
+
 
 fpath=(":$ZDOTDIR/prompts" "$fpath[@]")
 fpath=(":$ZDOTDIR/functions" "$fpath[@]")
