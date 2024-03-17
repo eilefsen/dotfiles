@@ -1,10 +1,6 @@
-return {
-	{
-		"Wansmer/treesj",
-		keys = { "<space>m", "<space>j", "<space>s" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		opts = {},
-	},
+local M = {}
+
+M.lazy_overrides = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
@@ -27,3 +23,22 @@ return {
 		},
 	},
 }
+
+M.new_stuff = {
+	{
+		-- Expand and collapse blocks like functions etc,
+		-- Useful for manually formatting arrays etc over multiple lines.
+		"Wansmer/treesj",
+		keys = {
+			"<space>m",
+			"<space>j",
+			"<space>s",
+		},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {},
+	},
+}
+
+return vim.tbl_values(M)
