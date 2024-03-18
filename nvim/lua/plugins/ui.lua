@@ -34,6 +34,14 @@ M.lazy_overrides = {
 			},
 		},
 	},
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		opts = {
+			filesystem = {
+				hijack_netrw_behavior = "open_split",
+			},
+		},
+	},
 }
 
 return vim.tbl_values(M)

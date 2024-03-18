@@ -18,8 +18,11 @@ vim.opt.undofile = true
 
 -- Diagnostics
 vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  severity_sort = true,
-  underline = true,
+	virtual_text = false,
+	signs = true,
+	severity_sort = true,
+	underline = true,
 })
+
+vim.api.nvim_create_user_command("H", "sp | Neotree current", {})
+vim.api.nvim_create_user_command("V", "vsp | Neotree current", {})
