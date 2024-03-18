@@ -30,14 +30,18 @@ M.new_stuff = {
 		-- Useful for manually formatting arrays etc over multiple lines.
 		"Wansmer/treesj",
 		keys = {
-			"<space>m",
-			"<space>j",
-			"<space>s",
+			{
+				"<leader>m",
+				function()
+					require("treesj").toggle()
+				end,
+				desc = "Treesj toggle",
+			},
 		},
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		opts = {
+			use_default_keymaps = false,
 		},
-		config = true,
 	},
 }
 
