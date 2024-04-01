@@ -26,3 +26,5 @@ vim.diagnostic.config({
 
 vim.api.nvim_create_user_command("H", "sp | Neotree current", {})
 vim.api.nvim_create_user_command("V", "vsp | Neotree current", {})
+
+vim.g.lazyvim_python_lsp = "basedpyright"
