@@ -23,6 +23,12 @@ M.theme = {
 		options = {
 			cursorline = true,
 		},
+		highlights = {
+			FlashLabel = { bold = true, bg = "${red}", fg = "${bg}" },
+			FlashCursor = { link = "FlashLabel" },
+			Cursor = { bg = "${fg}", fg = "${bg}" },
+			Identifier = { fg = "${fg}" },
+		},
 	},
 }
 
