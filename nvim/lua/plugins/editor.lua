@@ -9,4 +9,19 @@ M.telescope = {
 	},
 }
 
+M.flash = {
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {
+			modes = {
+				search = {
+					enabled = false,
+				},
+			},
+		},
+	},
+}
+
 return vim.tbl_values(M)
