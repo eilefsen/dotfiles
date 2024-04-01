@@ -1,0 +1,13 @@
+{
+  "Component Boilerplate": {
+    "prefix": ["component", "comp"],
+    "body": [
+      "interface ${1}Props {}",
+      "function ${1:Component}(props: ${1}Props) {",
+      "\t$0",
+      "\treturn <></>",
+      "}"
+    ],
+    "description": "Create a new react component function"
+  }
+}
