@@ -1,6 +1,0 @@
-default:
-  extension: .lua
-  output: colors
-mini:
-  extension: .lua
-  output: colors
