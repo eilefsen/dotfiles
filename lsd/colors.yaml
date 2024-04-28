@@ -1,5 +1,5 @@
 user: 15
-group: 12 
+group: 12
 permission:
   read: 2
   write: 3
@@ -14,21 +14,21 @@ date:
   day-old: 2
   older: 2
 size:
-  none: 11
-  small: 8
-  medium: 12
-  large: 12
+  none: 15
+  small: 15
+  medium: 15
+  large: 15
 inode:
   valid: 5
   invalid: 8
 links:
   valid: 5
   invalid: 8
-tree-edge: 12
+tree-edge: 15
 git-status:
-  default: 12
-  unmodified: 12
-  ignored: 12
+  default: 15
+  unmodified: 15
+  ignored: 8
   new-in-index: 2
   new-in-workdir: 2
   typechange: 3
