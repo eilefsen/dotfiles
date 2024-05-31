@@ -18,7 +18,7 @@ M.typescript = {
 	},
 }
 
-M.vue = {
+M.lazy_extras_overrides = {
 	{
 		"neovim/nvim-lspconfig",
 		opts = function(_, opts)
