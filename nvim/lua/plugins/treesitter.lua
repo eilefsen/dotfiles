@@ -22,6 +22,11 @@ M.lazy_overrides = {
 			},
 		},
 	},
+	{
+		"windwp/nvim-ts-autotag",
+		event = "LazyFile",
+		opts = {},
+	},
 }
 
 M.new_stuff = {
