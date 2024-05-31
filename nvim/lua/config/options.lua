@@ -28,3 +28,17 @@ vim.api.nvim_create_user_command("H", "sp | Neotree current", {})
 vim.api.nvim_create_user_command("V", "vsp | Neotree current", {})
 
 vim.g.lazyvim_python_lsp = "basedpyright"
+
+vim.g.rustaceanvim = {
+	---@type RustaceanLspClientOpts
+	server = {
+		default_settings = {
+			-- rust-analyzer language server configuration
+			["rust-analyzer"] = {
+				files = {
+					excludeDirs = { ".embuild" },
+				},
+			},
+		},
+	},
+}

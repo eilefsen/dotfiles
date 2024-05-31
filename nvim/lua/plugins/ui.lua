@@ -8,6 +8,17 @@ M.lazy_overrides = {
 				-- move cmdline to bottom (like in regular vim)
 				view = "cmdline",
 			},
+			routes = {
+				{
+					filter = {
+						event = "notify",
+						find = "No information available",
+					},
+					opts = {
+						skip = true,
+					},
+				},
+			},
 		},
 	},
 	{
@@ -22,23 +33,10 @@ M.lazy_overrides = {
 		},
 	},
 	{
-		"echasnovski/mini.indentscope",
-		opts = {
-			draw = {
-				-- Shorter animation than default
-				animation = require("mini.indentscope").gen_animation.quadratic({
-					easing = "in-out",
-					duration = 50,
-					unit = "total",
-				}),
-			},
-		},
-	},
-	{
 		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
 			filesystem = {
-				hijack_netrw_behavior = "open_split",
+				hijack_netrw_behavior = "open_current",
 			},
 		},
 	},
