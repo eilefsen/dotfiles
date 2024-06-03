@@ -42,4 +42,4 @@ if [ -f $ZDOTDIR/osc7.zsh ]; then
 fi
 # zoxide
 eval "$(zoxide init zsh)"
-eval "$(fzf --zsh)"
+# eval "$(fzf --zsh)"
