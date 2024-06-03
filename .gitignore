@@ -1,41 +1,10 @@
-# ignore everything
-/*
-
 # files to not ignore
 !/.gitignore
 
-!/nvim/
-/nvim/.git*
-/nvim/plugin/
-
-!/zsh/
-/zsh/.antidote/
-/zsh/.zsh_plugins.zsh
-/zsh/*.zwc
-/zsh/.zsh_history
-/zsh/.zsh_sessions/
-/zsh/.zcompdump
-/zsh/workaliases.zsh
-
-!/lsd
-
-!/sway/
-
-!/flavours/
-
-!/foot/
-
-!/kitty/
-
-!/wezterm/
-
-!/neofetch/
-
-!/ruff/
-!/python/
-
-!/npm/
-
-!/cava/
+*/zsh/.antidote/
+*/zsh/.zsh_plugins.zsh
+*/zsh/*.zwc zsh/.zsh_history zsh/.zsh_sessions/
+*/zsh/.zcompdump
+*/zsh/workaliases.zsh
 
 .DS_Store
