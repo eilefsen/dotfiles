@@ -1,10 +1,12 @@
 # files to not ignore
 !/.gitignore
 
-*/zsh/.antidote/
-*/zsh/.zsh_plugins.zsh
-*/zsh/*.zwc zsh/.zsh_history zsh/.zsh_sessions/
-*/zsh/.zcompdump
-*/zsh/workaliases.zsh
+.antidote/
+.zsh_plugins.zsh/
+*.zwc
+.zsh_history
+.zsh_sessions/
+.zcompdump
+workaliases.zsh
 
 .DS_Store
