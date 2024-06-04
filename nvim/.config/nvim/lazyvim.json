@@ -12,8 +12,7 @@
     "lazyvim.plugins.extras.lang.tailwind",
     "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lang.vue",
-    "lazyvim.plugins.extras.lsp.neoconf"
+    "lazyvim.plugins.extras.lang.vue"
   ],
   "news": {
     "NEWS.md": "5204"
