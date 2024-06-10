@@ -40,6 +40,11 @@ fi
 if [ -f $ZDOTDIR/osc7.zsh ]; then
 	source $ZDOTDIR/osc7.zsh
 fi
+
+# Secrets
+if [ -f $ZDOTDIR/secrets.zsh ]; then
+	source $ZDOTDIR/secrets.zsh
+fi
 # zoxide
 eval "$(zoxide init zsh)"
 # eval "$(fzf --zsh)"
