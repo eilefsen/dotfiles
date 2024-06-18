@@ -68,4 +68,14 @@ M.treesitter_context = {
 	},
 }
 
+M.flatten = {
+	{
+		"willothy/flatten.nvim",
+		-- Ensure that it runs first to minimize delay when opening file from terminal
+		lazy = false,
+		priority = 1001,
+		opts = {},
+	},
+}
+
 return vim.tbl_values(M)
