@@ -18,11 +18,12 @@ vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"
 vim.opt.undofile = true
 
 -- Diagnostics
-vim.diagnostic.config({
-	virtual_text = false,
-	signs = true,
-	severity_sort = true,
-	underline = true,
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		vim.diagnostic.config({
+			virtual_text = false,
+		})
+	end,
 })
 
 vim.api.nvim_create_user_command("H", "sp | Neotree current", {})
