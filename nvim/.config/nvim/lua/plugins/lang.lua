@@ -30,16 +30,6 @@ M.typescript = {
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
-				volar = {
-					handlers = {
-						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
-					},
-					init_options = {
-						vue = {
-							hybridMode = true,
-						},
-					},
-				},
 				vtsls = {
 					handlers = {
 						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
@@ -108,34 +98,6 @@ M.vue = {
 			},
 		},
 	},
-	-- {
-	-- 	"pmizio/typescript-tools.nvim",
-	-- 	opts = {
-	-- 		filetypes = {
-	-- 			"vue",
-	-- 		},
-	-- 		settings = {
-	-- 			tsserver_plugins = {
-	-- 				"@vue/typescript-plugin",
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
-	-- "neovim/nvim-lspconfig",
-	-- opts = {
-	-- 	servers = {
-	-- 		volar = {
-	-- 			handlers = {
-	-- 				["textDocument/publishDiagnostics"] = handleTSDiagnostics,
-	-- 			},
-	-- 			init_options = {
-	-- 				vue = {
-	-- 					hybridMode = false,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
 }
 
 return vim.tbl_values(M)
