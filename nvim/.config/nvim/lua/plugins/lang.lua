@@ -85,6 +85,19 @@ M.vue = {
 			},
 		},
 	},
+	{
+		"pmizio/typescript-tools.nvim",
+		opts = {
+			filetypes = {
+				"vue",
+			},
+			settings = {
+				tsserver_plugins = {
+					"@vue/typescript-plugin",
+				},
+			},
+		},
+	},
 }
 
 return vim.tbl_values(M)
