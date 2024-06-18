@@ -27,40 +27,24 @@ end
 
 M.typescript = {
 	{
-		"neovim/nvim-lspconfig",
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {
-			servers = {
-				volar = {
-					handlers = {
-						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
-					},
-				},
-				vtsls = {
-					enabled = false,
-					handlers = {
-						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
-					},
-					settings = {
-						vtsls = {
-							autoUseWorkspaceTsdk = false,
-						},
-						typescript = {
-							inlayHints = {
-								enumMemberValues = { enabled = false },
-								functionLikeReturnTypes = { enabled = false },
-								parameterNames = { enabled = "none" },
-								parameterTypes = { enabled = false },
-								propertyDeclarationTypes = { enabled = false },
-								variableTypes = { enabled = false },
-							},
-							tsserver = {
-								nodePath = "/usr/local/n/versions/node/22.3.0/bin/node",
-							},
-						},
-					},
-				},
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"javascript.jsx",
+				"typescript",
+				"typescriptreact",
+				"typescript.tsx",
+			},
+			handlers = {
+				["textDocument/publishDiagnostics"] = handleTSDiagnostics,
 			},
 		},
+	},
+	{
+		"davidosomething/format-ts-errors.nvim",
 	},
 	{
 		"dmmulroy/tsc.nvim",
@@ -81,8 +65,38 @@ M.typescript = {
 			end)(),
 		},
 	},
+}
+
+M.vue = {
 	{
-		"davidosomething/format-ts-errors.nvim",
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				volar = {
+					handlers = {
+						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
+					},
+					init_options = {
+						vue = {
+							hybridMode = false,
+						},
+					},
+				},
+			},
+		},
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		opts = {
+			filetypes = {
+				"vue",
+			},
+		},
+		settings = {
+			tsserver_plugins = {
+				"@vue/typescript-plugin",
+			},
+		},
 	},
 }
 
