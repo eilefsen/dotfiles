@@ -57,16 +57,4 @@ M.pairs = {
 	},
 }
 
-M.surround = {
-	"echasnovski/mini.surround",
-	opts = {
-		-- nvim-surround mappings
-		mappings = {
-			add = "ys",
-			delete = "ds",
-			replace = "cs",
-		},
-	},
-}
-
 return vim.tbl_values(M)
