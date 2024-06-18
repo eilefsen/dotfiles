@@ -52,4 +52,20 @@ M.lazy_overrides = {
 	},
 }
 
+M.treesitter_context = {
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = { mode = "cursor", max_lines = 3, separator = "—" },
+		keys = {
+			{
+				"gC",
+				function()
+					require("treesitter-context").go_to_context(vim.v.count1)
+				end,
+				desc = "Go to scope Context",
+			},
+		},
+	},
+}
+
 return vim.tbl_values(M)
