@@ -48,7 +48,7 @@ M.typescript = {
 								variableTypes = { enabled = false },
 							},
 							tsserver = {
-								nodePath = "/usr/local/n/versions/node/22.3.0/bin/node",
+								nodePath = "/usr/local/n/versions/node/20.15.0/bin/node",
 							},
 						},
 					},
