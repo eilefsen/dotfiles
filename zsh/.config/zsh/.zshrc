@@ -12,9 +12,12 @@ setopt histignorealldups sharehistory
 setopt HIST_SAVE_NO_DUPS
 HISTSIZE=1000
 SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
 # Set the strategy used by autosuggest plugin
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+bindkey -e
 
 # Prompt
 if [ -f $ZDOTDIR/.zshprompt ]; then
@@ -29,11 +32,6 @@ fi
 # Completion
 if [ -f $ZDOTDIR/.zshcompletion ]; then
 	source $ZDOTDIR/.zshcompletion
-fi
-
-# Vi mode
-if [ -f $ZDOTDIR/vimode.zsh ]; then
-	source $ZDOTDIR/vimode.zsh
 fi
 
 # Osc7 escape sequence

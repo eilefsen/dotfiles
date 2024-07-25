@@ -1,6 +1,6 @@
 # vim: set syntax=conf:
 
-jeffreytse/zsh-vi-mode
+# jeffreytse/zsh-vi-mode
 # chriskempson/base16-shell
 
 # Defer (lazy-load)
