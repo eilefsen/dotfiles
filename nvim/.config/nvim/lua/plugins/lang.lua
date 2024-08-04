@@ -100,4 +100,26 @@ M.vue = {
 	},
 }
 
+M.esp = {
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				clangd = {
+					cmd = {
+						os.getenv("CLANGD_BIN"),
+						"--background-index",
+						"--clang-tidy",
+						"--header-insertion=iwyu",
+						"--completion-style=detailed",
+						"--function-arg-placeholders",
+						"--fallback-style=microsoft",
+					},
+				},
+			},
+		},
+	},
+	--/Users/emma/.espressif/tools/esp-clang/16.0.1-fe4f10a809/esp-clang/bin/clangd
+}
+
 return vim.tbl_values(M)
