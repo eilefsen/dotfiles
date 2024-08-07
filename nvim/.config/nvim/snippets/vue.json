@@ -1,0 +1,52 @@
+{
+  "Gettext boilerplate": {
+    "prefix": ["gettext"],
+    "body": [
+      "import { useGettext } from 'vue3-gettext'",
+      "const { \\$gettext: t } = useGettext()"
+    ],
+    "description": "import and destructure useGettext"
+  },
+  "Props withDefaults boilerplate": {
+    "prefix": ["propsDefault"],
+    "body": [
+      "interface Props {",
+      "\t${1}",
+      "}",
+      "const props = withDefaults(defineProps<Props>(), {",
+      "\t$1",
+      "})"
+    ],
+    "description": "Assign props with defaults and type safety"
+  },
+  "V-model assignment": {
+    "prefix": ["model"],
+    "body": ["const model = defineModel<$0>()"],
+    "description": "Define a v-model"
+  },
+  "Component options (with inheritAttrs)": {
+    "prefix": ["options", "opts", "inheritAttrs"],
+    "body": ["defineOptions({", "\tinheritAttrs: false,$0", "})"],
+    "description": "Set component options, already has inheritAttrs set for convenience"
+  },
+  "Component options": {
+    "prefix": ["options", "opts"],
+    "body": ["defineOptions({", "\t$0", "})"],
+    "description": "Set component options"
+  },
+  "Vee-validate field composable": {
+    "prefix": ["field", "usefield"],
+    "body": [
+      " const { errorMessage } = useField(",
+      "\t() => props.name,",
+      "\tundefined,",
+      "\t{ syncVModel: true }",
+      ")"
+    ],
+    "description": "Define a Vee-validate form field"
+  },
+  "Import yup as namespace": {
+    "prefix": ["yupImport", "importYup"],
+    "body": ["import * as yup from 'yup'"]
+  }
+}
