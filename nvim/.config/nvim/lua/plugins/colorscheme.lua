@@ -28,6 +28,7 @@ M.theme = {
 			FlashCursor = { link = "FlashLabel" },
 			Cursor = { bg = "${fg}", fg = "${bg}" },
 			Identifier = { fg = "${fg}" },
+			LspInlayHint = { link = "Comment" },
 		},
 	},
 }
