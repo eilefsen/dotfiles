@@ -100,26 +100,53 @@ M.vue = {
 	},
 }
 
-M.esp = {
+M.clangd = {
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
 				clangd = {
 					cmd = {
+						-- use environment variable, so that esp-idf can override clangde with its own clangd binary
 						os.getenv("CLANGD_BIN"),
 						"--background-index",
 						"--clang-tidy",
 						"--header-insertion=iwyu",
 						"--completion-style=detailed",
-						"--function-arg-placeholders",
-						"--fallback-style=microsoft",
+						"--fallback-style=llvm",
+						"--query-driver=/opt/homebrew/bin/arm-none-eabi-g*", -- allow clangd to query arm specific compiler (for embedded)
+						"--function-arg-placeholders=0", -- disable annoying insertion of argument names when completing functions
 					},
 				},
 			},
 		},
 	},
-	--/Users/emma/.espressif/tools/esp-clang/16.0.1-fe4f10a809/esp-clang/bin/clangd
+}
+
+M.cmake = {
+	{
+		"Civitasv/cmake-tools.nvim",
+		lazy = true,
+		init = function()
+			local loaded = false
+			local function check()
+				local cwd = vim.uv.cwd()
+				if vim.fn.filereadable(cwd .. "/CMakeLists.txt") == 1 then
+					require("lazy").load({ plugins = { "cmake-tools.nvim" } })
+					loaded = true
+				end
+			end
+			check()
+			vim.api.nvim_create_autocmd("DirChanged", {
+				callback = function()
+					if not loaded then
+						check()
+					end
+				end,
+			})
+		end,
+		opts = {},
+	},
 }
 
 return vim.tbl_values(M)
