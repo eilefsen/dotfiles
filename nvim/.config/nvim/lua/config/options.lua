@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		vim.diagnostic.config({
 			virtual_text = false,
+			source = true,
 		})
 	end,
 })
