@@ -36,7 +36,7 @@ M.typescript = {
 					},
 					settings = {
 						vtsls = {
-							autoUseWorkspaceTsdk = false,
+							autoUseWorkspaceTsdk = true,
 						},
 						typescript = {
 							inlayHints = {
@@ -88,11 +88,6 @@ M.vue = {
 				volar = {
 					handlers = {
 						["textDocument/publishDiagnostics"] = handleTSDiagnostics,
-					},
-					init_options = {
-						vue = {
-							hybridMode = true,
-						},
 					},
 				},
 			},
