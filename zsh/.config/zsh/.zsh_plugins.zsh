@@ -1,5 +1,3 @@
-fpath+=( /Users/emma/Library/Caches/antidote/jeffreytse/zsh-vi-mode )
-source /Users/emma/Library/Caches/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 if ! (( $+functions[zsh-defer] )); then
   fpath+=( /Users/emma/Library/Caches/antidote/romkatv/zsh-defer )
   source /Users/emma/Library/Caches/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
