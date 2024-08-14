@@ -36,15 +36,30 @@ M.new_stuff = {
 		"Wansmer/treesj",
 		keys = {
 			{
-				"<leader>m",
+				"<leader>tm",
 				function()
 					require("treesj").toggle()
 				end,
 				desc = "Treesj toggle",
 			},
+			{
+				"<leader>ts",
+				function()
+					require("treesj").split()
+				end,
+				desc = "Treesj split",
+			},
+			{
+				"<leader>tj",
+				function()
+					require("treesj").join()
+				end,
+				desc = "Treesj join",
+			},
 		},
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
+			max_join_length = 150,
 			use_default_keymaps = false,
 		},
 	},
