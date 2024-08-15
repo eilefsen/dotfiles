@@ -19,25 +19,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 bindkey -e
 
-# Prompt
-if [ -f $ZDOTDIR/zshprompt.zsh ]; then
-    source $ZDOTDIR/zshprompt.zsh
-fi
-
-# Aliases
-if [ -f $ZDOTDIR/aliases.zsh ]; then
-	source $ZDOTDIR/aliases.zsh
-fi
-
-# Completion
-if [ -f $ZDOTDIR/completion.zsh ]; then
-	source $ZDOTDIR/completion.zsh
-fi
-
-# Osc7 escape sequence
-if [ -f $ZDOTDIR/osc7.zsh ]; then
-	source $ZDOTDIR/osc7.zsh
-fi
+source $ZDOTDIR/zshprompt.zsh
+source $ZDOTDIR/aliases.zsh
+source $ZDOTDIR/completion.zsh
+source $ZDOTDIR/osc7.zsh
 
 # Secrets
 if [ -f $ZDOTDIR/secrets.zsh ]; then
