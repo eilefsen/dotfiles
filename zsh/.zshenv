@@ -41,3 +41,4 @@ export PICO_SDK_PATH="$HOME/Code/pico/pico-sdk"
 
 # Various
 MOZ_ENABLE_WAYLAND=1
+. "/home/emma/.local/share/cargo/env"

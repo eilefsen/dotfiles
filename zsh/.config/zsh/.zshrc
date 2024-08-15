@@ -1,5 +1,5 @@
 # path (macos fucks with path order so it goes in zshrc instead of zshenv)
-source ${ZDOTDIR:-~}/.zpath
+source ${ZDOTDIR:-~}/path.zsh
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
@@ -20,18 +20,18 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 bindkey -e
 
 # Prompt
-if [ -f $ZDOTDIR/.zshprompt ]; then
-    source $ZDOTDIR/.zshprompt
+if [ -f $ZDOTDIR/zshprompt.zsh ]; then
+    source $ZDOTDIR/zshprompt.zsh
 fi
 
 # Aliases
-if [ -f $ZDOTDIR/.zshalias ]; then
-	source $ZDOTDIR/.zshalias
+if [ -f $ZDOTDIR/aliases.zsh ]; then
+	source $ZDOTDIR/aliases.zsh
 fi
 
 # Completion
-if [ -f $ZDOTDIR/.zshcompletion ]; then
-	source $ZDOTDIR/.zshcompletion
+if [ -f $ZDOTDIR/completion.zsh ]; then
+	source $ZDOTDIR/completion.zsh
 fi
 
 # Osc7 escape sequence
