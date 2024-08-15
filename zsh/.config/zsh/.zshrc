@@ -1,5 +1,6 @@
 # path (macos fucks with path order so it goes in zshrc instead of zshenv)
 source ${ZDOTDIR:-~}/path.zsh
+source $ZDOTDIR/env.zsh
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
