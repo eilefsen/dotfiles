@@ -36,7 +36,7 @@ M.typescript = {
 					},
 					settings = {
 						vtsls = {
-							autoUseWorkspaceTsdk = true,
+							autoUseWorkspaceTsdk = false,
 						},
 						typescript = {
 							inlayHints = {
