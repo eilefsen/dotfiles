@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-strippedname=$(basename $1 .md)
-pandoc $1 -o ${strippedname}.pdf -V geometry:top=1cm -V geometry:margin=2cm
-open ${strippedname}.pdf

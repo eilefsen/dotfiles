@@ -24,6 +24,7 @@ source $ZDOTDIR/zshprompt.zsh
 source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/osc7.zsh
+source $ZDOTDIR/functions.zsh
 
 # Secrets
 if [ -f $ZDOTDIR/secrets.zsh ]; then
