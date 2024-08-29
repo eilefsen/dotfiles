@@ -56,9 +56,19 @@ M.typescript = {
 			},
 		},
 	},
+
+	{
+		"mfussenegger/nvim-dap",
+		opts = function()
+			local dap = require("dap")
+			-- dap adapter expects literal loopback ip, not 'localhost'
+			dap.adapters["pwa-node"].host = "127.0.0.1"
+		end,
+	},
 	{
 		"davidosomething/format-ts-errors.nvim",
 	},
+
 	{
 		"dmmulroy/tsc.nvim",
 		opts = {
