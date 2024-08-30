@@ -57,4 +57,13 @@ M.pairs = {
 	},
 }
 
+M.clipboard = {
+	{
+		"gbprod/yanky.nvim",
+		opts = {
+			system_clipboard = { sync_with_ring = false },
+		},
+	},
+}
+
 return vim.tbl_values(M)
