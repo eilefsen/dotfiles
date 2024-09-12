@@ -1,0 +1,3 @@
+os:
+  openDirInEditor: "nvim"
+  open: "nvim {{filename}}"
