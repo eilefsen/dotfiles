@@ -50,6 +50,18 @@ M.lazy_overrides = {
 			end,
 		},
 	},
+	{
+		"akinsho/bufferline.nvim",
+		enabled = false,
+		opts = {
+			options = {
+				max_name_length = 36,
+				always_show_bufferline = true,
+				show_close_icon = false,
+				show_buffer_close_icons = false,
+			},
+		},
+	},
 }
 
 M.treesitter_context = {

@@ -15,6 +15,10 @@ unmap("n", "<C-Down>")
 unmap("n", "<C-Left>")
 unmap("n", "<C-Right>")
 
+-- buffer controls
+unmap("n", "H")
+unmap("n", "L")
+
 -- stupid save thing
 unmap({ "i", "x", "n", "s" }, "<C-s>")
 -- open lazy
