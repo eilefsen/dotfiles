@@ -16,8 +16,6 @@ require("lazy").setup({
 				colorscheme = "onedark_vivid",
 			},
 		},
-		-- import any extras modules here
-		{ import = "lazyvim.plugins.extras.coding.yanky" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},
