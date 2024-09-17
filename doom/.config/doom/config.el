@@ -1,5 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+(add-load-path! "lisp")
+
 (setq doom-theme 'doom-one)
 
 (setq display-line-numbers-type t)
@@ -21,20 +23,40 @@
           (vue "https://github.com/ikatyang/tree-sitter-vue")
           (css "https://github.com/tree-sitter/tree-sitter-css"))))
 
-
-(add-load-path! "lisp")
-(require 'vue-ts-mode)
-(add-hook! 'vue-ts-mode-hook #'lsp!)
-
-
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))
   :config
-  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
+  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!)
+  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) 'auto-revert-mode)
+  )
+
+(require 'vue-ts-mode)
+(add-hook! 'vue-ts-mode-hook #'lsp!)
 
 (after! lsp-javascript
   (set-lsp-priority! 'ts-ls 10)) ;; higher priority than vue language server
+
+(use-package flymake-eslint
+  :custom
+  (flymake-eslint-executable-name "eslint_d")
+  :config
+  (add-hook 'vue-ts-mode-hook
+            (lambda () (flymake-eslint-enable))
+            )
+  )
+
+
+
+(use-package apheleia
+  :defer t
+  :config
+  (add-to-list 'apheleia-formatters '(eslint_d . (npx "eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" file)))
+  (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
+  (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
+  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
+  (apheleia-global-mode +1)
+  )
 
 (use-package lsp-tailwindcss
   :init (setq lsp-tailwindcss-add-on-mode t)
