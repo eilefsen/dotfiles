@@ -48,10 +48,8 @@
 
 
 
-(use-package apheleia
-  :defer t
-  :config
-  (add-to-list 'apheleia-formatters '(eslint_d . (npx "eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" file)))
+(after! apheleia
+  (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
   (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
