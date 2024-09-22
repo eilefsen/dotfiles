@@ -2,7 +2,20 @@
 
 (add-load-path! "lisp")
 
-(setq doom-theme 'doom-one)
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
+
+(require-theme 'modus-themes)
+(setq modus-themes-italic-constructs t
+      modus-themes-slanted-constructs t
+      modus-themes-bold-constructs t
+      modus-themes-hl-line '(underline accented)
+      modus-themes-subtle-line-numbers t
+      modus-themes-syntax '(alt-syntax)
+      )
+(setq doom-theme 'modus-operandi)
+
+(setq doom-font-increment 2)
+(setq doom-font (font-spec :family "Cascadia Code" :size 16))
 
 (setq display-line-numbers-type t)
 
@@ -16,19 +29,48 @@
 (setq org-return-follows-link  t)
 
 
-(after! treesit
+(use-package! treesit
+  :custom
+  (treesit-font-lock-level 4)
+  :config
   (setq treesit-language-source-alist
-        '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
+        '((c "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (zig "https://github.com/tree-sitter-grammars/tree-sitter-zig")
+          (arduino "https://github.com/tree-sitter-grammars/tree-sitter-arduino")
+          (swift "https://github.com/tree-sitter/tree-sitter-swift")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil)
           (vue "https://github.com/ikatyang/tree-sitter-vue")
-          (css "https://github.com/tree-sitter/tree-sitter-css"))))
+          (svelte "https://github.com/tree-sitter-grammars/tree-sitter-svelte")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (jsdoc "https://github.com/tree-sitter/tree-sitter-jsdoc")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (zsh "https://github.com/tree-sitter-grammars/tree-sitter-zsh")
+          (regex "https://github.com/tree-sitter/tree-sitter-regex")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")
+          (make "https://github.com/tree-sitter-grammars/tree-sitter-make")
+          (toml "https://github.com/tree-sitter-grammars/tree-sitter-toml")
+          (linkerscript "https://github.com/tree-sitter-grammars/tree-sitter-linkerscript")
+          ))
+  )
+
 
 (use-package typescript-ts-mode
-  :mode (("\\.ts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
+  :mode (("\\.ts\\'" . typescript-ts-mode))
   :config
-  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!)
-  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) 'auto-revert-mode)
+  (add-hook! '(typescript-ts-mode-hook) #'lsp!)
+  )
+(use-package tsx-ts-mode
+  :mode (("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook! '(tsx-ts-mode-hook) #'lsp!)
   )
 
 (require 'vue-ts-mode)
@@ -41,19 +83,14 @@
   :custom
   (flymake-eslint-executable-name "eslint_d")
   :config
-  (add-hook 'vue-ts-mode-hook
-            (lambda () (flymake-eslint-enable))
-            )
+  (add-hook! '(vue-ts-mode-hook typescript-ts-mode-hook tsx-ts-mode-hook) #'flymake-eslint-enable)
   )
-
-
 
 (after! apheleia
   (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
   (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
-  (apheleia-global-mode +1)
   )
 
 (use-package lsp-tailwindcss
