@@ -62,6 +62,26 @@
   )
 
 
+
+(use-package c-ts-mode
+  :mode (("\\.c\\'" . c-ts-mode))
+  :config
+  (add-hook! '(c-ts-mode-hook) #'lsp!)
+  )
+
+(after! lsp-mode
+  (setq lsp-clients-clangd-args
+   '("-j=4"
+     "--header-insertion=never"
+     "--all-scopes-completion"
+     "--background-index"
+     "--clang-tidy"
+     "--cross-file-rename"
+     "--suggest-missing-includes"
+     "--query-driver=/opt/homebrew/bin/avr-gcc"
+     ))
+  )
+
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
   :config

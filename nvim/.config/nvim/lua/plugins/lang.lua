@@ -119,7 +119,7 @@ M.clangd = {
 						"--header-insertion=iwyu",
 						"--completion-style=detailed",
 						"--fallback-style=llvm",
-						"--query-driver=/opt/homebrew/bin/arm-none-eabi-g*", -- allow clangd to query arm specific compiler (for embedded)
+						"--query-driver=/opt/homebrew/bin/avr-gcc",
 						"--function-arg-placeholders=0", -- disable annoying insertion of argument names when completing functions
 					},
 				},
