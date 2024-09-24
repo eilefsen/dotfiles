@@ -1,18 +1,17 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (add-load-path! "lisp")
+(add-load-path! "lsp")
 
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
-(require-theme 'modus-themes)
-(setq modus-themes-italic-constructs t
-      modus-themes-slanted-constructs t
-      modus-themes-bold-constructs t
-      modus-themes-hl-line '(underline accented)
-      modus-themes-subtle-line-numbers t
-      modus-themes-syntax '(alt-syntax)
-      )
-(setq doom-theme 'modus-operandi)
+(custom-theme-set-faces! 'adwaita
+  '(hl-line :background "#d1ddeb")
+  '(cursor :background "#0084C8")
+  )
+
+(setq doom-theme 'timu-macos)
+
 
 (setq doom-font-increment 2)
 (setq doom-font (font-spec :family "Cascadia Code" :size 16))
@@ -31,7 +30,7 @@
 
 (use-package! treesit
   :custom
-  (treesit-font-lock-level 4)
+  (treesit-font-lock-level 3)
   :config
   (setq treesit-language-source-alist
         '((c "https://github.com/tree-sitter/tree-sitter-c")
@@ -71,15 +70,15 @@
 
 (after! lsp-mode
   (setq lsp-clients-clangd-args
-   '("-j=4"
-     "--header-insertion=never"
-     "--all-scopes-completion"
-     "--background-index"
-     "--clang-tidy"
-     "--cross-file-rename"
-     "--suggest-missing-includes"
-     "--query-driver=/opt/homebrew/bin/avr-gcc"
-     ))
+        '("-j=4"
+          "--header-insertion=never"
+          "--all-scopes-completion"
+          "--background-index"
+          "--clang-tidy"
+          "--cross-file-rename"
+          "--suggest-missing-includes"
+          "--query-driver=/opt/homebrew/bin/avr-gcc"
+          ))
   )
 
 (use-package typescript-ts-mode

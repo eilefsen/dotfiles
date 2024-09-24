@@ -6,3 +6,8 @@
 (package! lsp-tailwindcss :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
 (package! flymake-eslint)
 (package! apheleia)
+(package! darktooth-theme)
+(package! kaolin-themes)
+(package! ample-theme)
+(package! timu-macos-theme)
+(package! tangotango-theme)
