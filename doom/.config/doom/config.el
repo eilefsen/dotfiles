@@ -5,13 +5,20 @@
 
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
-(custom-theme-set-faces! 'adwaita
-  '(hl-line :background "#d1ddeb")
-  '(cursor :background "#0084C8")
+(defface emma-lsp-face-semh-modifier-readonly '((t)) "Face for LSP semantic token modifier Declaration")
+(defface emma-lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
+
+
+(setq doom-theme 'doom-one)
+(custom-theme-set-faces! 'doom-one
+  `(lsp-face-semhl-macro :foreground ,(doom-color 'orange))
+  `(lsp-face-semhl-function :inherit font-lock-function-name-face)
+  `(font-lock-function-name-face :foreground ,(doom-color 'blue))
+  `(font-lock-preprocessor-face :slant italic :foreground ,(doom-color 'magenta))
+  `(font-lock-keyword-face :foreground ,(doom-color 'magenta))
+  `(font-lock-variable-name-face :foreground ,(doom-color 'red))
+  `(emma-lsp-face-semh-modifier-readonly :foreground ,(doom-color 'orange))
   )
-
-(setq doom-theme 'timu-macos)
-
 
 (setq doom-font-increment 2)
 (setq doom-font (font-spec :family "Cascadia Code" :size 16))
@@ -26,7 +33,6 @@
 
 (setq org-directory "~/org/")
 (setq org-return-follows-link  t)
-
 
 (use-package! treesit
   :custom
@@ -68,18 +74,32 @@
   (add-hook! '(c-ts-mode-hook) #'lsp!)
   )
 
-(after! lsp-mode
-  (setq lsp-clients-clangd-args
-        '("-j=4"
-          "--header-insertion=never"
-          "--all-scopes-completion"
-          "--background-index"
-          "--clang-tidy"
-          "--cross-file-rename"
-          "--suggest-missing-includes"
-          "--query-driver=/opt/homebrew/bin/avr-gcc"
-          ))
+(after! lsp-clangd
+  (setq
+   lsp-clients-clangd-args
+   '("-j=4"
+     "--header-insertion=never"
+     "--all-scopes-completion"
+     "--background-index"
+     "--clang-tidy"
+     "--cross-file-rename"
+     "--suggest-missing-includes"
+     "--query-driver=/opt/homebrew/bin/avr-gcc"
+     )
+   ))
+
+(after! (:or lsp-clangd lsp-javascript lsp-volar)
+  (setq lsp-semantic-tokens-enable t)
+  (setq-default lsp-semantic-token-modifier-faces
+                (cons '("declaration" . emma-lsp-face-semh-modifier-declaration)
+                      (assoc-delete-all "declaration" lsp-semantic-token-modifier-faces)))
+  (setq-default lsp-semantic-token-modifier-faces
+                (cons '("readonly" . emma-lsp-face-semh-modifier-readonly)
+                      (assoc-delete-all "readonly" lsp-semantic-token-modifier-faces)))
   )
+
+(after! lsp-mode
+  (setq lsp-log-io t))
 
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
