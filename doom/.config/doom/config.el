@@ -92,8 +92,11 @@
   (add-hook! '(tsx-ts-mode-hook) #'lsp!)
   )
 
-(require 'vue-ts-mode)
-(add-hook! 'vue-ts-mode-hook #'lsp!)
+(use-package vue-ts-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
+  (add-hook! 'vue-ts-mode-hook #'lsp!)
+  )
 
 (after! lsp-javascript
   (set-lsp-priority! 'ts-ls 10)) ;; higher priority than vue language server
