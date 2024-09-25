@@ -66,8 +66,6 @@
           ))
   )
 
-
-
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode))
   :config
@@ -88,20 +86,28 @@
      )
    ))
 
+(use-package lsp-vue
+  :load-path "lisp/"
+  :custom
+  (lsp-vue-hybrid-mode t)
+  (lsp-vue-take-over-mode nil)
+  (lsp-vue-add-on-mode t)
+  ;; these below are necessary becaues lsp-volar will register and set settings for lsp-vue somehow
+  (lsp-volar-hybrid-mode t)
+  (lsp-volar-take-over-mode nil)
+  )
 
-(after! (:or lsp-clangd lsp-javascript lsp-volar)
+(after! lsp-mode
+  (setq lsp-log-io t
+        lsp-disabled-clients '(vue-semantic-server)
+        ))
+
+(after! (:or lsp-clangd lsp-javascript)
   (setq lsp-semantic-tokens-enable t)
   (setq-default lsp-semantic-token-modifier-faces
                 (cons '("declaration" . emma-lsp-face-semh-modifier-declaration)
-                      (assoc-delete-all "declaration" lsp-semantic-token-modifier-faces)))
-  (setq-default lsp-semantic-token-modifier-faces
-                (cons '("readonly" . emma-lsp-face-semh-modifier-readonly)
-                      (assoc-delete-all "readonly" lsp-semantic-token-modifier-faces)))
-  )
+                      (assoc-delete-all "declaration" lsp-semantic-token-modifier-faces))))
 
-
-(after! lsp-mode
-  (setq lsp-log-io t))
 
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
@@ -120,17 +126,24 @@
   (add-hook! 'vue-ts-mode-hook #'lsp!)
   )
 
-(defun set-lsp-add-on! (client add-on)
-  "Change the ADD-ON flag of lsp CLIENT."
+(defun set-lsp-activation-fn! (client fn)
+  "Change the PRIORITY of lsp CLIENT."
   (require 'lsp-mode)
   (if-let (client (gethash client lsp-clients))
-      (if-let (ref (lsp--client-add-on? client))
-          (setf ref add-on))
-    ;; else
-    (error "No LSP client named %S" client))
-  )
+      (setf (lsp--client-activation-fn client)
+            fn)
+    (error "No LSP client named %S" client)))
+
 
 (after! lsp-javascript
+  (set-lsp-activation-fn!
+   'ts-ls
+   (lambda (filename &optional _)
+     "Check if the js-ts lsp server should be enabled based on FILENAME."
+     (or (string-match-p "\\.[cm]js\\|\\.[jt]sx?\\'" filename)
+         (and (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode 'vue-ts-mode)
+              (not (derived-mode-p 'json-mode)))))
+   )
   (setq
    lsp-clients-typescript-prefer-use-project-ts-server t
    lsp-clients-typescript-plugins
@@ -142,17 +155,6 @@
      ))
    )
   )
-
-(after! lsp-volar
-  ;; (set-lsp-add-on! 'vue-semantic-server t)
-  (setq lsp-volar-hybrid-mode t
-        lsp-volar-take-over-mode nil))
-
-;; (after! (:and lsp-volar lsp-javascript)
-;;   (set-lsp-priority! 'ts-ls 0)
-;;   (set-lsp-add-on! 'ts-ls t)
-;;   )
-
 
 (use-package flymake-eslint
   :custom
