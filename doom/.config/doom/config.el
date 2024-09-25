@@ -88,6 +88,7 @@
      )
    ))
 
+
 (after! (:or lsp-clangd lsp-javascript lsp-volar)
   (setq lsp-semantic-tokens-enable t)
   (setq-default lsp-semantic-token-modifier-faces
@@ -97,6 +98,7 @@
                 (cons '("readonly" . emma-lsp-face-semh-modifier-readonly)
                       (assoc-delete-all "readonly" lsp-semantic-token-modifier-faces)))
   )
+
 
 (after! lsp-mode
   (setq lsp-log-io t))
@@ -118,8 +120,39 @@
   (add-hook! 'vue-ts-mode-hook #'lsp!)
   )
 
+(defun set-lsp-add-on! (client add-on)
+  "Change the ADD-ON flag of lsp CLIENT."
+  (require 'lsp-mode)
+  (if-let (client (gethash client lsp-clients))
+      (if-let (ref (lsp--client-add-on? client))
+          (setf ref add-on))
+    ;; else
+    (error "No LSP client named %S" client))
+  )
+
 (after! lsp-javascript
-  (set-lsp-priority! 'ts-ls 10)) ;; higher priority than vue language server
+  (setq
+   lsp-clients-typescript-prefer-use-project-ts-server t
+   lsp-clients-typescript-plugins
+   (vector
+    (list
+     :name "@vue/typescript-plugin"
+     :location ""
+     :languages (vector "vue")
+     ))
+   )
+  )
+
+(after! lsp-volar
+  ;; (set-lsp-add-on! 'vue-semantic-server t)
+  (setq lsp-volar-hybrid-mode t
+        lsp-volar-take-over-mode nil))
+
+;; (after! (:and lsp-volar lsp-javascript)
+;;   (set-lsp-priority! 'ts-ls 0)
+;;   (set-lsp-add-on! 'ts-ls t)
+;;   )
+
 
 (use-package flymake-eslint
   :custom
@@ -147,5 +180,6 @@
              js2-mode
              js-ts-mode
              clojure-mode
+             vue-ts-mode
              vue-mode))
     (add-to-list 'lsp-tailwindcss-major-modes tw-major-mode)))
