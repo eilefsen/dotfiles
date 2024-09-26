@@ -26,6 +26,7 @@
 (setq org-directory "~/org/")
 (setq org-return-follows-link  t)
 
+
 ;;lsp
 (use-package vue-ts-mode
   :load-path "lisp"
@@ -58,7 +59,7 @@
 ;; treesit
 (use-package! treesit
   :custom
-  (treesit-font-lock-level 3)
+  (treesit-font-lock-level 4)
   :config
   (setq treesit-language-source-alist
         '((c "https://github.com/tree-sitter/tree-sitter-c")
@@ -86,14 +87,21 @@
           (toml "https://github.com/tree-sitter-grammars/tree-sitter-toml")
           (linkerscript "https://github.com/tree-sitter-grammars/tree-sitter-linkerscript")
           )))
+
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode))
-  )
+  :config
+  (add-hook 'c-ts-mode-hook #'eglot-ensure))
+
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
+  :config
+  (add-hook 'typescript-ts-mode-hook #'eglot-ensure)
   )
 (use-package tsx-ts-mode
   :mode (("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook 'tsx-ts-mode-hook #'eglot-ensure)
   )
 
 ;; eslint
