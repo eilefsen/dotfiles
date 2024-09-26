@@ -1,23 +1,15 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (add-load-path! "lisp")
-(add-load-path! "lsp")
 
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
-(defface emma-lsp-face-semh-modifier-readonly '((t)) "Face for LSP semantic token modifier Declaration")
-(defface emma-lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
-
-
 (setq doom-theme 'doom-one)
 (custom-theme-set-faces! 'doom-one
-  `(lsp-face-semhl-macro :foreground ,(doom-color 'orange))
-  `(lsp-face-semhl-function :inherit font-lock-function-name-face)
   `(font-lock-function-name-face :foreground ,(doom-color 'blue))
   `(font-lock-preprocessor-face :slant italic :foreground ,(doom-color 'magenta))
   `(font-lock-keyword-face :foreground ,(doom-color 'magenta))
   `(font-lock-variable-name-face :foreground ,(doom-color 'red))
-  `(emma-lsp-face-semh-modifier-readonly :foreground ,(doom-color 'orange))
   )
 
 (setq doom-font-increment 2)
@@ -34,6 +26,36 @@
 (setq org-directory "~/org/")
 (setq org-return-follows-link  t)
 
+;;lsp
+(use-package vue-ts-mode
+  :load-path "lisp"
+  :config
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
+  (add-hook 'vue-ts-mode-hook #'eglot-ensure)
+  )
+(after! eglot
+  (put 'vue-ts-mode 'eglot-language-id "vue")
+  (defun vue-eglot-init-options ()
+    (let ((tsdk-path "/usr/local/lib/node_modules/typescript/lib/"))
+      `(:typescript (:tsdk ,tsdk-path
+                     :languageFeatures (:completion
+                                        (:defaultTagNameCase "both"
+                                         :defaultAttrNameCase "kebabCase"
+                                         :getDocumentNameCasesRequest nil
+                                         :getDocumentSelectionRequest nil)
+                                        :diagnostics
+                                        (:getDocumentVersionRequest nil))
+                     :documentFeatures (:documentFormatting
+                                        (:defaultPrintWidth 100
+                                         :getDocumentPrintWidthRequest nil)
+                                        :documentSymbol t
+                                        :documentColor t)))))
+  (add-to-list 'eglot-server-programs
+               `(vue-ts-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options))))
+  )
+
+
+;; treesit
 (use-package! treesit
   :custom
   (treesit-font-lock-level 3)
@@ -63,125 +85,27 @@
           (make "https://github.com/tree-sitter-grammars/tree-sitter-make")
           (toml "https://github.com/tree-sitter-grammars/tree-sitter-toml")
           (linkerscript "https://github.com/tree-sitter-grammars/tree-sitter-linkerscript")
-          ))
-  )
-
+          )))
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode))
-  :config
-  (add-hook! '(c-ts-mode-hook) #'lsp!)
   )
-
-(after! lsp-clangd
-  (setq
-   lsp-clients-clangd-args
-   '("-j=4"
-     "--header-insertion=never"
-     "--all-scopes-completion"
-     "--background-index"
-     "--clang-tidy"
-     "--cross-file-rename"
-     "--suggest-missing-includes"
-     "--query-driver=/opt/homebrew/bin/avr-gcc"
-     )
-   ))
-
-(use-package lsp-vue
-  :load-path "lisp/"
-  :custom
-  (lsp-vue-hybrid-mode t)
-  (lsp-vue-take-over-mode nil)
-  (lsp-vue-add-on-mode t)
-  ;; these below are necessary becaues lsp-volar will register and set settings for lsp-vue somehow
-  (lsp-volar-hybrid-mode t)
-  (lsp-volar-take-over-mode nil)
-  )
-
-(after! lsp-mode
-  (setq lsp-log-io t
-        lsp-disabled-clients '(vue-semantic-server)
-        ))
-
-(after! (:or lsp-clangd lsp-javascript)
-  (setq lsp-semantic-tokens-enable t)
-  (setq-default lsp-semantic-token-modifier-faces
-                (cons '("declaration" . emma-lsp-face-semh-modifier-declaration)
-                      (assoc-delete-all "declaration" lsp-semantic-token-modifier-faces))))
-
-
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
-  :config
-  (add-hook! '(typescript-ts-mode-hook) #'lsp!)
   )
 (use-package tsx-ts-mode
   :mode (("\\.tsx\\'" . tsx-ts-mode))
-  :config
-  (add-hook! '(tsx-ts-mode-hook) #'lsp!)
   )
 
-(use-package vue-ts-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
-  (add-hook! 'vue-ts-mode-hook #'lsp!)
-  )
-
-(defun set-lsp-activation-fn! (client fn)
-  "Change the PRIORITY of lsp CLIENT."
-  (require 'lsp-mode)
-  (if-let (client (gethash client lsp-clients))
-      (setf (lsp--client-activation-fn client)
-            fn)
-    (error "No LSP client named %S" client)))
-
-
-(after! lsp-javascript
-  (set-lsp-activation-fn!
-   'ts-ls
-   (lambda (filename &optional _)
-     "Check if the js-ts lsp server should be enabled based on FILENAME."
-     (or (string-match-p "\\.[cm]js\\|\\.[jt]sx?\\'" filename)
-         (and (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode 'vue-ts-mode)
-              (not (derived-mode-p 'json-mode)))))
-   )
-  (setq
-   lsp-clients-typescript-prefer-use-project-ts-server t
-   lsp-clients-typescript-plugins
-   (vector
-    (list
-     :name "@vue/typescript-plugin"
-     :location ""
-     :languages (vector "vue")
-     ))
-   )
-  )
-
+;; eslint
 (use-package flymake-eslint
   :custom
   (flymake-eslint-executable-name "eslint_d")
   :config
   (add-hook! '(vue-ts-mode-hook typescript-ts-mode-hook tsx-ts-mode-hook) #'flymake-eslint-enable)
   )
-
 (after! apheleia
   (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
   (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
   )
-
-(use-package lsp-tailwindcss
-  :init (setq lsp-tailwindcss-add-on-mode t)
-  :config
-  (dolist (tw-major-mode
-           '(css-mode
-             css-ts-mode
-             typescript-mode
-             typescript-ts-mode
-             tsx-ts-mode
-             js2-mode
-             js-ts-mode
-             clojure-mode
-             vue-ts-mode
-             vue-mode))
-    (add-to-list 'lsp-tailwindcss-major-modes tw-major-mode)))
