@@ -11,3 +11,4 @@ workaliases.zsh
 
 .DS_Store
 secrets.zsh
+localaliases.zsh

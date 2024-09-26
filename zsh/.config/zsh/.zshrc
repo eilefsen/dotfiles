@@ -30,6 +30,10 @@ source $ZDOTDIR/functions.zsh
 if [ -f $ZDOTDIR/secrets.zsh ]; then
 	source $ZDOTDIR/secrets.zsh
 fi
+# local aliases (gitignored)
+if [ -f $ZDOTDIR/localaliases.zsh ]; then
+	source $ZDOTDIR/localaliases.zsh
+fi
 # zoxide
 eval "$(zoxide init zsh)"
 # eval "$(fzf --zsh)"
