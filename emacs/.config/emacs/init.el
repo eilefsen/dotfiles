@@ -15,4 +15,9 @@
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
 
+(defvar emma-cache-dir "~/.local/state/emacs/")
+(setq backup-directory-alist `(("." . (concat emma-cache-dir "/saves/"))))
+
 (use-package emma-evil :load-path "modules")
+(use-package emma-lang :load-path "modules/emma-lang")
+(use-package emma-utils :load-path "modules/emma-utils")

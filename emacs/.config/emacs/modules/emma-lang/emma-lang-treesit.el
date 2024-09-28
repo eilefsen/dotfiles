@@ -1,0 +1,1 @@
+(provide 'emma-lang-treesit
