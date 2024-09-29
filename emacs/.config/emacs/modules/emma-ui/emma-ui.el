@@ -1,4 +1,4 @@
-(use-package emma-ui-dash
+(use-package emma-ui-dashboard
   :load-path "modules/emma-ui")
 
 
