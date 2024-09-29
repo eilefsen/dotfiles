@@ -6,6 +6,21 @@
   :config
   (evil-mode 1)
   ;; Override record macro command to disable 
+  ;;; Leader
+  (define-prefix-command 'my-leader-map)
+
+  (keymap-set evil-motion-state-map "SPC" 'my-leader-map)
+  (keymap-set evil-normal-state-map "SPC" 'my-leader-map)
+
+  (evil-define-key nil my-leader-map
+    ;; add your bindings here:
+    "b"  'switch-to-buffer
+    "B"  'project-switch-to-buffer
+    "pf" 'project-find-file
+    "ps" 'project-shell-command
+    ;; etc.
+    )
+
   (evil-define-command evil-record-macro (register)
     "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
     :keep-visual t
