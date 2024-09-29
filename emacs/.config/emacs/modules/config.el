@@ -24,10 +24,7 @@
 ;; macos specific stuff
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (setq mac-right-option-modifier nil
-      mac-option-key-is-meta nil
-      mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-option-modifier 'super)
+      mac-option-key-is-meta nil)
 
 
 ;;; Pet Peeves
