@@ -16,10 +16,21 @@
 (straight-use-package 'use-package)
 
 (defvar emma-cache-dir "~/.local/state/emacs/")
-(defvar --backup-directory (concat emma-cache-dir "saves"))
-(if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
+
+;; set backup file directory, so backups are not dumped in current dir
+(let ((backup-files-directory
+       (file-name-concat emma-cache-dir "backup/")))
+  (make-directory backup-files-directory :parents)
+
+  (setq backup-directory-alist
+	`(("." . ,backup-files-directory))))
+;; same as above, but with autosave
+(let ((save-files-directory
+       (file-name-concat emma-cache-dir
+                         "autosave/")))
+  (make-directory save-files-directory :parents)
+  (setq auto-save-file-name-transforms
+	`(("\\(?:[^/]*/\\)*\\(.*\\)" ,save-files-directory t))))
 
 (setq make-backup-files t               ; backup of a file the first time it is saved.
       backup-by-copying t               ; don't clobber symlinks
@@ -31,6 +42,7 @@
       auto-save-default t               ; auto-save every buffer that visits a file
       auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
+      create-lockfiles nil              ; disable annoying lockfiles (starting with ".#"
       )
 
 
