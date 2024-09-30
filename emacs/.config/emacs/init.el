@@ -1,3 +1,4 @@
+;;; bootstrap straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -8,25 +9,23 @@
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
 
-(defvar emma-cache-dir "~/.local/state/emacs/")
-
 ;; set backup file directory, so backups are not dumped in current dir
 (let ((backup-files-directory
-       (file-name-concat emma-cache-dir "backup/")))
+       (file-name-concat emma-cache-directory "backup/")))
   (make-directory backup-files-directory :parents)
 
   (setq backup-directory-alist
 	`(("." . ,backup-files-directory))))
 ;; same as above, but with autosave
 (let ((save-files-directory
-       (file-name-concat emma-cache-dir
+       (file-name-concat emma-cache-directory
                          "autosave/")))
   (make-directory save-files-directory :parents)
   (setq auto-save-file-name-transforms
@@ -45,11 +44,18 @@
       create-lockfiles nil              ; disable annoying lockfiles (starting with ".#"
       )
 
+(add-to-list 'desktop-locals-to-save 'buffer-undo-list)
+
+(setq enable-recursive-minibuffers t)
+(recentf-mode 1)
+(global-auto-revert-mode t)
+
+
 
 
 (use-package emma-evil :load-path "modules")
 (use-package emma-ui :load-path "modules/emma-ui")
-(use-package emma-lang :load-path "modules/emma-lang")
 (use-package emma-utils :load-path "modules/emma-utils")
+(use-package emma-lang :load-path "modules/emma-lang" :defer t)
 
 (use-package config :load-path "modules")
