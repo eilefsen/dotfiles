@@ -1,3 +1,9 @@
+;; vars
+(defvar user-full-name "Emma Eilefsen Glenna"
+  "Default name if not loaded from file")
+(defvar user-mail-address "emma@eilefsen.net"
+  "Default email if not loaded from file")
+
 ;; font
 
 (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
@@ -18,10 +24,20 @@
    :config
    (setq auto-dark-allow-osascript t))
 
+;; indentation / tabs
 
-;; gui stuff
+(setq-default tab-width 4)
+
+
+;;; gui stuff
+
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 (tool-bar-mode -1)
+
+;; Show matching parentheses
+(show-paren-mode 1)
+;; Highlight current line
+(global-hl-line-mode 1)
 
 
 ;; macos specific stuff
@@ -34,5 +50,12 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; replace yes or no prompts with y or n
 
+;;; nice to haves
+
+;; Enable electric-pair mode for automatic pairing of brackets and quotes
+(electric-pair-mode 1)
+
+;; Enable clipboard integration with system
+(setq select-enable-clipboard t)
 
 (provide 'config)
