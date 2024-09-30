@@ -1,7 +1,7 @@
 ;; Enable vertico
 (use-package vertico
   :straight t
-  :after evil
+  :after consult
   :custom
   (vertico-scroll-margin 0) ;; Different scroll margin
   (vertico-count 20) ;; Show more candidates
@@ -13,7 +13,13 @@
   (keymap-set vertico-map "?" #'minibuffer-completion-help)
   (keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
   (keymap-set vertico-map "M-TAB" #'minibuffer-complete)
-  )
+
+  (setq-default completion-in-region-function
+                (lambda (&rest args)
+                  (apply (if vertico-mode
+                             #'consult-completion-in-region
+                           #'completion--in-region)
+                         args))))
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
@@ -32,8 +38,15 @@
   ;; Optional customizations
   :straight t
   :custom
+  (corfu-quit-at-boundary t)
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto-delay 0.24)
+  (corfu-auto-prefix 2)
+  (corfu-preselect 'prompt)
+  (corfu-count 16)
+  (corfu-max-width 120)
+  (corfu-on-exact-match nil)
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
@@ -41,38 +54,22 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-
-  ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
-
-  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
-  ;; be used globally (M-/).  See also the customization variable
-  ;; `global-corfu-modes' to exclude certain modes.
-  :init
-  (global-corfu-mode)
-  :config
-  (defun corfu-move-to-minibuffer ()
-    (interactive)
-    (pcase completion-in-region--data
-      (`(,beg ,end ,table ,pred ,extras)
-       (let ((completion-extra-properties extras)
-	     completion-cycle-threshold completion-cycling)
-	 (consult-completion-in-region beg end table pred)))))
-  (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
-  (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer))
+  :bind
+  (:map corfu-map
+	;; Use RET only in shell modes
+	("RET" . (menu-item
+		  "" nil :filter
+		  (lambda (&optional _)
+		    (and (or (derived-mode-p 'eshell-mode) (derived-mode-p 'comint-mode))
+			 #'corfu-send)))))
+  ;; Enable Corfu only for certain modes. Global mode will not play nice with vertico
+  :hook ((prog-mode . corfu-mode)
+	 (shell-mode . corfu-mode)
+	 (eshell-mode . corfu-mode)))
 
 (use-package consult
-  :after vertico
   :straight t
   :config
-  (setq completion-in-region-function
-      (lambda (&rest args)
-        (apply (if vertico-mode
-                   #'consult-completion-in-region
-                 #'completion--in-region)
-               args)))
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file
@@ -81,6 +78,22 @@
   (consult-customize
    consult-theme
    :preview-key (list "C-SPC" :debounce 0.5 'any))
+  (define-key global-map [remap bookmark-jump]                 #'consult-bookmark)
+  (define-key global-map [remap evil-show-marks]               #'consult-mark)
+  (define-key global-map [remap evil-show-jumps]               #'+vertico/jump-list)
+  (define-key global-map [remap evil-show-registers]           #'consult-register)
+  (define-key global-map [remap goto-line]                     #'consult-goto-line)
+  (define-key global-map [remap imenu]                         #'consult-imenu)
+  (define-key global-map [remap Info-search]                   #'consult-info)
+  (define-key global-map [remap locate]                        #'consult-locate)
+  (define-key global-map [remap load-theme]                    #'consult-theme)
+  (define-key global-map [remap man]                           #'consult-man)
+  (define-key global-map [remap recentf-open-files]            #'consult-recent-file)
+  (define-key global-map [remap switch-to-buffer]              #'consult-buffer)
+  (define-key global-map [remap switch-to-buffer-other-window] #'consult-buffer-other-window)
+  (define-key global-map [remap switch-to-buffer-other-frame]  #'consult-buffer-other-frame)
+  (define-key global-map [remap yank-pop]                      #'consult-yank-pop)
+  (define-key global-map [remap persp-switch-to-buffer]        #'+vertico/switch-workspace-buffer)
   )
 
 (use-package marginalia
