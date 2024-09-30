@@ -5,22 +5,23 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
-  ;; Override record macro command to disable 
   ;;; Leader
-  (define-prefix-command 'my-leader-map)
+  (evil-set-leader nil (kbd "SPC") nil)
 
-  (keymap-set evil-motion-state-map "SPC" 'my-leader-map)
-  (keymap-set evil-normal-state-map "SPC" 'my-leader-map)
+  ;; buffer
+  (setq buffer-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>b") `("buffer" . ,buffer-prefix-map))
+  (define-key buffer-prefix-map (kbd "b") '("Switch buffer" . switch-to-buffer))
+  (evil-define-key 'normal 'global (kbd "<leader>,") '("Switch bufffer" . switch-to-buffer))
+  (define-key buffer-prefix-map (kbd "d") '("Kill current buffer" . kill-current-buffer))
 
-  (evil-define-key nil my-leader-map
-    ;; add your bindings here:
-    "b"  'switch-to-buffer
-    "B"  'project-switch-to-buffer
-    "pf" 'project-find-file
-    "ps" 'project-shell-command
-    ;; etc.
-    )
+  ;; file
+  (setq file-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>f") `("file" . ,file-prefix-map))
+  (define-key file-prefix-map (kbd "r") '("Recent file" . recentf))
+  (define-key file-prefix-map (kbd "f") '("Find file" . find-file))
 
+  ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
     "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
     :keep-visual t
