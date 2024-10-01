@@ -29,47 +29,18 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
-
-(use-package corfu
-  ;; Optional customizations
-  :straight t
-  :custom
-  (corfu-quit-at-boundary t)
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-auto-delay 0.24)
-  (corfu-auto-prefix 2)
-  (corfu-preselect 'prompt)
-  (corfu-count 16)
-  (corfu-max-width 120)
-  (corfu-on-exact-match nil)
-  ;; (corfu-separator ?\s)          ;; Orderless field separator
-  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
-  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-  :bind
-  (:map corfu-map
-	;; Use RET only in shell modes
-	("RET" . (menu-item
-		  "" nil :filter
-		  (lambda (&optional _)
-		    (and (or (derived-mode-p 'eshell-mode) (derived-mode-p 'comint-mode))
-			 #'corfu-send)))))
-  ;; Enable Corfu only for certain modes. Global mode will not play nice with vertico
-  :hook ((prog-mode . corfu-mode)
-	 (shell-mode . corfu-mode)
-	 (eshell-mode . corfu-mode)))
-
 (use-package consult
   :straight t
   :config
+  (setq consult-buffer-sources
+		'(consult--source-modified-buffer
+		  consult--source-buffer
+		  consult--source-hidden-buffer)
+		consult-project-buffer-sources
+		'(consult--source-project-buffer
+		  consult--source-project-buffer-hidden))
+  (add-to-list 'consult-buffer-filter "^\\*")
+
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file
@@ -95,6 +66,38 @@
   (define-key global-map [remap yank-pop]                      #'consult-yank-pop)
   (define-key global-map [remap persp-switch-to-buffer]        #'+vertico/switch-workspace-buffer)
   )
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package corfu
+  ;; Optional customizations
+  :straight t
+  :custom
+  (corfu-quit-at-boundary t)
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto-delay 0.24)
+  (corfu-auto-prefix 2)
+  (corfu-preselect 'prompt)
+  (corfu-count 16)
+  (corfu-max-width 120)
+  (corfu-on-exact-match nil)
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+
+  ;; Enable Corfu only for certain modes. Global mode will not play nice with vertico
+  :hook ((prog-mode . corfu-mode)
+	 (shell-mode . corfu-mode)
+	 (eshell-mode . corfu-mode)))
+
 
 (use-package marginalia
   :defer t

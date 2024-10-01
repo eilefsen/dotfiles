@@ -5,14 +5,34 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
+
+  ;;; esc quits
+  (defun minibuffer-keyboard-quit ()
+	"Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+	(interactive)
+	(if (and delete-selection-mode transient-mark-mode mark-active)
+		(setq deactivate-mark  t)
+	  (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+	  (abort-recursive-edit)))
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
   ;;; Leader
   (evil-set-leader nil (kbd "SPC") nil)
 
   ;; buffer
   (setq buffer-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>b") `("buffer" . ,buffer-prefix-map))
-  (define-key buffer-prefix-map (kbd "b") '("Switch buffer" . switch-to-buffer))
   (evil-define-key 'normal 'global (kbd "<leader>,") '("Switch bufffer" . switch-to-buffer))
+  (define-key buffer-prefix-map (kbd "b") '("Switch buffer" . switch-to-buffer))
+  (define-key buffer-prefix-map (kbd "p") '("Switch project buffer" . consult-project-buffer))
   (define-key buffer-prefix-map (kbd "d") '("Kill current buffer" . kill-current-buffer))
 
   ;; file
@@ -56,5 +76,10 @@
   :straight t
   :config
   (evil-collection-init))
+(use-package evil-commentary
+  :after evil
+  :straight t
+  :init
+  (evil-commentary-mode))
 
 (provide 'emma-evil)
