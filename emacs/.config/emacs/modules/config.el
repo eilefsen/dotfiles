@@ -12,14 +12,19 @@
 
 ;; theme
 
+(use-package ef-themes
+  :straight t
+  :init
+   (load-theme 'ef-light t t)
+   (load-theme 'ef-dark t t))
+
 (use-package auto-dark
+  :defer t
    :straight t
    :init
-   (load-theme 'wombat t t)
-   (load-theme 'leuven t t)
    (auto-dark-mode)
    :custom
-   (auto-dark-themes '((wombat) (leuven)))
+   (auto-dark-themes '((ef-dark) (ef-light)))
    (auto-dark-polling-interval-seconds 600)
    :config
    (setq auto-dark-allow-osascript t))
@@ -33,11 +38,14 @@
 
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 (tool-bar-mode -1)
+(global-display-line-numbers-mode 1)
 
 ;; Show matching parentheses
 (show-paren-mode 1)
 ;; Highlight current line
 (global-hl-line-mode 1)
+
+(setq apropos-do-all t)
 
 
 ;; macos specific stuff
