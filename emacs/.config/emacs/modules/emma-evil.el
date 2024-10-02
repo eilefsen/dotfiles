@@ -22,7 +22,7 @@
         ;; It's infuriating that innocuous "beginning of line" or "end of line"
         ;; errors will abort macros, so suppress them:
         evil-kbd-macro-suppress-motion-error t
-        evil-undo-system 'undo-redo)
+        evil-undo-system 'undo-tree)
   :config
   (evil-mode 1)
 
