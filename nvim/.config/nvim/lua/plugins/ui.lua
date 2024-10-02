@@ -42,13 +42,7 @@ M.lazy_overrides = {
 	},
 	{
 		"rcarriga/nvim-notify",
-		opts = {
-			stages = "static",
-			timeout = 3000,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.50)
-			end,
-		},
+		enabled = false,
 	},
 	{
 		"akinsho/bufferline.nvim",
