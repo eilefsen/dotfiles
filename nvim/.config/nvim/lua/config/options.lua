@@ -17,6 +17,9 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"
 vim.opt.undofile = true
 
+-- spell
+vim.opt.spelllang = "en_us,en_gb,nb,nn"
+
 -- Diagnostics
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
