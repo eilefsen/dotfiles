@@ -7,16 +7,29 @@ M.lazy_overrides = {
 			cmdline = {
 				-- move cmdline to bottom (like in regular vim)
 				view = "cmdline",
+
+				format = {
+					cmdline = { pattern = "^:", conceal = false, icon = "", lang = "vim" },
+					search_down = { kind = "search", conceal = false, pattern = "^/", icon = "", lang = "regex" },
+					search_up = { kind = "search", pattern = "^%?", conceal = false, icon = "", lang = "regex" },
+					filter = { pattern = "^:%s*!", conceal = false, icon = "", lang = "bash" },
+					lua = {
+						pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" },
+						conceal = false,
+						icon = "",
+						lang = "lua",
+					},
+					help = { pattern = "^:%s*he?l?p?%s+", conceal = false, icon = "" },
+					input = { view = "cmdline_input", conceal = false, icon = "" },
+				},
 			},
-			routes = {
-				{
-					filter = {
-						event = "notify",
-						find = "No information available",
-					},
-					opts = {
-						skip = true,
-					},
+			presets = {
+				command_palette = false, -- add a border to hover docs and signature help
+				bottom_search = true, -- use a classic bottom cmdline for search
+			},
+			lsp = {
+				hover = {
+					silent = true,
 				},
 			},
 		},
