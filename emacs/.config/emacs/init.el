@@ -50,12 +50,26 @@
 (recentf-mode 1)
 (global-auto-revert-mode t)
 
+(set-charset-priority 'unicode)
+(prefer-coding-system 'utf-8-unix)
 
+;; elide GNU propaganda
+(defalias 'view-emacs-news 'ignore)
+(defalias 'describe-gnu-project 'ignore)
+(setq inhibit-startup-screen t)
+
+;; dont wrap lines, scroll with trackpad
+(setq mouse-wheel-tilt-scroll t
+      mouse-wheel-flip-direction t)
+(setq-default truncate-lines t)
+
+;; lsp needs lots of memory
+(setq read-process-output-max (* 1024 1024)) ; 1mb
 
 
 (use-package emma-evil :load-path "modules")
 (use-package emma-ui :load-path "modules/emma-ui")
 (use-package emma-utils :load-path "modules/emma-utils")
-(use-package emma-lang :load-path "modules/emma-lang" :defer t)
+(use-package emma-lang :load-path "modules/emma-lang")
 
 (use-package config :load-path "modules")
