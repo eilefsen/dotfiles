@@ -29,6 +29,10 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package marginalia
+  :straight t
+  :config (marginalia-mode))
+
 (use-package consult
   :straight t
   :config
