@@ -1,6 +1,7 @@
 (use-package popper
   :straight t
-  :bind (("C-`"   . popper-toggle)
+  :after evil
+  :bind ((""   . popper-toggle)
          ("M-`"   . popper-cycle)
          ("C-M-`" . popper-toggle-type))
   :init
@@ -13,7 +14,8 @@
           helpful-mode
           compilation-mode))
   (popper-mode +1)
-  (popper-echo-mode +1))       
+  (popper-echo-mode +1)
+  (define-key toggle-prefix-map (kbd "p") '("Toggle popup" . popper-toggle)))
 
 
 (provide 'emma-ui-buffers)

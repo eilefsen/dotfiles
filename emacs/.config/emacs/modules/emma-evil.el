@@ -64,6 +64,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (define-key file-prefix-map (kbd "r") '("Recent file" . recentf))
   (define-key file-prefix-map (kbd "f") '("Find file" . find-file))
 
+  ;; toggle
+  (setq toggle-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>t") `("buffer" . ,toggle-prefix-map))
+
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
     "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
