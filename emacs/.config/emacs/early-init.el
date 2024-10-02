@@ -30,10 +30,12 @@
         (tool-bar-lines . 0)
         (horizontal-scroll-bars)
         (vertical-scroll-bars)))
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(column-number-mode t)
+
+(when (window-system)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
+
 
 
 (setq native-comp-async-report-warnings-errors 'silent)
