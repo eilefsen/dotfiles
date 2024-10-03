@@ -3,6 +3,10 @@
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t
+		evil-want-C-d-scroll t
+		evil-want-C-w-delete nil
+		evil-want-Y-yank-to-eol t)
   :preface
   (setq evil-ex-search-vim-style-regexp t
         evil-ex-visual-char-range t  ; column range for ex commands
@@ -21,7 +25,7 @@
         evil-ex-interactive-search-highlight 'selected-window
         ;; It's infuriating that innocuous "beginning of line" or "end of line"
         ;; errors will abort macros, so suppress them:
-        evil-kbd-macro-suppress-motion-error t
+        evil-kbd-macro-suppress-motion-error t)
   :config
   (evil-mode 1)
 
@@ -54,6 +58,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   ;; buffer
   (setq buffer-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>u") `("universal" . ,universal-argument-map))
   (evil-define-key 'normal 'global (kbd "<leader>b") `("buffer" . ,buffer-prefix-map))
   (evil-define-key 'normal 'global (kbd "<leader>,") '("Switch bufffer" . switch-to-buffer))
   (define-key buffer-prefix-map (kbd "b") '("Switch buffer" . switch-to-buffer))
@@ -63,6 +68,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; file
   (setq file-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>f") `("file" . ,file-prefix-map))
+  (evil-define-key 'normal 'global (kbd "<leader>.") '("Find file" . find-file))
   (define-key file-prefix-map (kbd "r") '("Recent file" . recentf))
   (define-key file-prefix-map (kbd "f") '("Find file" . find-file))
 
