@@ -2,6 +2,8 @@
   :load-path "modules/emma-ui")
 (use-package emma-ui-buffers
   :load-path "modules/emma-ui")
+(use-package emma-ui-term
+  :load-path "modules/emma-ui")
 
 (use-package mood-line
   :straight t

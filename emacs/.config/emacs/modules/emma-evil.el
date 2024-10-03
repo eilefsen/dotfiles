@@ -72,9 +72,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (define-key file-prefix-map (kbd "r") '("Recent file" . recentf))
   (define-key file-prefix-map (kbd "f") '("Find file" . find-file))
 
-  ;; toggle
-  (setq toggle-prefix-map (make-sparse-keymap))
-  (evil-define-key 'normal 'global (kbd "<leader>t") `("buffer" . ,toggle-prefix-map))
+  ;; terminal
+  (setq terminal-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>t") `("terminal" . ,terminal-prefix-map))
 
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
@@ -110,7 +110,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :after evil
   :straight t
   :config
+  (setq evil-collection-mode-list (delq 'vterm evil-collection-mode-list))
   (evil-collection-init))
+
 (use-package evil-commentary
   :after evil
   :straight t
