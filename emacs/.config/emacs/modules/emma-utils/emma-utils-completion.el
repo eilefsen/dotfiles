@@ -8,7 +8,8 @@
   (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
   (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
-  (vertico-mode)
+  (vertico-mode 1)
+  (vertico-multiform-mode 1)
   :config
   (keymap-set vertico-map "?" #'minibuffer-completion-help)
   (keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
@@ -28,6 +29,8 @@
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
+
+
 
 (use-package marginalia
   :straight t

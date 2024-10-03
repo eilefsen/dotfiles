@@ -1,6 +1,6 @@
 (use-package emma-utils-dired
   :load-path "modules/emma-utils")
-(use-package emma-utils-which-key
+(use-package emma-utils-embark
   :load-path "modules/emma-utils")
 (use-package emma-utils-completion
   :load-path "modules/emma-utils")
