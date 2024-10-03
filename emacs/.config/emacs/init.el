@@ -66,6 +66,8 @@
 ;; lsp needs lots of memory
 (setq read-process-output-max (* 1024 1024)) ; 1mb
 
+(setq echo-keystrokes 0.1)
+
 
 (use-package emma-evil :load-path "modules")
 (use-package emma-ui :load-path "modules/emma-ui")
