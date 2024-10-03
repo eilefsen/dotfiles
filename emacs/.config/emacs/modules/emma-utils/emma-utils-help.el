@@ -2,11 +2,13 @@
   :after evil
   :straight t
   :config
-  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (define-key help-map (kbd "f") #'helpful-callable)
 
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (global-set-key (kbd "C-h x") #'helpful-command)
+  (define-key help-map (kbd "v") #'helpful-variable)
+  (define-key help-map (kbd "k") #'helpful-key)
+  (define-key help-map (kbd "x") #'helpful-command)
+  (define-key help-map (kbd "h") #'helpful-at-point)
+  (define-key global-map (kbd "C-h .") #'eldoc-doc-buffer)
   )
 
 

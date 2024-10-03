@@ -76,6 +76,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq terminal-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>t") `("terminal" . ,terminal-prefix-map))
 
+  ;; help
+  (evil-define-key 'normal 'global (kbd "<leader>h") `("help" . ,help-map))
+
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
     "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
