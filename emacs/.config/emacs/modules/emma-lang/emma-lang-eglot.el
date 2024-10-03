@@ -11,9 +11,7 @@
   ;;             ("C-S-<down-mouse-1>" . #'xref-find-references)
   ;;             ("C-c C-c" . #'eglot-code-actions))
   :custom
-  (eglot-autoshutdown t)
-  )
-
+  (eglot-autoshutdown t))
 
 (use-package xref)
 
