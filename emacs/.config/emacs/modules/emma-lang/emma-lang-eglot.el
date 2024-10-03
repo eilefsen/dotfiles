@@ -15,4 +15,21 @@
   )
 
 
+(use-package xref)
+
+(use-package eldoc
+  :after evil
+  :custom
+  (eldoc-echo-area-prefer-doc-buffer t)
+  :config
+
+  (defun eldoc-display-in-echo-area 'ignore)
+  (setq eldoc-idle-delay 0)
+  (evil-define-key 'motion 'global (kbd "K") '("Lookup" . eldoc))
+  )
+
+;; provides syntax highlighting in eldoc output
+(use-package markdown-mode
+  :straight t)
+
 (provide 'emma-lang-eglot)
