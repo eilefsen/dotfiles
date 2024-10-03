@@ -4,6 +4,10 @@
   (popper-mode +1)
   (popper-echo-mode +1)
   (define-key global-map (kbd "C-c p") '("Toggle popup" . popper-toggle))
+  (add-to-list 'display-buffer-alist
+			   '("\\magit:"
+				 (popper-select-popup-at-bottom)
+				 (window-height . 20)))
   :custom
   (popper-reference-buffers '("\\*Messages\\*"
                               "Output\\*$"
