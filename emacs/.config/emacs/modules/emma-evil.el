@@ -1,5 +1,5 @@
 (use-package evil
-  :straight t
+  :ensure t
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
@@ -54,7 +54,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
   ;;; Leader
-  (evil-set-leader nil (kbd "SPC") nil)
+  (evil-set-leader 'normal (kbd "SPC") nil)
 
   ;; buffer
   (setq buffer-prefix-map (make-sparse-keymap))
@@ -111,7 +111,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package evil-collection
   :after evil
-  :straight t
+  :ensure t
   :custom
   (evil-collection-magit-use-z-for-folds t)
   :config
@@ -120,7 +120,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package evil-commentary
   :after evil
-  :straight t
+  :ensure t
   :init
   (evil-commentary-mode))
 

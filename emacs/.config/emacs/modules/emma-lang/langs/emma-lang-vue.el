@@ -1,7 +1,6 @@
 (use-package vue-ts-mode
-  :straight (vue-ts-mode :type git :host github :repo "theschmocker/vue-ts-mode")
+  :vc (:url https://github.com/8uff3r/vue-ts-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
   (add-hook 'vue-ts-mode-hook #'eglot-ensure))
 
 (with-eval-after-load 'eglot

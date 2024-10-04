@@ -6,7 +6,7 @@
   :load-path "modules/emma-ui")
 
 (use-package mood-line
-  :straight t
+  :ensure t
   :config
   (mood-line-mode))
 

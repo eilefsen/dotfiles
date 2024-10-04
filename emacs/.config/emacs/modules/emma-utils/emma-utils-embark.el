@@ -1,5 +1,5 @@
  (use-package embark
-	:straight t
+	:ensure t
     :bind
 	(:map embark-buffer-map
 		  ("_" . embark-popper-toggle))
@@ -11,6 +11,6 @@
 	(global-set-key (kbd "C-h C-h" ) prefix-help-command)) ;; didn't really need help-for-help anyway
 
  (use-package embark-consult
-	:straight t)
+	:ensure t)
 
 (provide 'emma-utils-embark)

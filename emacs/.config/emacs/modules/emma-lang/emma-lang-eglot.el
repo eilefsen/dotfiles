@@ -28,6 +28,6 @@
 
 ;; provides syntax highlighting in eldoc output
 (use-package markdown-mode
-  :straight t)
+  :ensure t)
 
 (provide 'emma-lang-eglot)

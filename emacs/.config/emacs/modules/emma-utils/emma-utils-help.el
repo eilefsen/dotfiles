@@ -1,6 +1,6 @@
 (use-package helpful
   :after evil
-  :straight t
+  :ensure t
   :config
   (define-key help-map (kbd "f") #'helpful-callable)
 

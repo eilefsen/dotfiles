@@ -1,5 +1,5 @@
 (use-package popper
-  :straight t
+  :ensure t
   :config
   (popper-mode +1)
   (popper-echo-mode +1)

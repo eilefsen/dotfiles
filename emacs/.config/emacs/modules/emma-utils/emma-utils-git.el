@@ -1,5 +1,5 @@
 (use-package magit
-  :straight t
+  :ensure t
   :bind (("C-x g" . #'magit-status))
   :config
   (add-to-list 'magit-no-confirm 'stage-all-changes))

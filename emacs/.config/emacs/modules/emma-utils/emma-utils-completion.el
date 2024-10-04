@@ -1,6 +1,6 @@
 ;; Enable vertico
 (use-package vertico
-  :straight t
+  :ensure t
   :after consult
   :custom
   (vertico-scroll-margin 0) ;; Different scroll margin
@@ -24,7 +24,7 @@
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
-  :straight t
+  :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
@@ -33,11 +33,11 @@
 
 
 (use-package marginalia
-  :straight t
+  :ensure t
   :config (marginalia-mode))
 
 (use-package consult
-  :straight t
+  :ensure t
   :config
   (setq consult-buffer-sources
 		'(consult--source-modified-buffer
@@ -81,7 +81,7 @@
 
 (use-package corfu
   ;; Optional customizations
-  :straight t
+  :ensure t
   :custom
   (corfu-quit-at-boundary t)
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'

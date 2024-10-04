@@ -4,12 +4,12 @@
   :load-path "modules/emma-lang")
 
 (use-package paren
-  :straight t
+  :ensure t
   :config (show-paren-mode)
   :custom (show-paren-style 'expression))
 
 (use-package rainbow-delimiters
-  :straight t
+  :ensure t
   :hook ((prog-mode . rainbow-delimiters-mode)))
 
 ;; langs

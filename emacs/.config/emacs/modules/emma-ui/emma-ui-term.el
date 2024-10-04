@@ -18,7 +18,7 @@
 (define-key terminal-prefix-map (kbd "t") '("Toggle terminal" . emma/toggle-terminal))
 
 (use-package vterm
-  :straight t
+  :ensure t
   :config
   (add-to-list 'evil-emacs-state-modes 'vterm-mode)
   (define-key vterm-mode-map (kbd "<escape>") '("Exit vterm" . emma/close-terminal))

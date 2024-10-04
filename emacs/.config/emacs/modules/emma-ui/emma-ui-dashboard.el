@@ -1,5 +1,5 @@
 (use-package dashboard
-  :straight t
+  :ensure t
   :init
   (dashboard-setup-startup-hook)
   :config

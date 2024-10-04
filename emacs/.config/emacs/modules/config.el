@@ -13,14 +13,14 @@
 ;; theme
 
 (use-package ef-themes
-  :straight t
+  :ensure t
   :init
    (load-theme 'ef-light t t)
    (load-theme 'ef-dark t t))
 
 (use-package auto-dark
-  :defer t
-   :straight t
+   :defer t
+   :ensure t
    :init
    (auto-dark-mode)
    :custom
