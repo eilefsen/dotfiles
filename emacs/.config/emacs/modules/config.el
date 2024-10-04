@@ -13,21 +13,16 @@
 ;; theme
 
 (use-package ef-themes
-  :ensure t
-  :init
-   (load-theme 'ef-light t t)
-   (load-theme 'ef-dark t t))
+  :ensure t)
 
-(use-package auto-dark
-   :defer t
-   :ensure t
-   :init
-   (auto-dark-mode)
-   :custom
-   (auto-dark-themes '((ef-dark) (ef-light)))
-   (auto-dark-polling-interval-seconds 600)
-   :config
-   (setq auto-dark-allow-osascript t))
+(defun my/apply-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (load-theme 'ef-summer t))
+    ('dark (load-theme 'ef-symbiosis t))))
+
+(add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
 ;; indentation / tabs
 
