@@ -1,5 +1,5 @@
 (use-package vue-ts-mode
-  :vc (:url https://github.com/theschmocker/vue-ts-mode)
+  :vc (:url "https://github.com/theschmocker/vue-ts-mode" :rev :newest)
   :config
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
   ;; (add-hook 'vue-ts-mode-hook #'eglot-ensure)
