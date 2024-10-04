@@ -3,6 +3,8 @@
   :config
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-disabled-clients '(vue-semantic-server))
+  (setq lsp-semantic-tokens-enable t)
   :commands lsp)
 
 (use-package xref)
@@ -19,5 +21,6 @@
 ;; provides syntax highlighting in eldoc output
 (use-package markdown-mode
   :ensure t)
+
 
 (provide 'emma-lang-lsp)

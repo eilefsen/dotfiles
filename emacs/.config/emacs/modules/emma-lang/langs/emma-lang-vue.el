@@ -1,9 +1,93 @@
 (use-package vue-ts-mode
-  :vc (:url https://github.com/8uff3r/vue-ts-mode)
+  :vc (:url https://github.com/theschmocker/vue-ts-mode)
   :config
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
   ;; (add-hook 'vue-ts-mode-hook #'eglot-ensure)
   (add-hook 'vue-ts-mode-hook #'lsp)
   )
+
+(use-package lsp-vue
+  :load-path "lisp/"
+  :custom
+  (lsp-vue-hybrid-mode t)
+  (lsp-vue-take-over-mode nil)
+  (lsp-vue-add-on-mode t)
+  ;; these below are necessary becaues lsp-volar will register and set settings for lsp-vue somehow
+  (lsp-volar-hybrid-mode t)
+  (lsp-volar-take-over-mode nil))
+
+(use-package typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode))
+  :config
+  (add-hook 'typescript-ts-mode-hook #'lsp)
+  )
+(use-package tsx-ts-mode
+  :mode (("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook 'tsx-ts-mode-hook #'lsp)
+  )
+
+(defun set-lsp-activation-fn! (client fn)
+  "Change the activation function of lsp CLIENT."
+  (if-let (client (gethash client lsp-clients))
+      (setf (lsp--client-activation-fn client)
+            fn)
+    (error "No LSP client named %S" client)))
+
+
+(use-package lsp-javascript
+  :config
+  (set-lsp-activation-fn!
+   'ts-ls
+   (lambda (filename &optional _)
+	 "Check if the js-ts lsp server should be enabled based on FILENAME."
+	 (or (string-match-p "\\.vue\\|\\.[cm]js\\|\\.[jt]sx?\\'" filename)
+		 (and (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode 'vue-ts-mode)
+			  (not (derived-mode-p 'json-mode)))))
+  )
+ (setq
+  lsp-clients-typescript-prefer-use-project-ts-server t
+  lsp-clients-typescript-plugins
+  (vector
+   (list
+    :name "@vue/typescript-plugin"
+    :location ""
+    :languages (vector "vue")
+    ))))
+
+(use-package flymake-eslint
+  :ensure t
+  :custom
+  (flymake-eslint-executable-name "eslint_d")
+  :config
+  (add-hook 'vue-ts-mode-hook #'flymake-eslint-enable)
+  (add-hook 'typescript-ts-mode-hook #'flymake-eslint-enable)
+  (add-hook 'tsx-ts-mode-hook #'flymake-eslint-enable)
+  )
+
+;(after! apheleia
+;  (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
+;  (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
+;  (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
+;  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
+;  )
+
+(use-package lsp-tailwindcss
+  :ensure t
+  :init (setq lsp-tailwindcss-add-on-mode t)
+  :config
+  (dolist (tw-major-mode
+           '(css-mode
+             css-ts-mode
+             typescript-mode
+             typescript-ts-mode
+             tsx-ts-mode
+             js2-mode
+             js-ts-mode
+             clojure-mode
+             vue-ts-mode
+             vue-mode))
+    (add-to-list 'lsp-tailwindcss-major-modes tw-major-mode)))
 
 ;; (with-eval-after-load 'eglot
 ;;   (put 'vue-ts-mode 'eglot-language-id "vue")
