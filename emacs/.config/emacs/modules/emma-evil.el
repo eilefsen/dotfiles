@@ -52,6 +52,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+  (evil-define-key 'motion 'global (kbd "K") #'eldoc-doc-buffer)
 
   ;;; Leader
   (evil-set-leader 'normal (kbd "SPC") nil)
