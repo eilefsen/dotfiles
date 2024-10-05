@@ -30,5 +30,7 @@
   :load-path "modules/emma-lang/langs")
 (use-package emma-lang-typescript
   :load-path "modules/emma-lang/langs")
+(use-package emma-lang-c
+  :load-path "modules/emma-lang/langs")
 
 (provide 'emma-lang)
