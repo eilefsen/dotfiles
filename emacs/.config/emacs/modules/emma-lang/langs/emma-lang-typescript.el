@@ -1,4 +1,5 @@
 (use-package vue-ts-mode
+  :mode "\\.vue\\'"
   :vc (:url "https://github.com/theschmocker/vue-ts-mode" :rev :newest)
   :config
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
@@ -27,16 +28,15 @@
   (add-hook 'tsx-ts-mode-hook #'lsp)
   )
 
-(defun set-lsp-activation-fn! (client fn)
-  "Change the activation function of lsp CLIENT."
-  (if-let (client (gethash client lsp-clients))
-      (setf (lsp--client-activation-fn client)
-            fn)
-    (error "No LSP client named %S" client)))
-
 
 (use-package lsp-javascript
   :config
+  (defun set-lsp-activation-fn! (client fn)
+	"Change the activation function of lsp CLIENT."
+	(if-let (client (gethash client lsp-clients))
+		(setf (lsp--client-activation-fn client)
+			  fn)
+	  (error "No LSP client named %S" client)))
   (set-lsp-activation-fn!
    'ts-ls
    (lambda (filename &optional _)
@@ -110,4 +110,4 @@
 ;;                `(vue-ts-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options)))))
 
 
-(provide 'emma-lang-vue)
+(provide 'emma-lang-typescript)
