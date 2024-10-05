@@ -13,10 +13,6 @@
 
   :commands (lsp lsp-deferred))
 
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-  (define-key lsp-mode-map (kbd "<mouse-3>") nil))
-
 (use-package xref)
 
 (use-package eldoc

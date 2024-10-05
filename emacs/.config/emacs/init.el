@@ -73,3 +73,18 @@
 
 (use-package config :load-path "modules")
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("f019002925408f081e767c515e4fb4b1d7f1462228d6cd32ff66f06a43671527"
+	 default))
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#ffb01f"))))

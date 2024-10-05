@@ -43,17 +43,23 @@
 	 "Check if the js-ts lsp server should be enabled based on FILENAME."
 	 (or (string-match-p "\\.vue\\|\\.[cm]js\\|\\.[jt]sx?\\'" filename)
 		 (and (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode 'vue-ts-mode)
-			  (not (derived-mode-p 'json-mode)))))
-  )
- (setq
-  lsp-clients-typescript-prefer-use-project-ts-server t
-  lsp-clients-typescript-plugins
-  (vector
-   (list
-    :name "@vue/typescript-plugin"
-    :location ""
-    :languages (vector "vue")
-    ))))
+			  (not (derived-mode-p 'json-mode))))))
+  (defun emma/set-typescript-lsp-faces ()
+	(setq-default lsp-semantic-token-modifier-faces
+				  (cons '("readonly" . emma/lsp-face-semh-modifier-readonly)
+						(assoc-delete-all "readonly" lsp-semantic-token-modifier-faces))))
+  (add-hook 'lsp-mode-hook #'emma/set-typescript-lsp-faces)
+
+  
+   (setq
+	lsp-clients-typescript-prefer-use-project-ts-server t
+	lsp-clients-typescript-plugins
+	(vector
+	 (list
+	  :name "@vue/typescript-plugin"
+	  :location ""
+	  :languages (vector "vue")
+	  ))))
 
 (use-package flymake-eslint
   :ensure t
@@ -62,8 +68,7 @@
   :config
   (add-hook 'vue-ts-mode-hook #'flymake-eslint-enable)
   (add-hook 'typescript-ts-mode-hook #'flymake-eslint-enable)
-  (add-hook 'tsx-ts-mode-hook #'flymake-eslint-enable)
-  )
+  (add-hook 'tsx-ts-mode-hook #'flymake-eslint-enable))
 
 ;(after! apheleia
 ;  (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))

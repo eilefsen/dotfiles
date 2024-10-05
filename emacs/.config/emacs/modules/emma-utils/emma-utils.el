@@ -8,6 +8,8 @@
   :load-path "modules/emma-utils")
 (use-package emma-utils-git
   :load-path "modules/emma-utils")
+(use-package emma-utils-color
+  :load-path "modules/emma-utils")
 
 
 

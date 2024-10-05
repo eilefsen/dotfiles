@@ -12,17 +12,50 @@
 
 ;; theme
 
-(use-package ef-themes
-  :ensure t)
+(defface emma/lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
+(defface emma/lsp-face-semh-modifier-readonly '((t)) "Face for LSP semantic token modifier Declaration")
 
-(defun my/apply-theme (appearance)
+(use-package ef-themes
+  :ensure t
+  :config
+  (setq ef-symbiosis-palette-overrides '((yellow "#FFCA6A")
+					 (yellow-warmer "#FBB086")
+					 (green-cooler "#94E596")
+					 (red "#FF6461")
+					 (bg-main "#23272d")
+					 ))
+  (defun emma/ef-themes-custom-faces ()
+	"Emma' customizations on top of the Ef themes.
+This function is added to the `ef-themes-post-load-hook'."
+	(ef-themes-with-colors
+	  (custom-set-faces
+	   `(font-lock-constant-face ((,c :foreground ,yellow-warmer)))
+	   `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
+	   `(lsp-face-semhl-constant ((,c :foreground nil)))
+	   `(lsp-face-semhl-interface ((,c :foreground nil)))
+	   `(font-lock-type-face ((,c :foreground ,yellow)))
+	   `(font-lock-variable-name-face ((,c :foreground ,yellow-warmer)))
+	   `(font-lock-property-name-face ((,c :foreground ,red)))
+	   `(lsp-face-semhl-property ((,c :foreground ,red-warmer)))
+	   `(font-lock-preprocessor-face ((,c :foreground ,magenta-cooler)))
+	   `(font-lock-builtin-face ((,c :foreground ,magenta-cooler)))
+	   `(font-lock-keyword-face ((,c :foreground ,magenta-warmer)))
+	   `(font-lock-string-face ((,c :foreground ,green-cooler)))
+	   `(font-lock-function-name-face ((,c :foreground ,blue)))
+	   ;; `(emma/lsp-face-semh-modifier-readonly ((,c :foreground ,yellow-warmer)))
+	   )))
+  (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces))
+
+
+
+(defun emma/apply-theme (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
   (mapc #'disable-theme custom-enabled-themes)
   (pcase appearance
-    ('light (load-theme 'ef-summer t))
-    ('dark (load-theme 'ef-symbiosis t))))
+    ('light (ef-themes-select 'ef-summer))
+    ('dark (ef-themes-select 'ef-symbiosis))))
 
-(add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
+(add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
 
 ;; indentation / tabs
 
