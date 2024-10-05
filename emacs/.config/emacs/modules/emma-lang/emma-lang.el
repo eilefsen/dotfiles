@@ -14,6 +14,17 @@
   :ensure t
   :hook ((prog-mode . rainbow-delimiters-mode)))
 
+(use-package flymake
+  :after flymake
+  :config
+  (defun emma/flymake--get-diagnostic-at-point-text ()
+	"Get the flymake diagnostic text for the thing at point."
+	(flymake--diag-text (get-char-property (point) 'flymake-diagnostic)))
+  (defun emma/flymake-diagnostic-at-point ()
+	(interactive)
+	(emma/open-buffer-with "*diagnostic*" 'special-mode (emma/flymake--get-diagnostic-at-point-text)))
+  (define-key language-prefix-map (kbd "f") #'emma/flymake-diagnostic-at-point))
+
 ;; langs
 (use-package emma-lang-elisp
   :load-path "modules/emma-lang/langs")

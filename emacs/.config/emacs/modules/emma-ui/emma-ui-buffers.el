@@ -16,6 +16,10 @@
 			   '("\\*eldoc.\*"
 				 (popper-select-popup-at-bottom)
 				 (window-height . fit-window-to-buffer)))
+  (add-to-list 'display-buffer-alist
+			   '("\\*diagnostic.\*"
+				 (popper-select-popup-at-bottom)
+				 (window-height . fit-window-to-buffer)))
   :custom
   (popper-reference-buffers '("\\*Messages\\*"
                               "Output\\*$"
@@ -34,6 +38,7 @@
 							  "^\\*shell.*\\*$"  shell-mode  
 							  "^\\*term.*\\*$"   term-mode   
 							  "^\\*vterm.*\\*$"  vterm-mode
+							  "\\*diagnostic\\*"
 							  haskell-compilation-mode
                               compilation-mode
                               bqn-inferior-mode)))
