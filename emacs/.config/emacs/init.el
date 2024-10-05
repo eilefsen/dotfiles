@@ -15,8 +15,7 @@
 	`(("." . ,backup-files-directory))))
 ;; same as above, but with autosave
 (let ((save-files-directory
-       (file-name-concat emma-cache-directory
-                         "autosave/")))
+       (file-name-concat emma-cache-directory "autosave/")))
   (make-directory save-files-directory :parents)
   (setq auto-save-file-name-transforms
 	`(("\\(?:[^/]*/\\)*\\(.*\\)" ,save-files-directory t))))
@@ -28,7 +27,7 @@
       delete-by-moving-to-trash t
       kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
       kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
-      auto-save-default t               ; auto-save every buffer that visits a file
+      auto-save-default nil               ; auto-save every buffer that visits a file
       auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       create-lockfiles nil              ; disable annoying lockfiles (starting with ".#"
@@ -56,8 +55,16 @@
 ;; lsp needs lots of memory
 (setq read-process-output-max (* 1024 1024)) ; 1mb
 
-(setq echo-keystrokes 0.1)
+(setq echo-keystrokes 0.01)
 
+(defun emma/open-buffer-with (name mode txt)
+  "create a new buffer with name, of mode, insert txt"
+  (pop-to-buffer (get-buffer-create name))
+  (with-current-buffer name
+	(read-only-mode -1)
+	(erase-buffer)
+	(insert txt)
+	(funcall mode)))
 
 (use-package emma-evil :load-path "modules")
 (use-package emma-ui :load-path "modules/emma-ui")
@@ -65,3 +72,4 @@
 (use-package emma-lang :load-path "modules/emma-lang")
 
 (use-package config :load-path "modules")
+
