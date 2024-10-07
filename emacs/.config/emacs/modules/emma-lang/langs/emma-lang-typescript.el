@@ -21,6 +21,25 @@
   :mode (("\\.ts\\'" . typescript-ts-mode))
   :config
   (add-hook 'typescript-ts-mode-hook #'lsp)
+  (defvar emma/ts-font-lock-settings
+	(treesit-font-lock-rules
+	 :language 'typescript
+	 :feature 'nullish
+	 :override t
+     `([(undefined) (null)] @font-lock-keyword-face)
+
+	 :language 'typescript
+	 :feature 'constant
+	 :override t
+     `([(false) (true)] @font-lock-constant-face)
+
+	 ))
+
+  (add-hook 'typescript-ts-mode-hook
+			(lambda ()
+			  (setf (nth 1 treesit-font-lock-feature-list) (append (nth 1 treesit-font-lock-feature-list) '(nullish)))
+			  (treesit-font-lock-recompute-features '(nullish))
+			  (treesit-add-font-lock-rules emma/ts-font-lock-settings :before nil)))
   )
 (use-package tsx-ts-mode
   :mode (("\\.tsx\\'" . tsx-ts-mode))
