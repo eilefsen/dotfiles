@@ -18,12 +18,14 @@
 (use-package ef-themes
   :ensure t
   :config
-  (setq ef-symbiosis-palette-overrides '((yellow "#FFCA6A")
-					 (yellow-warmer "#FFA070")
-					 (green-cooler "#94E596")
-					 (red "#FF6461")
-					 (bg-main "#23272d")
-					 ))
+  (setq ef-symbiosis-palette-overrides
+		'((yellow "#FFCA6A")
+		  (yellow-warmer "#FFA050")
+		  (yellow-cooler "#FFE8BF")
+		  (green-cooler "#94E596")
+		  (red "#FF6461")
+		  (bg-main "#23272d")
+		  ))
   (defun emma/ef-themes-custom-faces ()
 	"Emma' customizations on top of the Ef themes.
 This function is added to the `ef-themes-post-load-hook'."
@@ -31,12 +33,13 @@ This function is added to the `ef-themes-post-load-hook'."
 	  (custom-set-faces
 	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler)))
 	   `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
-	   `(lsp-face-semhl-constant ((,c :foreground nil)))
+	   `(lsp-face-semhl-constant ((,c :foreground ,yellow-warmer)))
 	   `(lsp-face-semhl-interface ((,c :foreground nil)))
-	   `(font-lock-type-face ((,c :foreground ,yellow)))
-	   `(font-lock-variable-name-face ((,c :foreground ,yellow-warmer)))
+	   `(font-lock-type-face ((,c :foreground ,yellow :inherit 'bold)))
+	   `(font-lock-variable-name-face ((,c :foreground ,yellow-cooler)))
 	   `(font-lock-property-name-face ((,c :foreground ,red)))
-	   `(lsp-face-semhl-property ((,c :foreground ,red-warmer)))
+	   `(lsp-face-semhl-property ((,c :foreground ,red)))
+	   `(lsp-face-semhl-member ((,c :foreground ,red-faint)))
 	   `(font-lock-preprocessor-face ((,c :foreground ,magenta-cooler)))
 	   `(font-lock-builtin-face ((,c :foreground ,magenta-cooler)))
 	   `(font-lock-keyword-face ((,c :foreground ,magenta-warmer)))
@@ -88,6 +91,7 @@ This function is added to the `ef-themes-post-load-hook'."
 ;;; Pet Peeves
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; replace yes or no prompts with y or n
+(setq scroll-conservatively most-positive-fixnum)
 
 ;;; nice to haves
 

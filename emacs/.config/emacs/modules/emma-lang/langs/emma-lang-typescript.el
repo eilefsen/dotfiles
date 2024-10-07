@@ -1,3 +1,19 @@
+(defun emma/apply-typescript-font-lock-rules ()
+  (setf (nth 1 treesit-font-lock-feature-list) (append (nth 1 treesit-font-lock-feature-list) '(nullish)))
+  (treesit-font-lock-recompute-features '(nullish))
+  (treesit-add-font-lock-rules (treesit-font-lock-rules
+								:language 'typescript
+								:feature 'nullish
+								:override t
+								`([(undefined) (null)] @font-lock-keyword-face)
+
+								:language 'typescript
+								:feature 'constant
+								:override t
+								`([(false) (true)] @font-lock-constant-face)
+
+								) :before nil))
+
 (use-package vue-ts-mode
   :mode "\\.vue\\'"
   :vc (:url "https://github.com/theschmocker/vue-ts-mode" :rev :newest)
@@ -5,6 +21,7 @@
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
   ;; (add-hook 'vue-ts-mode-hook #'eglot-ensure)
   (add-hook 'vue-ts-mode-hook #'lsp)
+  (add-hook 'vue-ts-mode-hook #'emma/apply-typescript-font-lock-rules)
   )
 
 (use-package lsp-vue
@@ -21,25 +38,7 @@
   :mode (("\\.ts\\'" . typescript-ts-mode))
   :config
   (add-hook 'typescript-ts-mode-hook #'lsp)
-  (defvar emma/ts-font-lock-settings
-	(treesit-font-lock-rules
-	 :language 'typescript
-	 :feature 'nullish
-	 :override t
-     `([(undefined) (null)] @font-lock-keyword-face)
-
-	 :language 'typescript
-	 :feature 'constant
-	 :override t
-     `([(false) (true)] @font-lock-constant-face)
-
-	 ))
-
-  (add-hook 'typescript-ts-mode-hook
-			(lambda ()
-			  (setf (nth 1 treesit-font-lock-feature-list) (append (nth 1 treesit-font-lock-feature-list) '(nullish)))
-			  (treesit-font-lock-recompute-features '(nullish))
-			  (treesit-add-font-lock-rules emma/ts-font-lock-settings :before nil)))
+  (add-hook 'typescript-ts-mode-hook #'emma/apply-typescript-font-lock-rules)
   )
 (use-package tsx-ts-mode
   :mode (("\\.tsx\\'" . tsx-ts-mode))
