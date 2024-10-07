@@ -124,6 +124,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :ensure t
   :custom
   (evil-collection-magit-use-z-for-folds t)
+  (evil-collection-magit-want-horizontal-movement t)
   :config
   (setq evil-collection-mode-list (delq 'vterm evil-collection-mode-list))
   (evil-collection-init))

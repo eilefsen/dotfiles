@@ -5,10 +5,6 @@
   (popper-echo-mode +1)
   (define-key global-map (kbd "C-c p") '("Toggle popup" . popper-toggle))
   (add-to-list 'display-buffer-alist
-			   '("magit:.\*"
-				 (popper-select-popup-at-bottom)
-				 (window-height . 20)))
-  (add-to-list 'display-buffer-alist
 			   '("\\*helpful.\*"
 				 (popper-select-popup-at-bottom)
 				 (window-height . 20)))
@@ -27,7 +23,6 @@
                               help-mode
                               helpful-mode
                               prodigy-mode
-                              "magit:.\*"
                               "\\*deadgrep.\*"
                               "\\*eldoc.\*"
                               "\\*xref\\*"
