@@ -52,12 +52,13 @@
 
   
    (setq
-	lsp-clients-typescript-prefer-use-project-ts-server t
+	lsp-clients-typescript-prefer-use-project-ts-server nil
 	lsp-clients-typescript-plugins
 	(vector
 	 (list
 	  :name "@vue/typescript-plugin"
-	  :location ""
+	  :location "/usr/local/lib/node_modules/"
+	  :enableForWorkspaceTypeScriptVersions t
 	  :languages (vector "vue")
 	  ))))
 
