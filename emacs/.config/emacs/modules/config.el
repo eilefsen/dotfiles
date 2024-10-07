@@ -55,7 +55,10 @@ This function is added to the `ef-themes-post-load-hook'."
     ('light (ef-themes-select 'ef-summer))
     ('dark (ef-themes-select 'ef-symbiosis))))
 
-(add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
+(if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
+	(add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
+  (ef-themes-select 'ef-symbiosis)
+  )
 
 ;; indentation / tabs
 
