@@ -26,10 +26,11 @@
         ;; It's infuriating that innocuous "beginning of line" or "end of line"
         ;; errors will abort macros, so suppress them:
         evil-kbd-macro-suppress-motion-error t)
+  :custom
+  (evil-undo-system 'undo-redo)
   :config
   (evil-mode 1)
 
-  (setq evil-undo-system 'undo-redo)
 
 
   ;; Dont update the clipboard on selection. Improves performance and compatiblity
