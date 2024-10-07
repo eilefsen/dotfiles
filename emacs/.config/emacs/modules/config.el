@@ -19,7 +19,7 @@
   :ensure t
   :config
   (setq ef-symbiosis-palette-overrides '((yellow "#FFCA6A")
-					 (yellow-warmer "#FBB086")
+					 (yellow-warmer "#FFA070")
 					 (green-cooler "#94E596")
 					 (red "#FF6461")
 					 (bg-main "#23272d")
@@ -29,7 +29,7 @@
 This function is added to the `ef-themes-post-load-hook'."
 	(ef-themes-with-colors
 	  (custom-set-faces
-	   `(font-lock-constant-face ((,c :foreground ,yellow-warmer)))
+	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler)))
 	   `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
 	   `(lsp-face-semhl-constant ((,c :foreground nil)))
 	   `(lsp-face-semhl-interface ((,c :foreground nil)))
