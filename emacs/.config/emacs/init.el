@@ -3,7 +3,6 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-
 ;; theme
 
 (defface emma/lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
@@ -12,15 +11,19 @@
 (use-package ef-themes
   :ensure t
   :config
-  (setq ef-symbiosis-palette-overrides
-		'((yellow "#FFCA6A")
-		  (yellow-warmer "#FFA050")
-		  (yellow-cooler "#FFE8BF")
-		  (green-cooler "#94E596")
-		  (red "#FF6461")
-		  (bg-main "#23272d")
-		  (bg-inactive "#272C33")
-		  ))
+
+  (ef-themes-with-colors
+	(setq ef-symbiosis-palette-overrides
+		  `((yellow "#FFCA6A")
+			(yellow-warmer "#FFA050")
+			(yellow-cooler "#FFE8BF")
+			(green-cooler "#94E596")
+			(red "#FF6461")
+			(bg-main "#23272d")
+			(bg-inactive "#272C33")
+			(bg-mode-line "#163659")
+			(bg-alt "#0C1E33")
+			)))
 
   (defun emma/ef-themes-custom-faces ()
 	"Emma' customizations on top of the Ef themes.
@@ -48,7 +51,7 @@ This function is added to the `ef-themes-post-load-hook'."
 	"Load theme, taking current system APPEARANCE into consideration."
 	(mapc #'disable-theme custom-enabled-themes)
 	(pcase appearance
-	  ('light (ef-themes-select 'ef-summer))
+	  ('light (ef-themes-select 'ef-symbiosis)) ;; use dark theme for both, but can be changed easily
 	  ('dark (ef-themes-select 'ef-symbiosis))))
   (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
 	  (add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
@@ -62,13 +65,13 @@ This function is added to the `ef-themes-post-load-hook'."
   (make-directory backup-files-directory :parents)
 
   (setq backup-directory-alist
-	`(("." . ,backup-files-directory))))
+		`(("." . ,backup-files-directory))))
 ;; same as above, but with autosave
 (let ((save-files-directory
        (file-name-concat emma-cache-directory "autosave/")))
   (make-directory save-files-directory :parents)
   (setq auto-save-file-name-transforms
-	`(("\\(?:[^/]*/\\)*\\(.*\\)" ,save-files-directory t))))
+		`(("\\(?:[^/]*/\\)*\\(.*\\)" ,save-files-directory t))))
 
 (setq make-backup-files t               ; backup of a file the first time it is saved.
       backup-by-copying t               ; don't clobber symlinks
@@ -154,28 +157,23 @@ This function is added to the `ef-themes-post-load-hook'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(apheleia auto-dark corfu dashboard ef-themes embark-consult esup
-			  evil-collection evil-commentary flymake-eslint helpful
-			  kurecolor lsp-tailwindcss magit marginalia mood-line
-			  orderless popper rainbow-delimiters undo-fu
-			  undo-fu-session vertico vterm vue-ts-mode))
+ '(package-selected-packages nil)
  '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
- '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
- '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#3f95f6")))
- '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#e580ea")))
- '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
- '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#FF6461")))
- '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#94E596")))
- '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#FFCA6A" :inherit 'bold)))
- '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#FFE8BF")))
- '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#FFA050")))
- '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
- '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
- '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))
+ '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
+ '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
+ '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#375ce6")))
+ '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#cb1aaa")))
+ '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
+ '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#d3303a")))
+ '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#007f68")))
+ '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#a45f22" :inherit 'bold)))
+ '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#b65050")))
+ '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#b6532f")))
+ '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#b6532f")))
+ '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#c24552")))
+ '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#d3303a"))))
