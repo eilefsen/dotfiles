@@ -1,4 +1,5 @@
 (use-package treesit
+  :defer t
   :custom
   (treesit-font-lock-level 4)
   :config

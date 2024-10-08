@@ -1,5 +1,6 @@
 (use-package lsp-mode
   :ensure t
+  :defer t
   :custom
   (lsp-completion-provider :none)
   (lsp-keymap-prefix "C-c l")
@@ -10,7 +11,7 @@
   (lsp-semantic-tokens-enable t)
   (lsp-enable-xref t)                   ; Use xref to find references
   (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-  ;; (lsp-eldoc-render-all t)
+  (lsp-eldoc-render-all t)
   (lsp-enable-imenu t)
 
   (lsp-enable-suggest-server-download t)
@@ -40,6 +41,7 @@
 (use-package xref)
 
 (use-package eldoc
+  :defer 2
   :custom
   (eldoc-echo-area-prefer-doc-buffer t)
   :config
@@ -50,6 +52,7 @@
 
 ;; provides syntax highlighting in eldoc output
 (use-package markdown-mode
+  :defer 2
   :ensure t
   :config
   (setq markdown-fontify-code-blocks-natively t))

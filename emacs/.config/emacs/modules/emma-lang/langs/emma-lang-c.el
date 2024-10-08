@@ -1,9 +1,11 @@
 (use-package c-ts-mode
+  :defer t
   :mode (("\\.c\\'" . c-ts-mode))
   :config
   (add-hook 'c-ts-mode-hook #'lsp))
 
 (use-package lsp-clangd
+  :defer t
   :config
   (setq
    lsp-clients-clangd-args

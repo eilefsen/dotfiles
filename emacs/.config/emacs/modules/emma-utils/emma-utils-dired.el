@@ -1,5 +1,6 @@
 (use-package dired
   :commands dired-jump
+  :defer t
   :init
   (setq
    ;; do what i mean :)

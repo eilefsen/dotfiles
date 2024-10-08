@@ -31,6 +31,11 @@
   :config
   (evil-mode 1)
 
+  ;; disable superfluous window mappings
+  (define-key evil-window-map (kbd "C-h" ) nil)
+  (define-key evil-window-map (kbd "C-j" ) nil)
+  (define-key evil-window-map (kbd "C-k" ) nil)
+  (define-key evil-window-map (kbd "C-l" ) nil)
 
 
   ;; Dont update the clipboard on selection. Improves performance and compatiblity
@@ -74,12 +79,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (define-key file-prefix-map (kbd "r") '("Recent file" . recentf))
   (define-key file-prefix-map (kbd "f") '("Find file" . find-file))
 
+  ;; project
+  (evil-define-key 'normal 'global (kbd "<leader>p") `("help" . ,project-prefix-map))
+
   ;; terminal
   (setq terminal-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>t") `("terminal" . ,terminal-prefix-map))
 
   ;; help
   (evil-define-key 'normal 'global (kbd "<leader>h") `("help" . ,help-map))
+
 
   ;; language
   (setq language-prefix-map (make-sparse-keymap))
@@ -131,6 +140,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package evil-commentary
   :after evil
+  :defer t
   :ensure t
   :init
   (evil-commentary-mode))

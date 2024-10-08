@@ -8,20 +8,19 @@
 
 ;;; optimize startup 
 ;;
-;; increase gc threshold to speedup starting up
+;; Make startup faster by reducing the frequency of garbage
+;; collection.  The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-percentage 0.6
-      gc-cons-threshold most-positive-fixnum)
+      gc-cons-threshold (* 50 1000 1000))
 
 ;; Decrease garbage collection threshold after startup for better interactive performance
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 8 1024 1024))))
 
-(run-with-idle-timer 4 nil
-                     (lambda ()
-                       (setq gc-cons-threshold  67108864) ; 64M
-                       (setq gc-cons-percentage 0.1) ; original value
-                       (garbage-collect)))
+;; lsp needs lots of memory
+(setq read-process-output-max (* 1024 1024)) ; 1mb
+
 (setq inhibit-startup-message t)
 
 ;; no menu bar, toolbar, scroll bar
@@ -34,8 +33,8 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (tooltip-mode -1))
-
-
+  (tooltip-mode -1)
+  )
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
 
 (setq native-comp-async-report-warnings-errors 'silent)

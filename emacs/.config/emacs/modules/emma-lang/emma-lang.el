@@ -6,16 +6,15 @@
   :load-path "modules/emma-lang")
 
 (use-package paren
-  :ensure t
+  :defer t
   :config (show-paren-mode)
-  :custom (show-paren-style 'expression))
+  :custom (show-paren-style 'parenthesis))
 
 (use-package rainbow-delimiters
   :ensure t
   :hook ((prog-mode . rainbow-delimiters-mode)))
 
 (use-package flymake
-  :after flymake
   :config
   (defun emma/flymake--get-diagnostic-at-point-text ()
 	"Get the flymake diagnostic text for the thing at point."

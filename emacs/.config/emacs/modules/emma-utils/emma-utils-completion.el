@@ -1,7 +1,6 @@
 ;; Enable vertico
 (use-package vertico
   :ensure t
-  :after consult
   :custom
   (vertico-scroll-margin 0) ;; Different scroll margin
   (vertico-count 20) ;; Show more candidates
@@ -25,6 +24,7 @@
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :ensure t
+  :defer t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
@@ -34,10 +34,12 @@
 
 (use-package marginalia
   :ensure t
+  :defer t
   :config (marginalia-mode))
 
 (use-package consult
   :ensure t
+  :defer t
   :config
   (setq consult-buffer-sources
 		'(consult--source-modified-buffer
@@ -56,6 +58,7 @@
   (consult-customize
    consult-theme
    :preview-key (list "C-SPC" :debounce 0.5 'any))
+  :init
   (define-key global-map [remap bookmark-jump]                 #'consult-bookmark)
   (define-key global-map [remap evil-show-marks]               #'consult-mark)
   (define-key global-map [remap evil-show-jumps]               #'+vertico/jump-list)
@@ -76,12 +79,14 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
+  :defer 2
   :init
   (savehist-mode))
 
 (use-package corfu
   ;; Optional customizations
   :ensure t
+  :defer t
   :custom
   (corfu-quit-at-boundary t)
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'

@@ -1,10 +1,57 @@
 ;; install MELPA
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
+
+;; theme
+
+(defface emma/lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
+(defface emma/lsp-face-semh-modifier-readonly '((t)) "Face for LSP semantic token modifier Declaration")
+
+(use-package ef-themes
+  :ensure t
+  :config
+  (setq ef-symbiosis-palette-overrides
+		'((yellow "#FFCA6A")
+		  (yellow-warmer "#FFA050")
+		  (yellow-cooler "#FFE8BF")
+		  (green-cooler "#94E596")
+		  (red "#FF6461")
+		  (bg-main "#23272d")
+		  ))
+  (defun emma/apply-theme (appearance)
+	"Load theme, taking current system APPEARANCE into consideration."
+	(mapc #'disable-theme custom-enabled-themes)
+	(pcase appearance
+	  ('light (ef-themes-select 'ef-summer))
+	  ('dark (ef-themes-select 'ef-symbiosis))))
+  (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
+	  (add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
+	(ef-themes-select 'ef-symbiosis))
+
+  (defun emma/ef-themes-custom-faces ()
+	"Emma' customizations on top of the Ef themes.
+This function is added to the `ef-themes-post-load-hook'."
+	(ef-themes-with-colors
+	  (custom-set-faces
+	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler))) `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
+	   `(lsp-face-semhl-constant ((,c :foreground ,yellow-warmer)))
+	   `(lsp-face-semhl-interface ((,c :foreground nil)))
+	   `(font-lock-type-face ((,c :foreground ,yellow :inherit 'bold)))
+	   `(font-lock-variable-name-face ((,c :foreground ,yellow-cooler)))
+	   `(font-lock-property-name-face ((,c :foreground ,red)))
+	   `(lsp-face-semhl-property ((,c :foreground ,red)))
+	   `(lsp-face-semhl-member ((,c :foreground ,red-faint)))
+	   `(font-lock-preprocessor-face ((,c :foreground ,magenta-cooler)))
+	   `(font-lock-builtin-face ((,c :foreground ,magenta-cooler)))
+	   `(font-lock-keyword-face ((,c :foreground ,magenta-warmer)))
+	   `(font-lock-string-face ((,c :foreground ,green-cooler)))
+	   `(font-lock-function-name-face ((,c :foreground ,blue)))
+	   ;; `(emma/lsp-face-semh-modifier-readonly ((,c :foreground ,yellow-warmer)))
+	   )))
+  (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces))
+
 
 ;; set backup file directory, so backups are not dumped in current dir
 (let ((backup-files-directory
@@ -36,8 +83,6 @@
 (add-to-list 'desktop-locals-to-save 'buffer-undo-list)
 
 (setq enable-recursive-minibuffers t)
-(recentf-mode 1)
-(global-auto-revert-mode t)
 
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
@@ -52,9 +97,6 @@
       mouse-wheel-flip-direction t)
 (setq-default truncate-lines t)
 
-;; lsp needs lots of memory
-(setq read-process-output-max (* 1024 1024)) ; 1mb
-
 (setq echo-keystrokes 0.01)
 
 (defun emma/open-buffer-with (name mode txt)
@@ -66,12 +108,42 @@
 	(insert txt)
 	(funcall mode)))
 
+(use-package config :load-path "modules")
+
 (use-package emma-evil :load-path "modules")
 (use-package emma-ui :load-path "modules/emma-ui")
 (use-package emma-utils :load-path "modules/emma-utils")
 (use-package emma-lang :load-path "modules/emma-lang")
 
-(use-package config :load-path "modules")
+(use-package recentf
+  :defer 1
+  :config
+  (recentf-mode 1)
+  )
+(use-package autorevert
+  :defer 1
+  :config
+  (global-auto-revert-mode t)
+  )
+
+(use-package project
+  :config
+  (defvar monorepo-root-markers '("package.json" "tsconfig.json"))
+  (defun monorepo-try-find-project (dir)
+	(when (file-exists-p dir)
+      (let* ((root (seq-some (lambda (root-marker)
+                               (locate-dominating-file dir root-marker))
+							 monorepo-root-markers))
+			 (vc-backend (ignore-errors
+                           (vc-responsible-backend root))))
+		;; I require a vc-backend, otherwise things break
+		(when (and root vc-backend)
+          (list 'vc vc-backend root)))))
+  (setq project-find-functions '(monorepo-try-find-project
+								 project-try-vc)))
+
+(global-display-line-numbers-mode 1)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -81,10 +153,28 @@
  '(custom-safe-themes
    '("f019002925408f081e767c515e4fb4b1d7f1462228d6cd32ff66f06a43671527"
 	 default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(auto-dark corfu dashboard ef-themes embark-consult esup
+			   evil-collection evil-commentary flymake-eslint helpful
+			   kurecolor lsp-tailwindcss magit marginalia mood-line
+			   orderless popper rainbow-delimiters vertico vterm
+			   vue-ts-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#ffb01f"))))
+ '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#3f95f6")))
+ '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#e580ea")))
+ '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#FF6461")))
+ '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#94E596")))
+ '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#FFCA6A" :inherit 'bold)))
+ '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#FFE8BF")))
+ '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#FFA050")))
+ '(lsp-face-semhl-interface ((((class color) (min-colors 256)) :foreground nil)))
+ '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
+ '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
+ '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))

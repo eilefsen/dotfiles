@@ -12,6 +12,4 @@
   :load-path "modules/emma-utils")
 
 
-
-
 (provide 'emma-utils)

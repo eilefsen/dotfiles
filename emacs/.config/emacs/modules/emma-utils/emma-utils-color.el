@@ -1,5 +1,6 @@
 (use-package kurecolor
   :ensure t
+  :defer 2
   :config
 
   (setq kurecolor-prefix-map (make-sparse-keymap))
