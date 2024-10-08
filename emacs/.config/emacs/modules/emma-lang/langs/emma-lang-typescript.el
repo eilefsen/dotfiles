@@ -62,10 +62,13 @@
 	 (or (string-match-p "\\.vue\\|\\.[cm]js\\|\\.[jt]sx?\\'" filename)
 		 (and (derived-mode-p 'js-mode 'js-ts-mode 'typescript-mode 'typescript-ts-mode 'vue-ts-mode)
 			  (not (derived-mode-p 'json-mode))))))
-  (defun emma/set-typescript-lsp-faces ()
+  (defun emma/set-lsp-modifier-faces (facename face)
 	(setq-default lsp-semantic-token-modifier-faces
-				  (cons '("readonly" . emma/lsp-face-semh-modifier-readonly)
-						(assoc-delete-all "readonly" lsp-semantic-token-modifier-faces))))
+				  (cons `(,facename . ,face)
+						(assoc-delete-all facename lsp-semantic-token-modifier-faces))))
+  (defun emma/set-typescript-lsp-faces ()
+	(emma/set-lsp-modifier-faces "readonly" 'emma/lsp-face-semh-modifier-readonly)
+	(emma/set-lsp-modifier-faces "declaration" 'emma/lsp-face-semh-modifier-declaration))
   (add-hook 'lsp-mode-hook #'emma/set-typescript-lsp-faces)
 
   
@@ -90,12 +93,14 @@
   (add-hook 'typescript-ts-mode-hook #'flymake-eslint-enable)
   (add-hook 'tsx-ts-mode-hook #'flymake-eslint-enable))
 
-;(after! apheleia
-;  (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
-;  (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
-;  (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
-;  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
-;  )
+(use-package apheleia
+  :ensure t
+  :config
+  (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
+  (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
+  (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
+  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
+ )
 
 (use-package lsp-tailwindcss
   :ensure t

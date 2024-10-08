@@ -20,15 +20,6 @@
 		  (red "#FF6461")
 		  (bg-main "#23272d")
 		  ))
-  (defun emma/apply-theme (appearance)
-	"Load theme, taking current system APPEARANCE into consideration."
-	(mapc #'disable-theme custom-enabled-themes)
-	(pcase appearance
-	  ('light (ef-themes-select 'ef-summer))
-	  ('dark (ef-themes-select 'ef-symbiosis))))
-  (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
-	  (add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
-	(ef-themes-select 'ef-symbiosis))
 
   (defun emma/ef-themes-custom-faces ()
 	"Emma' customizations on top of the Ef themes.
@@ -37,7 +28,7 @@ This function is added to the `ef-themes-post-load-hook'."
 	  (custom-set-faces
 	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler))) `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
 	   `(lsp-face-semhl-constant ((,c :foreground ,yellow-warmer)))
-	   `(lsp-face-semhl-interface ((,c :foreground nil)))
+	   ;; `(lsp-face-semhl-interface ((,c :foreground nil)))
 	   `(font-lock-type-face ((,c :foreground ,yellow :inherit 'bold)))
 	   `(font-lock-variable-name-face ((,c :foreground ,yellow-cooler)))
 	   `(font-lock-property-name-face ((,c :foreground ,red)))
@@ -50,7 +41,18 @@ This function is added to the `ef-themes-post-load-hook'."
 	   `(font-lock-function-name-face ((,c :foreground ,blue)))
 	   ;; `(emma/lsp-face-semh-modifier-readonly ((,c :foreground ,yellow-warmer)))
 	   )))
-  (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces))
+  (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces)
+
+  (defun emma/apply-theme (appearance)
+	"Load theme, taking current system APPEARANCE into consideration."
+	(mapc #'disable-theme custom-enabled-themes)
+	(pcase appearance
+	  ('light (ef-themes-select 'ef-summer))
+	  ('dark (ef-themes-select 'ef-symbiosis))))
+  (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
+	  (add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
+	(mapc #'disable-theme custom-enabled-themes)
+	(ef-themes-select 'ef-symbiosis)))
 
 
 ;; set backup file directory, so backups are not dumped in current dir
@@ -118,12 +120,15 @@ This function is added to the `ef-themes-post-load-hook'."
 (use-package recentf
   :defer 1
   :config
-  (recentf-mode 1)
-  )
+  (recentf-mode 1))
 (use-package autorevert
   :defer 1
   :config
-  (global-auto-revert-mode t)
+  (global-auto-revert-mode t))
+(use-package ls-lisp
+  :config
+  (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+  (setq insert-directory-program "lsd") ;; ls program name
   )
 
 (use-package project
@@ -143,22 +148,18 @@ This function is added to the `ef-themes-post-load-hook'."
 								 project-try-vc)))
 
 (global-display-line-numbers-mode 1)
-
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("f019002925408f081e767c515e4fb4b1d7f1462228d6cd32ff66f06a43671527"
-	 default))
  '(package-selected-packages
-   '(auto-dark corfu dashboard ef-themes embark-consult esup
-			   evil-collection evil-commentary flymake-eslint helpful
-			   kurecolor lsp-tailwindcss magit marginalia mood-line
-			   orderless popper rainbow-delimiters vertico vterm
-			   vue-ts-mode)))
+   '(apheleia auto-dark corfu dashboard ef-themes embark-consult esup
+			  evil-collection evil-commentary flymake-eslint helpful
+			  kurecolor lsp-tailwindcss magit marginalia mood-line
+			  orderless popper rainbow-delimiters undo-fu
+			  undo-fu-session vertico vterm vue-ts-mode))
+ '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -174,7 +175,6 @@ This function is added to the `ef-themes-post-load-hook'."
  '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#FFCA6A" :inherit 'bold)))
  '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#FFE8BF")))
  '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#FFA050")))
- '(lsp-face-semhl-interface ((((class color) (min-colors 256)) :foreground nil)))
  '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
  '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
  '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))
