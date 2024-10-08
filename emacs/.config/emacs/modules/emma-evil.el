@@ -27,7 +27,7 @@
         ;; errors will abort macros, so suppress them:
         evil-kbd-macro-suppress-motion-error t)
   :custom
-  (evil-undo-system 'undo-redo)
+  (evil-undo-system 'undo-fu)
   :config
   (evil-mode 1)
 
@@ -144,5 +144,17 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :ensure t
   :init
   (evil-commentary-mode))
+
+(use-package undo-fu
+  :ensure t)
+
+(use-package undo-fu-session
+  :after undo-fu
+  :ensure t
+  :custom
+  (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  :config
+  (undo-fu-session-global-mode +1))
+
 
 (provide 'emma-evil)
