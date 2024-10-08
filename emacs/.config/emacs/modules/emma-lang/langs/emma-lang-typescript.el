@@ -100,6 +100,7 @@
   (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
+  (apheleia-global-mode +1)
  )
 
 (use-package lsp-tailwindcss
