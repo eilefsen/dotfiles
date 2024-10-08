@@ -19,6 +19,7 @@
 		  (green-cooler "#94E596")
 		  (red "#FF6461")
 		  (bg-main "#23272d")
+		  (bg-inactive "#272C33")
 		  ))
 
   (defun emma/ef-themes-custom-faces ()
