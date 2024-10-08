@@ -23,6 +23,8 @@
 			(bg-inactive "#272C33")
 			(bg-mode-line "#163659")
 			(bg-alt "#0C1E33")
+			(bg-dim "#1E2226")
+			(bg-active "#3B424C")
 			)))
 
   (defun emma/ef-themes-custom-faces ()
@@ -32,7 +34,6 @@ This function is added to the `ef-themes-post-load-hook'."
 	  (custom-set-faces
 	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler))) `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
 	   `(lsp-face-semhl-constant ((,c :foreground ,yellow-warmer)))
-	   ;; `(lsp-face-semhl-interface ((,c :foreground nil)))
 	   `(font-lock-type-face ((,c :foreground ,yellow :inherit 'bold)))
 	   `(font-lock-variable-name-face ((,c :foreground ,yellow-cooler)))
 	   `(font-lock-property-name-face ((,c :foreground ,red)))
@@ -43,7 +44,6 @@ This function is added to the `ef-themes-post-load-hook'."
 	   `(font-lock-keyword-face ((,c :foreground ,magenta-warmer)))
 	   `(font-lock-string-face ((,c :foreground ,green-cooler)))
 	   `(font-lock-function-name-face ((,c :foreground ,blue)))
-	   ;; `(emma/lsp-face-semh-modifier-readonly ((,c :foreground ,yellow-warmer)))
 	   )))
   (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces)
 
