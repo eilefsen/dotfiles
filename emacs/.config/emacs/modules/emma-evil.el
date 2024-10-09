@@ -9,23 +9,23 @@
 		evil-want-Y-yank-to-eol t)
   :preface
   (setq evil-ex-search-vim-style-regexp t
-        evil-ex-visual-char-range t  ; column range for ex commands
-        evil-mode-line-format 'nil
-        ;; more vim-like behavior
-        evil-symbol-word-search t
-        ;; if the current state is obvious from the cursor's color/shape, then
-        ;; we won't need superfluous indicators to do it instead.
-        evil-default-cursor '+evil-default-cursor-fn
-        evil-normal-state-cursor 'box
-        evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
-        evil-insert-state-cursor 'bar
-        evil-visual-state-cursor 'hollow
-        ;; Only do highlighting in selected window so that Emacs has less work
-        ;; to do highlighting them all.
-        evil-ex-interactive-search-highlight 'selected-window
-        ;; It's infuriating that innocuous "beginning of line" or "end of line"
-        ;; errors will abort macros, so suppress them:
-        evil-kbd-macro-suppress-motion-error t)
+		evil-ex-visual-char-range t  ; column range for ex commands
+		evil-mode-line-format 'nil
+		;; more vim-like behavior
+		evil-symbol-word-search t
+		;; if the current state is obvious from the cursor's color/shape, then
+		;; we won't need superfluous indicators to do it instead.
+		evil-default-cursor '+evil-default-cursor-fn
+		evil-normal-state-cursor 'box
+		evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
+		evil-insert-state-cursor 'bar
+		evil-visual-state-cursor 'hollow
+		;; Only do highlighting in selected window so that Emacs has less work
+		;; to do highlighting them all.
+		evil-ex-interactive-search-highlight 'selected-window
+		;; It's infuriating that innocuous "beginning of line" or "end of line"
+		;; errors will abort macros, so suppress them:
+		evil-kbd-macro-suppress-motion-error t)
   :custom
   (evil-undo-system 'undo-fu)
   :config
@@ -85,6 +85,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; terminal
   (setq terminal-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>t") `("terminal" . ,terminal-prefix-map))
+  (global-set-key (kbd "C-c t") `("terminal" . ,terminal-prefix-map))
 
   ;; help
   (evil-define-key 'normal 'global (kbd "<leader>h") `("help" . ,help-map))
@@ -98,6 +99,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (evil-define-key 'normal 'flymake-mode-map (kbd "]d") 'flymake-goto-next-error)
   (evil-define-key 'normal 'flymake-mode-map (kbd "[d") 'flymake-goto-prev-error)
 
+  ;; org
+  (setq org-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>o") `("org" . ,org-prefix-map))
+  (global-set-key (kbd "C-c o") `("org" . ,org-prefix-map))
+
+
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
     "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
@@ -105,26 +112,26 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :suppress-operator t
     (interactive
      (list (unless (and evil-this-macro defining-kbd-macro)
-	     (or evil-this-register (evil-read-key)))))
+			 (or evil-this-register (evil-read-key)))))
     (let (last-macro)
       (cond
        ((eq register ?\C-g)
-	(keyboard-quit))
+		(keyboard-quit))
        ((and evil-this-macro defining-kbd-macro)
-	(setq evil-macro-buffer nil
-	      last-macro (ignore-errors (evil-end-and-return-macro)))
-	(when last-macro
-	  (evil-set-register evil-this-macro last-macro))
-	(setq evil-this-macro nil))
+		(setq evil-macro-buffer nil
+			  last-macro (ignore-errors (evil-end-and-return-macro)))
+		(when last-macro
+		  (evil-set-register evil-this-macro last-macro))
+		(setq evil-this-macro nil))
        ((or (<= ?0 register ?9)
-	    (<= ?a register ?z)
-	    (<= ?A register ?Z))
-	(when defining-kbd-macro (end-kbd-macro))
-	(setq evil-this-macro register
-	      evil-last-recorded-register register)
-	(evil-set-register evil-this-macro nil)
-	(kmacro-start-macro nil)
-	(setq evil-macro-buffer (current-buffer)))
+			(<= ?a register ?z)
+			(<= ?A register ?Z))
+		(when defining-kbd-macro (end-kbd-macro))
+		(setq evil-this-macro register
+			  evil-last-recorded-register register)
+		(evil-set-register evil-this-macro nil)
+		(kmacro-start-macro nil)
+		(setq evil-macro-buffer (current-buffer)))
        (t (error "Invalid register `%s'" register)))))
   )
 

@@ -42,4 +42,5 @@
 ;; Enable clipboard integration with system
 (setq select-enable-clipboard t)
 
+
 (provide 'config)

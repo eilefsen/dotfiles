@@ -120,6 +120,8 @@ This function is added to the `ef-themes-post-load-hook'."
 (use-package emma-ui :load-path "modules/emma-ui")
 (use-package emma-utils :load-path "modules/emma-utils")
 (use-package emma-lang :load-path "modules/emma-lang")
+(use-package emma-org :load-path "modules")
+(use-package emma-fun :load-path "modules")
 
 (use-package recentf
   :defer 1
@@ -164,16 +166,16 @@ This function is added to the `ef-themes-post-load-hook'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
- '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
- '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#375ce6")))
- '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#cb1aaa")))
- '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#8e44f3")))
- '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#d3303a")))
- '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#007f68")))
- '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#a45f22" :inherit 'bold)))
- '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#b65050")))
- '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#b6532f")))
- '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#b6532f")))
- '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#c24552")))
- '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#d3303a"))))
+ '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#3f95f6")))
+ '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#e580ea")))
+ '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#FF6461")))
+ '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#94E596")))
+ '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#FFCA6A" :inherit 'bold)))
+ '(font-lock-variable-name-face ((((class color) (min-colors 256)) :foreground "#FFE8BF")))
+ '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#FFA050")))
+ '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
+ '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
+ '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))

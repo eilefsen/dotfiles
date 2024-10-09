@@ -8,7 +8,6 @@
   :config
   (add-to-list 'evil-emacs-state-modes 'vterm-mode)
   (define-key vterm-mode-map (kbd "<escape>") '("Exit vterm" . emma/close-terminal))
-  (define-key vterm-mode-map (kbd "C-c") `("terminal" . ,terminal-prefix-map))
   (defun turn-off-chrome ()
 	(hl-line-mode -1)
 	(display-line-numbers-mode -1))
