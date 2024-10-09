@@ -72,16 +72,16 @@
   (add-hook 'lsp-mode-hook #'emma/set-typescript-lsp-faces)
 
   
-   (setq
-	lsp-clients-typescript-prefer-use-project-ts-server t
-	lsp-clients-typescript-plugins
-	(vector
-	 (list
-	  :name "@vue/typescript-plugin"
-	  :location ""
-	  :enableForWorkspaceTypeScriptVersions t
-	  :languages (vector "vue")
-	  ))))
+  (setq
+   lsp-clients-typescript-prefer-use-project-ts-server t
+   lsp-clients-typescript-plugins
+   (vector
+	(list
+	 :name "@vue/typescript-plugin"
+	 :location ""
+	 :enableForWorkspaceTypeScriptVersions t
+	 :languages (vector "vue")
+	 ))))
 
 (use-package flymake-eslint
   :defer t
@@ -94,14 +94,11 @@
   (add-hook 'tsx-ts-mode-hook #'flymake-eslint-enable))
 
 (use-package apheleia
-  :ensure t
   :config
   (add-to-list 'apheleia-formatters '(eslint_d . ("eslint_d" "--fix-to-stdout" "--stdin" "--stdin-filename" filepath)))
   (add-to-list 'apheleia-mode-alist '(vue-ts-mode . eslint_d))
   (add-to-list 'apheleia-mode-alist '(typescript-ts-mode . eslint_d))
-  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d))
-  (apheleia-global-mode +1)
- )
+  (add-to-list 'apheleia-mode-alist '(tsx-ts-mode . eslint_d)))
 
 (use-package lsp-tailwindcss
   :ensure t

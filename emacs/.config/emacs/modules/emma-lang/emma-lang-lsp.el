@@ -32,9 +32,8 @@
   (lsp-modeline-code-actions-enable nil)
   (lsp-modeline-diagnostics-enable nil)
   :config
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  ;; (define-key global-map (kbd "C-c l") `("lsp" . ,lsp-mode-map))
   (define-key global-map (kbd "C-c l") `("lsp" . ,lsp-command-map))
+  (define-key code-prefix-map (kbd "a") '("Code Action" . lsp-execute-code-action))
 
   :commands (lsp lsp-deferred))
 
@@ -48,7 +47,7 @@
 
   (defun eldoc-display-in-echo-area 'ignore)
   (setq eldoc-idle-delay 0))
-  
+
 
 ;; provides syntax highlighting in eldoc output
 (use-package markdown-mode

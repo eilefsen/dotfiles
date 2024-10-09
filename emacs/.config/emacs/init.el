@@ -120,6 +120,7 @@ This function is added to the `ef-themes-post-load-hook'."
 (use-package emma-ui :load-path "modules/emma-ui")
 (use-package emma-utils :load-path "modules/emma-utils")
 (use-package emma-lang :load-path "modules/emma-lang")
+(use-package emma-format :load-path "modules")
 (use-package emma-org :load-path "modules")
 (use-package emma-fun :load-path "modules")
 

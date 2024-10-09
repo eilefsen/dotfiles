@@ -16,6 +16,10 @@
 			   '("\\*diagnostic.\*"
 				 (popper-select-popup-at-bottom)
 				 (window-height . fit-window-to-buffer)))
+  (add-to-list 'display-buffer-alist
+			   '("\\*2048.\*"
+				 (popper-select-popup-at-bottom)
+				 (window-height . fit-window-to-buffer)))
   :custom
   (popper-reference-buffers '("\\*Messages\\*"
                               "Output\\*$"
@@ -34,6 +38,7 @@
 							  "^\\*term.*\\*$"   term-mode   
 							  "^\\*vterm.*\\*$"  vterm-mode
 							  "\\*diagnostic\\*"
+							  "\\*2048.\*"
 							  haskell-compilation-mode
                               compilation-mode
                               bqn-inferior-mode)))

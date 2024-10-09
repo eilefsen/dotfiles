@@ -278,7 +278,8 @@ individually."
   
   (dotimes (i 2) (2048-spawn))
   
-  (switch-to-buffer "2048")
+  (switch-to-buffer "*2048*")
+  (erase-buffer)
   (local-set-key (kbd "<left>") '2048-shift-left)
   (local-set-key (kbd "<right>") '2048-shift-right)
   (local-set-key (kbd "<down>") '2048-shift-down)

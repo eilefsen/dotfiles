@@ -95,6 +95,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq language-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>l") `("language" . ,language-prefix-map))
 
+  ;; code
+  (setq code-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>c") `("code" . ,code-prefix-map))
+  (global-set-key (kbd "C-c c") `("code" . ,code-prefix-map))
+
   ;; flymake
   (evil-define-key 'normal 'flymake-mode-map (kbd "]d") 'flymake-goto-next-error)
   (evil-define-key 'normal 'flymake-mode-map (kbd "[d") 'flymake-goto-prev-error)
@@ -103,6 +108,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq org-prefix-map (make-sparse-keymap))
   (evil-define-key 'normal 'global (kbd "<leader>o") `("org" . ,org-prefix-map))
   (global-set-key (kbd "C-c o") `("org" . ,org-prefix-map))
+
+  ;; ui
+  (setq ui-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>u") `("ui" . ,ui-prefix-map))
+  (global-set-key (kbd "C-c u") `("ui" . ,ui-prefix-map))
 
 
   ;; Override record macro command to disable 
