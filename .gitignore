@@ -8,6 +8,7 @@
 .zsh_sessions/
 .zcompdump
 workaliases.zsh
+.project.el
 
 .DS_Store
 secrets.zsh

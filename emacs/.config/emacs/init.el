@@ -140,7 +140,7 @@ This function is added to the `ef-themes-post-load-hook'."
 
 (use-package project
   :config
-  (defvar monorepo-root-markers '("package.json" "tsconfig.json"))
+  (defvar monorepo-root-markers '("package.json" "tsconfig.json" ".project.el"))
   (defun monorepo-try-find-project (dir)
 	(when (file-exists-p dir)
       (let* ((root (seq-some (lambda (root-marker)
