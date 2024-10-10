@@ -132,11 +132,6 @@ This function is added to the `ef-themes-post-load-hook'."
   :defer 1
   :config
   (global-auto-revert-mode t))
-(use-package ls-lisp
-  :config
-  (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
-  (setq insert-directory-program "lsd") ;; ls program name
-  )
 
 (use-package project
   :config
@@ -161,6 +156,8 @@ This function is added to the `ef-themes-post-load-hook'."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages nil)
+ '(package-vc-selected-packages
+   '((vue-ts-mode :url "https://github.com/8uff3r/vue-ts-mode")))
  '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

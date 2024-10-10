@@ -13,7 +13,7 @@
   (define-key help-map (kbd "x") #'helpful-command)
   (define-key help-map (kbd "h") #'helpful-at-point)
 
-  (define-key global-map (kbd "C-h .") #'eldoc-doc-buffer)
+  (define-key global-map (kbd "C-h .") #'eldoc)
   )
 
 

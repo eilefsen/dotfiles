@@ -33,11 +33,8 @@
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; replace yes or no prompts with y or n
 (setq scroll-conservatively most-positive-fixnum)
+(electric-pair-mode -1)
 
-;;; nice to haves
-
-;; Enable electric-pair mode for automatic pairing of brackets and quotes
-(electric-pair-mode 1)
 
 ;; Enable clipboard integration with system
 (setq select-enable-clipboard t)

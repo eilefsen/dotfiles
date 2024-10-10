@@ -1,9 +1,9 @@
 (use-package emma-lang-treesit
   :load-path "modules/emma-lang")
-;; (use-package emma-lang-eglot
-;;   :load-path "modules/emma-lang")
-(use-package emma-lang-lsp
+(use-package emma-lang-eglot
   :load-path "modules/emma-lang")
+;; (use-package emma-lang-lsp
+;;   :load-path "modules/emma-lang")
 
 (use-package paren
   :defer t

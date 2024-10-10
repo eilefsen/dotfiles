@@ -49,6 +49,7 @@
 		'(consult--source-project-buffer
 		  consult--source-project-buffer-hidden))
   (add-to-list 'consult-buffer-filter "^\\*")
+  (add-to-list 'consult-buffer-filter "^\\magit:")
 
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
@@ -107,8 +108,8 @@
 
   ;; Enable Corfu only for certain modes. Global mode will not play nice with vertico
   :hook ((prog-mode . corfu-mode)
-	 (shell-mode . corfu-mode)
-	 (eshell-mode . corfu-mode)))
+		 (shell-mode . corfu-mode)
+		 (eshell-mode . corfu-mode)))
 
 
 (use-package marginalia
@@ -149,8 +150,8 @@
         '(read-only t cursor-intangible t face minibuffer-prompt))
 
   (setq read-file-name-completion-ignore-case t
-	read-buffer-completion-ignore-case t
-	completion-ignore-case t)
+		read-buffer-completion-ignore-case t
+		completion-ignore-case t)
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
 (provide 'emma-utils-completion)
