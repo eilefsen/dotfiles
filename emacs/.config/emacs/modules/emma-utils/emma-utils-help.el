@@ -17,4 +17,18 @@
   )
 
 
+(use-package devdocs
+  :ensure t
+  :bind (:map help-map
+			  ("d" . devdocs-lookup-at-point)
+			  ("D" . devdocs-lookup))
+  :custom
+  (devdocs-data-dir "~/.local/share/emacs/devdocs")
+  :config
+  (defun devdocs-lookup-at-point ()
+	(interactive)
+	(devdocs-lookup nil (thing-at-point 'symbol)))
+
+  )
+
 (provide 'emma-utils-help)
