@@ -149,16 +149,10 @@ This function is added to the `ef-themes-post-load-hook'."
   (setq project-find-functions '(monorepo-try-find-project
 								 project-try-vc)))
 
+(setq fit-window-to-buffer-horizontally t)
+
 (global-display-line-numbers-mode 1)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil)
- '(package-vc-selected-packages
-   '((vue-ts-mode :url "https://github.com/8uff3r/vue-ts-mode")))
- '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -177,3 +171,12 @@ This function is added to the `ef-themes-post-load-hook'."
  '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
  '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
  '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil)
+ '(package-vc-selected-packages
+   '((vue-ts-mode :url "https://github.com/8uff3r/vue-ts-mode")))
+ '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
