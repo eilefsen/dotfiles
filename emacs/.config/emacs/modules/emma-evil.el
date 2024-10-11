@@ -62,10 +62,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   ;;; Leader
   (evil-set-leader 'normal (kbd "SPC") nil)
+  (evil-define-key 'normal 'global (kbd "<leader>u") `("universal" . ,universal-argument-map))
 
   ;; buffer
   (setq buffer-prefix-map (make-sparse-keymap))
-  (evil-define-key 'normal 'global (kbd "<leader>u") `("universal" . ,universal-argument-map))
   (evil-define-key 'normal 'global (kbd "<leader>b") `("buffer" . ,buffer-prefix-map))
   (evil-define-key 'normal 'global (kbd "<leader>,") '("Switch bufffer" . switch-to-buffer))
   (define-key buffer-prefix-map (kbd "b") '("Switch buffer" . switch-to-buffer))
