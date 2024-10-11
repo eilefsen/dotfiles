@@ -25,6 +25,7 @@
 			(bg-alt "#0C1E33")
 			(bg-dim "#1E2226")
 			(bg-active "#3B424C")
+			(bg-region "#4F5866")
 			)))
 
   (defun emma/ef-themes-custom-faces ()
@@ -150,6 +151,15 @@ This function is added to the `ef-themes-post-load-hook'."
 								 project-try-vc)))
 
 (setq fit-window-to-buffer-horizontally t)
+
+;; turn off annoying bell
+(defun my-bell-function ()
+  (unless (memq this-command
+				'(isearch-abort abort-recursive-edit exit-minibuffer
+								keyboard-quit mwheel-scroll down up next-line previous-line
+								backward-char forward-char))
+    (ding)))
+(setq ring-bell-function 'my-bell-function)
 
 (global-display-line-numbers-mode 1)
 
