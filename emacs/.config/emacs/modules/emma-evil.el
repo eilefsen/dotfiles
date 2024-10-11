@@ -114,6 +114,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (evil-define-key 'normal 'global (kbd "<leader>u") `("ui" . ,ui-prefix-map))
   (global-set-key (kbd "C-c u") `("ui" . ,ui-prefix-map))
 
+  ;; git
+  (setq git-prefix-map (make-sparse-keymap))
+  (evil-define-key 'normal 'global (kbd "<leader>g") `("git" . ,git-prefix-map))
+  (global-set-key (kbd "C-c g") `("git" . ,git-prefix-map))
+
 
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
