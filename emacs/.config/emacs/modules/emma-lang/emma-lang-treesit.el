@@ -23,4 +23,11 @@
 		  (toml "https://github.com/tree-sitter/tree-sitter-toml")
 		  (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
 
+(use-package evil-textobj-tree-sitter
+  :ensure t
+  :config
+  (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+  (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+  )
+
 (provide 'emma-lang-treesit)
