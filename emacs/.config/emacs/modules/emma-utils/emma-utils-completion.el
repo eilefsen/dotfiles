@@ -30,8 +30,6 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
-
-
 (use-package marginalia
   :ensure t
   :defer t
@@ -51,14 +49,28 @@
   (add-to-list 'consult-buffer-filter "^\\*")
   (add-to-list 'consult-buffer-filter "^\\magit:")
 
+
+  (define-key minibuffer-local-map (kbd "C-SPC") #'my-embark-preview)
+  (defun my-embark-preview ()
+	"Previews candidate in vertico buffer, unless it's a consult command"
+	(interactive)
+	(unless (bound-and-true-p consult--preview-function)
+      (save-selected-window
+		(let ((embark-quit-after-action nil))
+          (embark-dwim)))))
+
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file
-   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
-   :preview-key "C-SPC")
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   :preview-key '(:debounce 0.4 any))
+
   (consult-customize
    consult-theme
    :preview-key (list "C-SPC" :debounce 0.5 'any))
+
+
   :init
   (define-key global-map [remap bookmark-jump]                 #'consult-bookmark)
   (define-key global-map [remap evil-show-marks]               #'consult-mark)
@@ -77,6 +89,47 @@
   (define-key global-map [remap yank-pop]                      #'consult-yank-pop)
   (define-key global-map [remap persp-switch-to-buffer]        #'+vertico/switch-workspace-buffer)
   )
+
+(use-package consult-xref
+  :after consult
+  :config
+  (defun consult-xref-without-jump (fetcher &optional alist)
+	"Show xrefs with preview in the minibuffer. Do not jump if only one candidate.
+
+This function can be used for `xref-show-xrefs-function'.
+See `xref-show-xrefs-function' for the description of the
+FETCHER and ALIST arguments."
+	(let* ((consult-xref--fetcher fetcher)
+           (candidates (consult-xref--candidates))
+           (display (alist-get 'display-action alist))
+           (this-command #'consult-xref))
+      (unless candidates
+		(user-error "No xref locations"))
+      (xref-pop-to-location
+       (consult--read
+		candidates
+		:prompt "Go to xref: "
+		:history 'consult-xref--history
+		:require-match t
+		:sort nil
+		:category 'consult-xref
+		:group #'consult--prefix-group
+		:state
+		;; do not preview other frame
+		(when-let (fun (pcase-exhaustive display
+						 ('frame nil)
+						 ('window #'switch-to-buffer-other-window)
+						 ('nil #'switch-to-buffer)))
+          (consult-xref--preview fun))
+		:lookup (apply-partially #'consult--lookup-prop 'consult-xref))
+       display)))
+
+  (consult-customize
+   consult-xref consult-xref-without-jump
+   :preview-key '(:debounce 0.4 any))
+  (setq xref-show-definitions-function 'consult-xref-without-jump)
+  (setq xref-show-xrefs-function 'consult-xref-without-jump))
+
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -117,7 +170,6 @@
   :config
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
-
 ;; A few more useful configurations...
 (use-package emacs
   :custom
@@ -138,11 +190,11 @@
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
   (defun crm-indicator (args)
     (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
+				  (replace-regexp-in-string
+				   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+				   crm-separator)
+				  (car args))
+		  (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
   ;; Do not allow the cursor in the minibuffer prompt
