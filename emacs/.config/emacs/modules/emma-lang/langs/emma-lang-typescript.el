@@ -20,32 +20,34 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-ts-mode))
   (add-hook 'vue-ts-mode-hook #'eglot-ensure)
-  (add-hook 'vue-ts-mode-hook #'emma/apply-typescript-font-lock-rules)
+  (add-hook 'vue-ts-mode-hook #'emma/apply-typescript-font-lock-rules))
 
-  (with-eval-after-load 'eglot
-	(defun emma/tsdk-path ()
-	  (expand-file-name "lib" (concat
-							   (string-trim-right
-								(shell-command-to-string "npm config get prefix"))
-							   "/lib/node_modules/typescript/")))
-	(defun vue-eglot-init-options ()
-      `(:vue (:hybridMode :json-false)
-			 :typescript (:tsdk ,(emma/tsdk-path)
-								:languageFeatures (:completion
-												   (:defaultTagNameCase "both"
-    																	:defaultAttrNameCase "kebabCase"
-    																	:getDocumentNameCasesRequest nil
-    																	:getDocumentSelectionRequest nil)
-												   :diagnostics
-												   (:getDocumentVersionRequest nil))
-								:documentFeatures (:documentFormatting
-												   (:defaultPrintWidth 100
-    																   :getDocumentPrintWidthRequest nil)
-												   :documentSymbol t
-												   :documentColor t))))
-	(add-to-list 'eglot-server-programs
-				 `(vue-ts-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options)))))
-  )
+(with-eval-after-load 'eglot
+  (defun emma/tsdk-path ()
+	(expand-file-name "lib" (concat
+							 (string-trim-right
+							  (shell-command-to-string "npm config get prefix"))
+							 "/lib/node_modules/typescript/")))
+  (defun vue-eglot-init-options ()
+    `(:vue (:hybridMode :json-false)
+		   :typescript (:tsdk ,(emma/tsdk-path)
+							  :languageFeatures (:completion
+												 (:defaultTagNameCase "both"
+    																  :defaultAttrNameCase "kebabCase"
+    																  :getDocumentNameCasesRequest nil
+    																  :getDocumentSelectionRequest nil)
+												 :diagnostics
+												 (:getDocumentVersionRequest nil))
+							  :documentFeatures (:documentFormatting
+												 (:defaultPrintWidth 100
+    																 :getDocumentPrintWidthRequest nil)
+												 :documentSymbol t
+												 :documentColor t))))
+  (add-to-list 'eglot-server-programs
+			   `(vue-ts-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options))))
+  (add-to-list 'eglot-server-programs
+			   '(typescript-ts-mode . ("typescript-language-server" "--stdio" :initializationOptions
+									   (:plugins [(:name "@vue/typescript-plugin" :location "" :languages ["vue"])])))))
 
 (use-package typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode))
@@ -58,6 +60,8 @@
   :config
   (add-hook 'tsx-ts-mode-hook #'eglot-ensure)
   )
+
+
 
 (use-package flymake-eslint
   :defer t
@@ -183,26 +187,26 @@
    ".*$"))
 
 (dolist
-    (regexp
-     `((typescript-tsc
-        ,typescript-tsc-error-regexp
-        1 2 3 2)
+	(regexp
+	 `((typescript-tsc
+		,typescript-tsc-error-regexp
+		1 2 3 2)
 
-       (typescript-tsc-pretty
-        ,typescript-tsc-pretty-error-regexp
-        1 2 3 2)
+	   (typescript-tsc-pretty
+		,typescript-tsc-pretty-error-regexp
+		1 2 3 2)
 
-       (typescript-tslint
-        ,typescript-tslint-report-regexp
-        3 4 5 (1))
+	   (typescript-tslint
+		,typescript-tslint-report-regexp
+		3 4 5 (1))
 
-       (typescript-nglint-error
-        ,typescript-nglint-error-regexp
-        1 2 3 2)
+	   (typescript-nglint-error
+		,typescript-nglint-error-regexp
+		1 2 3 2)
 
-       (typescript-nglint-warning
-        ,typescript-nglint-warning-regexp
-        1 2 3 1)))
+	   (typescript-nglint-warning
+		,typescript-nglint-warning-regexp
+		1 2 3 1)))
   (add-to-list 'compilation-error-regexp-alist-alist regexp)
   (add-to-list 'compilation-error-regexp-alist (car regexp)))
 
