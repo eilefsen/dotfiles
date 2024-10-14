@@ -5,13 +5,9 @@
 
 ;; theme
 
-(defface emma/lsp-face-semh-modifier-declaration '((t :slant italic)) "Face for LSP semantic token modifier Declaration")
-(defface emma/lsp-face-semh-modifier-readonly '((t)) "Face for LSP semantic token modifier Declaration")
-
 (use-package ef-themes
   :ensure t
   :config
-
   (ef-themes-with-colors
 	(setq ef-symbiosis-palette-overrides
 		  `((yellow "#FFCA6A")
@@ -27,24 +23,30 @@
 			(bg-active "#3B424C")
 			(bg-region "#4F5866")
 			)))
+  (defface treesit-preproc-identifier-face nil "Face for preprocessor identifiers"
+	:group  'emma/faces)
+  (defface treesit-preproc-definition-face
+	'((t . (:inherit treesit-preproc-identifier-face :slant italic))) "Face for preprocessor definitions"
+	:group  'emma-faces)
+  (defface treesit-function-declaration-face
+	'((t . (:inherit font-lock-function-name-face :slant italic))) "Face for function declarations"
+	:group  'emma-faces)
 
   (defun emma/ef-themes-custom-faces ()
 	"Emma' customizations on top of the Ef themes.
 This function is added to the `ef-themes-post-load-hook'."
 	(ef-themes-with-colors
 	  (custom-set-faces
-	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler))) `(lsp-face-semhl-macro ((,c :foreground ,yellow-warmer)))
-	   `(lsp-face-semhl-constant ((,c :foreground ,yellow-warmer)))
+	   `(font-lock-constant-face ((,c :foreground ,magenta-cooler)))
+	   `(treesit-preproc-identifier-face ((,c :foreground ,yellow-warmer)))
 	   `(font-lock-type-face ((,c :foreground ,yellow :inherit 'bold)))
 	   `(font-lock-variable-name-face ((,c :foreground ,yellow-cooler)))
 	   `(font-lock-property-name-face ((,c :foreground ,red)))
-	   `(lsp-face-semhl-property ((,c :foreground ,red)))
-	   `(lsp-face-semhl-member ((,c :foreground ,red-faint)))
-	   `(font-lock-preprocessor-face ((,c :foreground ,magenta-cooler)))
+	   `(font-lock-preprocessor-face ((,c :foreground ,blue-warmer)))
 	   `(font-lock-builtin-face ((,c :foreground ,magenta-cooler)))
 	   `(font-lock-keyword-face ((,c :foreground ,magenta-warmer)))
 	   `(font-lock-string-face ((,c :foreground ,green-cooler)))
-	   `(font-lock-function-name-face ((,c :foreground ,blue)))
+	   `(font-lock-function-name-face ((,c :foreground ,cyan)))
 	   )))
   (add-hook 'ef-themes-post-load-hook #'emma/ef-themes-custom-faces)
 
@@ -54,6 +56,7 @@ This function is added to the `ef-themes-post-load-hook'."
 	(pcase appearance
 	  ('light (ef-themes-select 'ef-symbiosis)) ;; use dark theme for both, but can be changed easily
 	  ('dark (ef-themes-select 'ef-symbiosis))))
+
   (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
 	  (add-hook 'ns-system-appearance-change-functions #'emma/apply-theme)
 	(mapc #'disable-theme custom-enabled-themes)
@@ -160,8 +163,12 @@ This function is added to the `ef-themes-post-load-hook'."
 								backward-char forward-char))
     (ding)))
 (setq ring-bell-function 'my-bell-function)
+(defun display-startup-echo-area-message ()
+  (message "Let the hacking begin!"))
 
 (global-display-line-numbers-mode 1)
+
+
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

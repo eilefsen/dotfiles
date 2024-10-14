@@ -5,11 +5,6 @@
 		 (c-ts-mode . eglot-ensure)
          (haskell-mode . eglot-ensure)
          (rust-mode . eglot-ensure))
-  ;; :bind (:map eglot-mode-map
-  ;;             ("C-c a r" . #'eglot-rename)
-  ;;             ("C-<down-mouse-1>" . #'xref-find-definitions)
-  ;;             ("C-S-<down-mouse-1>" . #'xref-find-references)
-  ;;             ("C-c C-c" . #'eglot-code-actions))
   :custom
   (eglot-events-buffer-config '(:size 0 :format short))
   (eglot-autoshutdown t)
@@ -19,9 +14,15 @@
 	  (eldoc-mode -1)))
   (add-hook 'eglot-managed-mode-hook #'emma/disable-eldoc)
   (global-eldoc-mode -1)
-  (define-key eglot-mode-map [remap eldoc-doc-buffer] #'eldoc))
+  (define-key eglot-mode-map [remap eldoc-doc-buffer] #'eldoc)
 
-(use-package xref)
+  (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>c a") #'eglot-code-actions)
+  (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>c r") #'eglot-rename)
+  )
+
+(use-package xref
+  :config
+  (keymap-set code-prefix-map "f" 'xref-find-apropos))
 
 (use-package eldoc
   :config
