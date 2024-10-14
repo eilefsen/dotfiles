@@ -177,9 +177,9 @@ This function is added to the `ef-themes-post-load-hook'."
  ;; If there is more than one, they won't work right.
  '(font-lock-builtin-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
  '(font-lock-constant-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
- '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#3f95f6")))
+ '(font-lock-function-name-face ((((class color) (min-colors 256)) :foreground "#4fbaef")))
  '(font-lock-keyword-face ((((class color) (min-colors 256)) :foreground "#e580ea")))
- '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#af85ff")))
+ '(font-lock-preprocessor-face ((((class color) (min-colors 256)) :foreground "#6a9fff")))
  '(font-lock-property-name-face ((((class color) (min-colors 256)) :foreground "#FF6461")))
  '(font-lock-string-face ((((class color) (min-colors 256)) :foreground "#94E596")))
  '(font-lock-type-face ((((class color) (min-colors 256)) :foreground "#FFCA6A" :inherit 'bold)))
@@ -187,7 +187,8 @@ This function is added to the `ef-themes-post-load-hook'."
  '(lsp-face-semhl-constant ((((class color) (min-colors 256)) :foreground "#FFA050")))
  '(lsp-face-semhl-macro ((((class color) (min-colors 256)) :foreground "#FFA050")))
  '(lsp-face-semhl-member ((((class color) (min-colors 256)) :foreground "#d56f72")))
- '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461"))))
+ '(lsp-face-semhl-property ((((class color) (min-colors 256)) :foreground "#FF6461")))
+ '(treesit-preproc-identifier-face ((((class color) (min-colors 256)) :foreground "#FFA050")) t))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
