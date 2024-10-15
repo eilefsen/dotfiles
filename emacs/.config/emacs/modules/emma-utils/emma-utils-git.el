@@ -11,4 +11,16 @@
   :config
   (add-to-list 'magit-no-confirm 'stage-all-changes))
 
+(use-package diff-hl
+  :ensure t
+  :custom
+  (diff-hl-show-staged-changes nil)
+  (diff-hl-show-staged-changes nil)
+  :config 
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (diff-hl-flydiff-mode 1)
+  (diff-hl-margin-mode 1)
+  (global-diff-hl-mode 1))
+
 (provide 'emma-utils-git)
