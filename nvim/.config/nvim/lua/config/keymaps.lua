@@ -15,6 +15,24 @@ unmap("n", "<C-Down>")
 unmap("n", "<C-Left>")
 unmap("n", "<C-Right>")
 
+-- Resize window to fit buffer + <count>. It works the same as <c-w>_ if there
+-- are too many lines to fit.
+
+-- command -count WinFitBuf call s:win_fit_buf(<count>)
+-- 	nnoremap <expr> <c-w>0 printf(':<c-u>%dWinFitBuf<cr>', v:count)
+--
+
+local function win_fit_buf(extra_lines)
+	-- max columns on any single line
+	local cols = vim.fn.max(vim.fn.map(vim.fn.range(1, vim.fn.line("$")), "col([v:val, '$'])"))
+	-- resize to fit
+	vim.api.nvim_win_set_width(0, cols + 8 + extra_lines)
+end
+
+map("n", "<C-w>0", function()
+	win_fit_buf(vim.v.count)
+end)
+
 -- buffer controls
 unmap("n", "H")
 unmap("n", "L")
