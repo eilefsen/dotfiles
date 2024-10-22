@@ -10,6 +10,7 @@
 		  (vue "https://github.com/ikatyang/tree-sitter-vue")
 		  (elisp "https://github.com/Wilfred/tree-sitter-elisp")
 		  (go "https://github.com/tree-sitter/tree-sitter-go")
+		  (rust "https://github.com/tree-sitter/tree-sitter-rust")
 		  (c "https://github.com/tree-sitter/tree-sitter-c")
 		  (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
 		  (html "https://github.com/tree-sitter/tree-sitter-html")
