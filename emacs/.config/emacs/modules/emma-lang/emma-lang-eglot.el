@@ -15,14 +15,18 @@
   (add-hook 'eglot-managed-mode-hook #'emma/disable-eldoc)
   (global-eldoc-mode -1)
   (define-key eglot-mode-map [remap eldoc-doc-buffer] #'eldoc)
+  (defun emma/disable-inlay-hints ()
+	(when (eglot-managed-p)
+	  (eglot-inlay-hints-mode -1)))
+  (add-hook 'eglot-managed-mode-hook #'emma/disable-inlay-hints)
+  (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>u h") '("Toggle inlay hints" . eglot-inlay-hints-mode))
 
   (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>c a") #'eglot-code-actions)
-  (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>c r") #'eglot-rename)
-  )
+  (evil-define-key 'normal 'eglot-mode-map (kbd "<leader>c r") #'eglot-rename))
 
 (use-package xref
   :config
-  (keymap-set code-prefix-map "f" 'xref-find-apropos))
+  (keymap-set code-prefix-map "g" 'xref-find-apropos))
 
 (use-package eldoc
   :config
