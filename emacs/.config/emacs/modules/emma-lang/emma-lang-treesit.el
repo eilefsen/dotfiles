@@ -30,5 +30,9 @@
   (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
   (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
   )
+(use-package html-ts-mode
+  :mode "\\.html\\'"
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . html-ts-mode)))
 
 (provide 'emma-lang-treesit)
