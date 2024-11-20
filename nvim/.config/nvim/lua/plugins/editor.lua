@@ -1,5 +1,17 @@
 local M = {}
 
+M.lazy_override = {
+	{
+		"folke/snacks.nvim",
+		opts = {
+			notifier = {
+				enabled = false,
+				style = "minimal",
+			},
+		},
+	},
+}
+
 M.telescope = {
 	{
 		"nvim-telescope/telescope-symbols.nvim",
