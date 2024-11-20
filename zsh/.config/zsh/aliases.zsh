@@ -50,5 +50,6 @@ alias get_idf='. $HOME/Code/esp/esp-idf/export.sh; export CLANGD_BIN=$HOME/.espr
 #docker
 alias dcu='docker compose up -d'
 alias dcd='docker compose down'
-alias dcr='docker compose restart'
+alias dcr='docker compose run --rm'
+alias dcrs='docker compose restart'
 alias dcdu='docker compose down && docker compose up -d'
