@@ -1,0 +1,22 @@
+* Keybind ideas for emacs
+
+Not all defaults in emacs are immediately useful, these might be better repurposed.
+I will keep track of ideas for such keybinds here, before i implement them.
+
+** Useless or unused defaults
+1. =C-j=
+   - (normal/insert - newline maybe indent) - made redundant by evil =o= (normal)
+2. =C-k=
+   - (normal - kill-line) - made redundant by evil =dd= (normal)
+   - (insert - evil-insert-digraph) - better placed elsewhere
+3. =C-l=
+   - (normal/insert - recenter-top-bottom) - made redundant by evil =zz= (normal)
+4. =C-m=
+   - (normal/insert - evil-ret) - literally same as just pressing =RET=
+5. =C-n=
+   - (normal - evil-paste-pop-next) - i never use this
+6. =C-p=
+   - (normal - evil-paste-pop) - i never use this
+7. =C-]=
+   - (normal - evil-jump-to-tag) - i dont use this in favor of evil-goto-definition 
+   - (insert - nothing)
