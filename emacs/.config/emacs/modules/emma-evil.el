@@ -159,11 +159,18 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package evil-collection
   :after evil
   :ensure t
-  :custom
-  (evil-collection-magit-use-z-for-folds t)
-  (evil-collection-magit-want-horizontal-movement t)
   :config
   (setq evil-collection-mode-list (delq 'vterm evil-collection-mode-list))
+
+  ;; fix weirdness in diff-mode visual state
+  (evil-collection-define-key 'motion 'diff-mode-map
+    "a" nil
+    "*" nil
+    "D" nil
+    "d" nil
+    "s" nil
+    "c" nil)
+
   (evil-collection-init))
 
 (use-package evil-commentary
