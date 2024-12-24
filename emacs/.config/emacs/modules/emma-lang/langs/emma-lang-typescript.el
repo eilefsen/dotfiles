@@ -46,7 +46,7 @@
   (add-to-list 'eglot-server-programs
 			   `(vue-ts-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options))))
   (add-to-list 'eglot-server-programs
-			   '(typescript-ts-mode . ("typescript-language-server" "--stdio" :initializationOptions
+			   '(typescript-ts-mode . ("vtsls" "--stdio" :initializationOptions
 									   (:plugins [(:name "@vue/typescript-plugin" :location "" :languages ["vue"])])))))
 
 (use-package typescript-ts-mode
