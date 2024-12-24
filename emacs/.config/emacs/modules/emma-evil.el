@@ -128,13 +128,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   ;; Override record macro command to disable 
   (evil-define-command evil-record-macro (register)
-    "OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
-    :keep-visual t
-    :suppress-operator t
-    (interactive
-     (list (unless (and evil-this-macro defining-kbd-macro)
+	"OVERRIDDEN BY EMMA - Record a keyboard macro into REGISTER. :, /, and ? are not valid, and therefore will not open their respective command windows"
+	:keep-visual t
+	:suppress-operator t
+	(interactive
+	 (list (unless (and evil-this-macro defining-kbd-macro)
 			 (or evil-this-register (evil-read-key)))))
-    (let (last-macro)
+	(let (last-macro)
       (cond
        ((eq register ?\C-g)
 		(keyboard-quit))
