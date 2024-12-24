@@ -10,6 +10,8 @@
   :load-path "modules/emma-utils")
 (use-package emma-utils-color
   :load-path "modules/emma-utils")
+(use-package emma-utils-citre
+  :load-path "modules/emma-utils")
 
 
 
