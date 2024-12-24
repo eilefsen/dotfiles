@@ -31,6 +31,12 @@
   :config
   (evil-mode 1)
 
+  ;; activate completion using next and previous directly
+  (evil-define-key 'insert 'global (kbd "C-n") #'completion-at-point)
+  (evil-define-key 'insert 'global (kbd "C-p") #'completion-at-point)
+  (define-key evil-command-line-map (kbd "C-n") #'completion-at-point)
+  (define-key evil-command-line-map (kbd "C-p") #'completion-at-point)
+
   ;; disable superfluous window mappings
   (define-key evil-window-map (kbd "C-h" ) nil)
   (define-key evil-window-map (kbd "C-j" ) nil)

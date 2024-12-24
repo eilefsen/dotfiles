@@ -139,6 +139,7 @@ FETCHER and ALIST arguments."
 
 (use-package corfu
   ;; Optional customizations
+  :disabled t
   :ensure t
   :defer t
   :custom
@@ -160,7 +161,8 @@ FETCHER and ALIST arguments."
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
   ;; Enable Corfu only for certain modes. Global mode will not play nice with vertico
-  :hook ((prog-mode . corfu-mode)
+  :hook (
+		 ;; (prog-mode . corfu-mode)
 		 (shell-mode . corfu-mode)
 		 (eshell-mode . corfu-mode)))
 
