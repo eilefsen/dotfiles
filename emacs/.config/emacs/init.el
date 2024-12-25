@@ -143,21 +143,8 @@ This function is added to the `ef-themes-post-load-hook'."
   (global-auto-revert-mode t))
 
 (use-package project
-  :config
-  (defvar monorepo-root-markers '("package.json" "tsconfig.json" ".project.el"))
-  (defun monorepo-try-find-project (dir)
-	(when (file-exists-p dir)
-      (let* ((root (seq-some (lambda (root-marker)
-                               (locate-dominating-file dir root-marker))
-							 monorepo-root-markers))
-			 (vc-backend (ignore-errors
-                           (vc-responsible-backend root))))
-		;; I require a vc-backend, otherwise things break
-		(when (and root vc-backend)
-          (list 'vc vc-backend root)))))
-  (setq project-find-functions '(monorepo-try-find-project
-								 project-try-vc)))
-
+  :custom
+  (project-vc-extra-root-markers '("package.json" "tsconfig.json" ".project.el")))
 (setq fit-window-to-buffer-horizontally t)
 
 ;; turn off annoying bell
