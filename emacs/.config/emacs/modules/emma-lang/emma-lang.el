@@ -33,5 +33,7 @@
   :load-path "modules/emma-lang/langs")
 (use-package emma-lang-rust
   :load-path "modules/emma-lang/langs")
+(use-package emma-lang-go
+  :load-path "modules/emma-lang/langs")
 
 (provide 'emma-lang)
