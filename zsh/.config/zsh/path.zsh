@@ -6,6 +6,7 @@ path+=$CARGO_HOME/bin/:$PATH
 path+=$GOPATH/bin/
 path+=$XDG_CONFIG_HOME/emacs/bin/
 path+=$HOME/.local/opt/emacs/bin/
+path+=/Library/TeX/texbin
 
 
 PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PATH
