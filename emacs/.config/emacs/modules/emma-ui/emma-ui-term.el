@@ -6,7 +6,7 @@
 			  ("t" . #'emma/toggle-terminal))
   :commands (emma/toggle-terminal vterm)
   :config
-  (add-to-list 'evil-emacs-state-modes 'vterm-mode)
+  ;; (add-to-list 'evil-emacs-state-modes 'vterm-mode)
   (define-key vterm-mode-map (kbd "<escape>") '("Exit vterm" . emma/close-terminal))
   (defun turn-off-chrome ()
 	(hl-line-mode -1)
