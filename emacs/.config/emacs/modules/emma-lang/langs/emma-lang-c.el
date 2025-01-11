@@ -83,4 +83,9 @@
 					"--header-insertion=never"
 					"--header-insertion-decorators=0"))))
 
+(use-package cmake-mode
+  :ensure t
+  :config
+  (add-hook 'cmake-mode-hook #'eglot-ensure))
+
 (provide 'emma-lang-c)

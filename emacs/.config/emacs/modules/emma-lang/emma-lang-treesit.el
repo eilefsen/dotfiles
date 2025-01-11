@@ -5,7 +5,6 @@
   :config
   (setq treesit-language-source-alist
 		'((bash "https://github.com/tree-sitter/tree-sitter-bash")
-		  (cmake "https://github.com/uyha/tree-sitter-cmake")
 		  (css "https://github.com/tree-sitter/tree-sitter-css")
 		  (vue "https://github.com/ikatyang/tree-sitter-vue")
 		  (elisp "https://github.com/Wilfred/tree-sitter-elisp")
