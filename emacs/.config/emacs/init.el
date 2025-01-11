@@ -186,7 +186,16 @@ This function is added to the `ef-themes-post-load-hook'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(apheleia auctex buffer-name-relative citre cmake-mode consult-dir
+			  corfu dashboard devdocs diff-hl ef-themes embark-consult
+			  evil-collection evil-commentary evil-org
+			  evil-textobj-tree-sitter exec-path-from-shell fireplace
+			  flymake-eslint helpful kurecolor magit marginalia
+			  markdown-mode mood-line orderless org-bullets
+			  org-journal popper rainbow-delimiters swift-mode undo-fu
+			  undo-fu-session vertico visual-fill-column vterm
+			  vue-ts-mode))
  '(package-vc-selected-packages
    '((vue-ts-mode :url "https://github.com/8uff3r/vue-ts-mode")))
  '(safe-local-variable-values '((vue-ts-mode-indent-offset . 2))))
