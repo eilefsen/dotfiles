@@ -49,6 +49,7 @@
   (add-to-list 'consult-buffer-filter "^\\*")
   (add-to-list 'consult-buffer-filter "^\\magit:")
 
+  (evil-define-key 'normal 'global (kbd "<leader>/") #'consult-ripgrep)
 
   (define-key minibuffer-local-map (kbd "C-SPC") #'my-embark-preview)
   (defun my-embark-preview ()
@@ -89,6 +90,13 @@
   (define-key global-map [remap yank-pop]                      #'consult-yank-pop)
   (define-key global-map [remap persp-switch-to-buffer]        #'+vertico/switch-workspace-buffer)
   )
+
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
 
 (use-package consult-xref
   :after consult
