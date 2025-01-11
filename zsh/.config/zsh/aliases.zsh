@@ -53,3 +53,6 @@ alias dcd='docker compose down'
 alias dcr='docker compose run --rm'
 alias dcrs='docker compose restart'
 alias dcdu='docker compose down && docker compose up -d'
+
+#cmake
+alias cmk='cmake . -B build'
