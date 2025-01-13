@@ -36,4 +36,5 @@ if [ -f $ZDOTDIR/localaliases.zsh ]; then
 fi
 # zoxide
 eval "$(zoxide init zsh)"
-# eval "$(fzf --zsh)"
+# fzf
+source <(fzf --zsh)
