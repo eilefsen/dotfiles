@@ -1,0 +1,21 @@
+# vim: set ft=gitconfig:
+
+[includeIf "gitdir/i:~/code/emma/"]
+  path = ./config-personal
+[includeIf "gitdir/i:~/.dotfiles/"]
+  path = ./config-personal
+[includeIf "gitdir:~/uis/"]
+  path = ./config-work
+
+[sequence]
+	editor = nvim
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[pull]
+	rebase = true
+[core]
+	excludesFile = /home/emma/.config/git/exclude
