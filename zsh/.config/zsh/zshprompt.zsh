@@ -7,13 +7,11 @@ zstyle ':vcs_info:git:*' formats ' %b '
 function virtualenv_info {
     [ $VIRTUAL_ENV ] && echo '%F{blue}󰌠 %f%B%F{yellow}['`basename $VIRTUAL_ENV`']%f%b '
 }
-# python venv
-RPROMPT='$(virtualenv_info)'
-# time
-RPROMPT+="%B%F{blue}[%T]%f%b"
 # path 
 PROMPT="%B%F{yellow}%~%f%b "
 # Git
 PROMPT+='%B%F{green}${vcs_info_msg_0_}%f%b'
+# python venv
+PROMPT+='$(virtualenv_info)'
 # end of prompt
 PROMPT+="%B$%b "
