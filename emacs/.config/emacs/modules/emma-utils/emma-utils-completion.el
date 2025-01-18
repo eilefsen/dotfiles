@@ -38,6 +38,7 @@
 (use-package consult
   :ensure t
   :defer t
+  :pin gnu
   :config
   (setq consult-buffer-sources
 		'(consult--source-modified-buffer

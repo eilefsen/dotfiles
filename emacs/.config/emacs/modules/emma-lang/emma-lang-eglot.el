@@ -28,6 +28,18 @@
   :config
   (keymap-set code-prefix-map "g" 'xref-find-apropos))
 
+(use-package consult-eglot
+  :vc (:url "https://github.com/mohkale/consult-eglot" :rev "9b490eb384d34ffc60c16cf16fe725ce5c72303a" )
+  :config
+  (keymap-set code-prefix-map "s" #'consult-eglot-symbols)
+  )
+
+(use-package consult-eglot-embark
+  :ensure t
+  :after consult-eglot
+  :config
+  (consult-eglot-embark-mode))
+
 (use-package eldoc
   :config
   (defun hide-dos-eol ()
