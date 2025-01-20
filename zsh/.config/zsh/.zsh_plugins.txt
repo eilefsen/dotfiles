@@ -1,8 +1,0 @@
-# vim: set syntax=conf:
-
-joshskidmore/zsh-fzf-history-search kind:defer
-
-# Defer (lazy-load)
-zsh-users/zsh-autosuggestions kind:defer
-zdharma-continuum/fast-syntax-highlighting kind:defer
-olets/zsh-window-title kind:defer
