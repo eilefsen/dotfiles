@@ -19,3 +19,5 @@
 	rebase = true
 [core]
 	excludesFile = /home/emma/.config/git/exclude
+[alias]
+    qs     = !echo staged: && git diff --cached --name-status && echo unstaged: && git diff --name-status

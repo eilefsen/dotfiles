@@ -2,17 +2,21 @@ zmodload zsh/complist
 
 fpath=($ZDOTDIR/completions $fpath)
 
-# cache
+
+ZSH_CACHE_PATH="$XDG_CACHE_HOME/zsh/"
+ZSH_COMPDUMP="$ZSH_CACHE_PATH/.zcompdump"
 autoload -Uz compinit
 
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
-else
-	compinit -C;
-fi;
+if [ ! -f $ZSH_COMPDUMP ] || [[ "$(find $ZSH_COMPDUMP -mmin +1440)" ]] {
+	# Regenerate completions because the dump file hasn't been modified within the last 24 hours
+    compinit -d "$ZSH_COMPDUMP"
+} else {
+	# simply read the cache
+	compinit -C -d "$ZSH_COMPDUMP"
+}
 
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*' cache-path "$ZSH_CACHE_PATH/comp/"
 
 # keybinds
 bindkey -M menuselect 'h' vi-backward-char

@@ -2,68 +2,72 @@
 source ${ZDOTDIR:-~}/path.zsh
 source $ZDOTDIR/env.zsh
 
-# simple plugin management (unplugged)
-ZPLUGINDIR=${XDG_DATA_HOME}/zsh/plugins
-
-##? Clone a plugin, identify its init file, source it, and add it to your fpath.
-function plugin-load {
-  local repo plugdir initfile initfiles=()
-  : ${ZPLUGINDIR:=${ZDOTDIR:-~/.config/zsh}/plugins}
-  for repo in $@; do
-    plugdir=$ZPLUGINDIR/${repo:t}
-    initfile=$plugdir/${repo:t}.plugin.zsh
-    if [[ ! -d $plugdir ]]; then
-      echo "Cloning $repo..."
-      git clone -q --depth 1 --recursive --shallow-submodules \
-        https://github.com/$repo $plugdir
-    fi
-    if [[ ! -e $initfile ]]; then
-      initfiles=($plugdir/*.{plugin.zsh,zsh-theme,zsh,sh}(N))
-      (( $#initfiles )) || { echo >&2 "No init file '$repo'." && continue }
-      ln -sf $initfiles[1] $initfile
-    fi
-    fpath+=$plugdir
-    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
-  done
-}
-repos=(
-	romkatv/zsh-defer # Defer everything below this line. comment or delete this line to disable deferred loading
+# plugins
+source "$ZDOTDIR/plugin-loader.zsh"
+plugin_repos=(
+	mroth/evalcache
+	romkatv/zsh-defer # everything below is deferred
 	zdharma-continuum/fast-syntax-highlighting
-	olets/zsh-window-title
 	zsh-users/zsh-autosuggestions
+	olets/zsh-window-title
 	joshskidmore/zsh-fzf-history-search
 )
-plugin-load $repos
+separately_loaded_plugin_repos=(
+	romkatv/zsh-bench
+)
+export PATH="$ZPLUGINDIR/zsh-bench:$PATH"
 
-autoload -Uz md
+local plugins=($(get-plugin-name-from-repo $plugin_repos));
+alias source-zsh-plugins="plugin-source $plugins";
+alias install-zsh-plugins="plugin-clone $plugin_repos $separately_loaded_plugin_repos && source-zsh-plugins"
+install-zsh-plugins
+source-zsh-plugins
+
+# fzf, load this before fzf-history-search plugin
+_evalcache fzf --zsh # not deferred, we want this to happen before loading the deferred plugin
+# zoxide
+zsh-defer _evalcache zoxide init zsh
+
+source $ZPLUGINDIR/gitstatus/gitstatus.plugin.zsh
+git-branch() {
+  local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
+  if [ -n "${ref}" ]; then
+   if [ -n "$(git diff --quiet HEAD)" ]; then
+	   local gitstatuscolor='%F{red}'
+   else
+	   local gitstatuscolor='%F{green}'
+   fi
+   echo "${gitstatuscolor} (${ref}) "
+  else
+   echo ""
+  fi
+}
+setopt PROMPT_SUBST
+PROMPT='%B%F{yellow}%~%f%b $(git-branch) %f%b%B$%b '
 
 # History
 setopt histignorealldups sharehistory
 setopt HIST_SAVE_NO_DUPS
 HISTSIZE=1000
 SAVEHIST=1000
-HISTFILE=~/.zsh_history
+HISTFILE=${XDG_STATE_HOME}/.zsh_history
 
 # Set the strategy used by autosuggest plugin
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 bindkey -e
 
-source $ZDOTDIR/zshprompt.zsh
-source $ZDOTDIR/aliases.zsh
-source $ZDOTDIR/completion.zsh
-source $ZDOTDIR/osc7.zsh
-source $ZDOTDIR/functions.zsh
+source "$ZDOTDIR/aliases.zsh"
+source "$ZDOTDIR/completion.zsh"
+# source "$ZDOTDIR/osc7.zsh"
+source "$ZDOTDIR/functions.zsh"
 
 # Secrets
-if [ -f $ZDOTDIR/secrets.zsh ]; then
-	source $ZDOTDIR/secrets.zsh
+if [ -f "$ZDOTDIR/secrets.zsh" ]; then
+	source "$ZDOTDIR/secrets.zsh"
 fi
 # local aliases (gitignored)
-if [ -f $ZDOTDIR/localaliases.zsh ]; then
-	source $ZDOTDIR/localaliases.zsh
+if [ -f "$ZDOTDIR/localaliases.zsh" ]; then
+	source "$ZDOTDIR/localaliases.zsh"
 fi
-# zoxide
-eval "$(zoxide init zsh)"
-# fzf
-source <(fzf --zsh)
+
