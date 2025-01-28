@@ -1,0 +1,31 @@
+# black
+dark = 0=#262427
+light = 8=#545452
+
+# red
+dark = #ff7272
+light = #ff8787
+
+# green
+dark = #bcdf59
+light = #c6e472
+
+# yellow
+dark = #ffca58
+light = #ffd271
+
+# blue 
+dark = #49cae4
+light = #64d2e8
+
+# purple
+dark = #a093e2
+light = #aea3e6
+
+# aqua
+dark = #aee8f4
+light = #baebf6
+
+# white
+dark = #fcfcfa
+light = #fcfcfa
