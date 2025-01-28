@@ -28,7 +28,6 @@ _evalcache fzf --zsh # not deferred, we want this to happen before loading the d
 # zoxide
 zsh-defer _evalcache zoxide init zsh
 
-source $ZPLUGINDIR/gitstatus/gitstatus.plugin.zsh
 git-branch() {
   local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
   if [ -n "${ref}" ]; then
