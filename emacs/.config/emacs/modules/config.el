@@ -8,7 +8,7 @@
 
 (if (eq system-type 'darwin) ; set higher font size on macos, due to high dpi
     (set-frame-font "Cascadia Code 16" nil t)
-  (set-frame-font "Cascadia Code 12" nil t))
+  (set-frame-font "Inconsolata 12" nil t))
 
 ;; indentation / tabs
 
