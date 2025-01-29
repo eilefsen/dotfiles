@@ -1,8 +1,6 @@
 # vim: set ft=gitconfig:
 
-[includeIf "gitdir/i:~/code/emma/"]
-  path = ./config-personal
-[includeIf "gitdir/i:~/.dotfiles/"]
+[include]
   path = ./config-personal
 [includeIf "gitdir:~/uis/"]
   path = ./config-work
@@ -21,3 +19,6 @@
 	excludesFile = /home/emma/.config/git/exclude
 [alias]
     qs     = !echo staged: && git diff --cached --name-status && echo unstaged: && git diff --name-status
+[user]
+	email = emma@eilefsen.no
+	name = Emma Eilefsen Glenna
