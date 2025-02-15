@@ -1,0 +1,66 @@
+set nocompatible
+set backspace=indent,eol,start
+set history=1000
+set tabpagemax=50
+set ruler
+set nowrap
+set incsearch
+set autoread
+set smarttab 
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+
+set tabstop=4
+set shiftwidth=4
+
+set backupdir=~/.local/state/vim/backup//
+set directory=~/.local/state/vim/swap//
+set undodir=~/.local/state/vim/undo//
+
+if has('path_extra') && (',' . &g:tags . ',') =~# ',\./tags,'
+	" Replace the check for a tags file in the parent directory of the current
+	" file with a check in every ancestor directory.
+	setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+if !empty(&viminfo)
+	" Persist g:UPPERCASE variables, used by some plugins, in .viminfo.
+	set viminfo^=!
+endif
+
+" Correctly highlight $() and other modern affordances in filetype=sh.
+if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
+  let g:is_posix = 1
+endif
+" Enable the :Man command shipped inside Vim's man filetype plugin.
+if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
+  runtime ftplugin/man.vim
+endif
+
+" Saving options in session and view files causes more problems than it
+" solves, so disable it.
+set sessionoptions-=options
+set viewoptions-=options
+
+set laststatus=2
+set wildmenu
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set formatoptions+=j
+
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=2
+set display+=truncate
+
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+colorscheme noctu
+
+
+" clear search highlight
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+
+syntax on
+filetype plugin indent on
