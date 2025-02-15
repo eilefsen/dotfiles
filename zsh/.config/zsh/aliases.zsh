@@ -56,3 +56,8 @@ alias dcdu='docker compose down && docker compose up -d'
 
 #cmake
 alias cmk='cmake . -B build'
+
+# Void linux
+alias xi='xbps-install'
+alias xq='xbps-query'
+alias sudo='sudo '
