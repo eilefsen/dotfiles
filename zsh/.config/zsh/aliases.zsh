@@ -9,7 +9,6 @@ fi
     # show total size of directories
     alias lt="ll --total-size"
     # date
-    alias ld="ls -lAh --blocks date,user,group,name"
     alias lda="ls -lAh --blocks permission,date,user,group,size,name"
     # git
     alias lg="ls -lAh --blocks git,name"
