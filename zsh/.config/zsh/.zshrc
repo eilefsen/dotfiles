@@ -36,13 +36,13 @@ git-branch() {
    else
 	   local gitstatuscolor='%F{green}'
    fi
-   echo "${gitstatuscolor} (${ref}) "
+   echo "${gitstatuscolor}(${ref}) "
   else
    echo ""
   fi
 }
 setopt PROMPT_SUBST
-PROMPT='%B%F{yellow}%~%f%b $(git-branch) %f%b%B$%b '
+PROMPT='%B%F{yellow}%~%f%b $(git-branch)%f%b%B$%b '
 
 # History
 setopt histignorealldups sharehistory
