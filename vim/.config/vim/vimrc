@@ -65,6 +65,34 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 syntax on
 filetype plugin indent on
 
+" taginclude {{{
+
+function GetTagFileName(tagname, tagsfile) {
+		return system("cat " . a:tagsfile ." | rg \"^" . tagname ."\t\" | cut -f2 | sort | uniq")
+}
+
+
+function Taginclude(tagname)
+	let local_tagfiles = split(system('ctag-find-file.sh ' . a:tagname . " " . join(tagfiles(), " ")), '\n')
+	:if !empty(local_tagfiles)
+		:call append(0, "#include \"" . local_tagfiles[0] . '"')
+	:endif
+
+	let old_tags_option=&tags
+	set tags=/usr/include/tags
+
+	let global_tagfiles = split(system('ctag-find-file.sh ' . a:tagname . " " . join(tagfiles(), " ")), '\n')
+	:if !empty(global_tagfiles)
+		:call append(0, "#include <" . global_tagfiles[0] . '>')
+	:endif
+	let &tags = old_tags_option
+endfunction
+
+command -nargs=1 TagInclude :call Taginclude(<q-args>)
+command TagIncludeAtPoint :call Taginclude(expand('<cword>'))
+
+" }}}
+
 " clipboard {{{
 set clipboard=unnamedplus
 
