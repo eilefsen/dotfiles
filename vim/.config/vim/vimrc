@@ -11,6 +11,7 @@ set smarttab
 set nrformats-=octal
 set ttimeout
 set ttimeoutlen=100
+set mouse=a
 
 set tabstop=4
 set shiftwidth=4
