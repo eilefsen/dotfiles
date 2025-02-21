@@ -10,7 +10,7 @@ color:
   when: auto
   theme: custom
 icons:
-  when: auto
+  when: never
   theme: fancy
   separator: " "
 layout: grid
