@@ -1,59 +1,73 @@
 vim9script
 
-def ParseTagFile(tagname: string, tagsfile: string): list<string>
-	var grepcmd = !!system('command -v rg') ? 'rg' : 'grep'
-	var tfiles = split(system($"cat {tagsfile} | {grepcmd} \'^{tagname}\\b\' | cut -f2 | sort | uniq"), '\n')
+class TupleFindTagFilenames
+	public var filenames: list<string>
+	public var isGlobal: bool
+	public var error: bool
+	def new(filenames: list<string>, isGlobal: bool, error: bool = false)
+		this.filenames = filenames
+		this.isGlobal = isGlobal
+		this.error = error
+	enddef
+	def newError()
+		this.filenames = []
+		this.isGlobal = false
+		this.error = true
+	enddef
+endclass
 
-	return tfiles->map((_, val): string => $"{val} {tagsfile}")
+def g:FindTagFilenames(tagname: string, globalTagsFiles: list<string> = []): TupleFindTagFilenames
+	# This might be a bug, but tagrelative for some reason gives us *absolute* filenames,
+	# this option must be set for taglist() to behave as expected
+	var oldtr = &tagrelative
+	set tagrelative
+	var tl = taglist($"^{tagname}$")->map((key, val) => val.filename)
+	&tagrelative = oldtr # Set tagrelative back to what it was
+
+	var gp = join(globalTagsFiles, '\|')
+	gp = substitute(gp, '/', '\\/', 'g')
+	var local = matchstrlist(tl, '^\(' .. gp  .. '/.*\)\@!.*$')->map((_, val) => val.text)
+
+	if !empty(local)
+		var curfile = expand('%:p:h')
+		# Filter out choices which match the current file,
+		# then map with relative paths
+		var filenames = local->filter((_, val) => expand('%') != val)
+		filenames->map((_, val): string => system($"realpath -s --relative-to={curfile} {val}")->trim())
+		return TupleFindTagFilenames.new(filenames, false)
+	elseif !!globalTagsFiles
+		var filenames = matchstrlist(tl, '^' .. gp .. '\/\zs.*\ze$')->map((_, val) => val.text)
+		return TupleFindTagFilenames.new(filenames, true)
+	endif
+
+	echom $"Could not find a file to include for {tagname}"
+	return TupleFindTagFilenames.newError()
 enddef
 
-# Cat all tagfiles into ripgrep which matches for exact tagname, then gets
-# the associated filename using cut. Finally, sort and remove duplicates
-# Flatten the result.
-def GetTagFiles(tagname: string): list<string>
-	return tagfiles()->map((_, val) => ParseTagFile(tagname, val))->flattennew()
-enddef
-
-def GetRelativeIncludePath(tagsfile: string, includefile: string): string
-	var tagsfiledirabs = system($"dirname $(realpath {tagsfile})")
-	var fileabs = expand('%:p:h')
-	var includeabs = $"{trim(tagsfiledirabs)}/{includefile}"
-	var relpath = system($"realpath -s --relative-to={fileabs} {includeabs}")
-	return relpath
-enddef
-
-def AppendInclude(includefiles: list<string>, surround1: string, surround2: string, userelative: bool): bool
-	if !includefiles
-		return 0
+def AppendInclude(filenames: list<string>, surround1: string, surround2: string): bool
+	if !filenames
+		return false
 	endif
 
 	def AppendToBuffer(idx: number)
-		var splitfile = split(includefiles[idx], ' ')
-		var tfile = splitfile[0]
-		var tagspath = splitfile[1]
-
-		if userelative
-		   tfile = trim(GetRelativeIncludePath(tagspath, tfile))
-		endif
+		var tfile = filenames[idx]
 
 		var toAppend = surround1 .. tfile .. surround2
 		var search_result = search($"^{toAppend}$", 'n')
 		if !search_result
 			append(0, toAppend)
 		else
-			echo $"'{tfile}' is already included, line: {search_result}"
+			echom $"'{tfile}' is already included, line: {search_result}"
 		endif
 	enddef
 
-	if len(includefiles) == 1
+	if len(filenames) == 1
 		AppendToBuffer(0)
-		return 1
+		return true
 	endif
 
-	var menuitems = copy(includefiles)->map((_, val): string => split(val, ' ')[0])
-
-	call popup_menu(menuitems, {'callback': (id, result) => AppendToBuffer(result - 1)})
-	return 1
+	call popup_menu(filenames, {'callback': (id, result) => AppendToBuffer(result - 1)})
+	return true
 enddef
 
 def SortHeadersFirst(a: string, b: string): number
@@ -71,32 +85,23 @@ def SortHeadersFirst(a: string, b: string): number
 	endif
 enddef
 
-def TagIncludeC(tagname: string, filter_header: bool): void
-	set tags-=/usr/include/tags
-	var tagfiles = GetTagFiles(tagname)
-	if filter_header
-		tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\).*\>')->map((_, val): string => val.text)
-	else
-		tagfiles = tagfiles->sort(SortHeadersFirst)
-	endif
-
-	var first_append = AppendInclude(tagfiles, '#include "', '"', true)
-	if first_append
+def TagIncludeC(tagname: string, onlyHeaders: bool): void
+	var tuple = g:FindTagFilenames(tagname, g:globalIncludePaths)
+	if tuple.error
 		return
 	endif
-
-	var old_tags_option = &tags
-	set tags=/usr/include/tags
-	tagfiles = GetTagFiles(tagname)
-	if filter_header
-		tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\)\>')->map((_, val): string => val.text)
-	endif
-	if !AppendInclude(tagfiles, '#include <', '>', false)
-		echo $"No tags found for {tagname}"
+	var filenames = tuple.filenames
+	if onlyHeaders
+		filenames = matchstrlist(filenames, '\<\w\+\(\.h\|\.hpp\).*\>')->map((_, val): string => val.text)
+	else
+		filenames = filenames->sort(SortHeadersFirst)
 	endif
 
-	&tags = old_tags_option
-	set tags+=/usr/include/tags
+	if tuple.isGlobal
+		AppendInclude(filenames, '#include <', '>')
+	else
+		AppendInclude(filenames, '#include "', '"')
+	endif
 enddef
 
 def TagInclude(name: string): void
@@ -108,9 +113,10 @@ def TagInclude(name: string): void
 	endif
 enddef
 
-defcompile
+# List of paths to consider for global tags. Path cannot have a trailing slash
+g:globalIncludePaths = ['/usr/include']
+&tags =  &tags .. join(g:globalIncludePaths->copy()->map((_, val) => $",{val}/tags"), ',')
 
-set tags+=/usr/include/tags
 command -nargs=1 TagInclude :call TagInclude(<q-args>)
 command TagIncludeAtPoint :call TagInclude(expand('<cword>'))
 nnoremap <Leader>ti <Cmd>TagIncludeAtPoint<CR>
