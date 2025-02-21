@@ -1,86 +1,66 @@
-set tags+=/usr/include/tags
+vim9script
 
-function s:parsetagfile(tagname, tagsource)
-	let tfiles = split(system("cat " . a:tagsource . " | rg \'^" . a:tagname . "\\b\' | cut -f2 | sort | uniq"), '\n')
-	let arr = []
-	for tfile in tfiles
-		call add(arr, tfile . ' ' . a:tagsource )
-	endfor
-	return arr
-endfunction
+def ParseTagFile(tagname: string, tagsfile: string): list<string>
+	var grepcmd = !!system('command -v rg') ? 'rg' : 'grep'
+	var tfiles = split(system($"cat {tagsfile} | {grepcmd} \'^{tagname}\\b\' | cut -f2 | sort | uniq"), '\n')
 
-function GetTagFiles(tagname)
-	" Cat all tagfiles into ripgrep which matches for exact tagname, then gets
-	" the associated filename using cut. Finally, sort and remove duplicates
-	" let tagsource = join(tagfiles(), " ")
-	let tagfiles = []
-	for tsource in tagfiles()
-		call add(tagfiles, s:parsetagfile(a:tagname, tsource))
-	endfor
-	" let tagfiles = system("cat " . tagsource . " | rg \'^" . a:tagname . "\\b\' | cut -f2 | sort | uniq")
-	" Make an array out of the tagfiles
-	return flattennew(tagfiles)
-endfunction
+	return tfiles->map((_, val): string => $"{val} {tagsfile}")
+enddef
 
-function s:getrelativetagpath(tagsfile, tagpath)
-	let tagsfiledirabs = system('dirname $(realpath ' . a:tagsfile . ')')
-	" let tagsfiledirabs = expand(. ':p:h')
-	let fileabs = expand('%:p:h')
-	let tagabs = trim(tagsfiledirabs) . '/' . a:tagpath
-	let relpath = system('realpath -s --relative-to=' . fileabs . ' ' . tagabs)
+# Cat all tagfiles into ripgrep which matches for exact tagname, then gets
+# the associated filename using cut. Finally, sort and remove duplicates
+# Flatten the result.
+def GetTagFiles(tagname: string): list<string>
+	return tagfiles()->map((_, val) => ParseTagFile(tagname, val))->flattennew()
+enddef
+
+def GetRelativeIncludePath(tagsfile: string, includefile: string): string
+	var tagsfiledirabs = system($"dirname $(realpath {tagsfile})")
+	var fileabs = expand('%:p:h')
+	var includeabs = $"{trim(tagsfiledirabs)}/{includefile}"
+	var relpath = system($"realpath -s --relative-to={fileabs} {includeabs}")
 	return relpath
-endfunction
+enddef
 
-function AppendInclude(tagfiles, surround1, surround2, userelative = v:false)
-	if empty(a:tagfiles)
+def AppendInclude(includefiles: list<string>, surround1: string, surround2: string, userelative: bool): bool
+	if !includefiles
 		return 0
 	endif
 
-	func! s:appendToBuffer(idx) closure
-		let splitfile = split(a:tagfiles[a:idx], ' ')
-		let tfile = splitfile[0]
-		let tagspath = splitfile[1]
-		:if a:userelative
-			let tfile = trim(s:getrelativetagpath(tagspath, tfile))
-		:endif
-		let toAppend = a:surround1 . tfile . a:surround2
-		let search_result = search('^' . toAppend . '$', 'n')
-		if !search_result
-			:call append(0, toAppend)
-		else
-			echo tfile . ' is already included, line: ' . search_result 
+	def AppendToBuffer(idx: number)
+		var splitfile = split(includefiles[idx], ' ')
+		var tfile = splitfile[0]
+		var tagspath = splitfile[1]
+
+		if userelative
+		   tfile = trim(GetRelativeIncludePath(tagspath, tfile))
 		endif
-	endfunc
-	:if len(a:tagfiles) == 1
-	:call s:appendToBuffer(0)
+
+		var toAppend = surround1 .. tfile .. surround2
+		var search_result = search($"^{toAppend}$", 'n')
+		if !search_result
+			append(0, toAppend)
+		else
+			echo $"'{tfile}' is already included, line: {search_result}"
+		endif
+	enddef
+
+	if len(includefiles) == 1
+		AppendToBuffer(0)
+		return 1
+	endif
+
+	var menuitems = copy(includefiles)->map((_, val): string => split(val, ' ')[0])
+
+	call popup_menu(menuitems, {'callback': (id, result) => AppendToBuffer(result - 1)})
 	return 1
-	:endif
+enddef
 
-	func! s:selectedTag(id, result) closure
-		:call s:appendToBuffer(a:result-1)
-	endfunc
-
-	let menuitems = []
-	for tfile in a:tagfiles
-		let item = split(tfile, ' ')[0]
-		call add(menuitems, item)
-	endfor
-
-	call popup_menu(a:tagfiles, #{
-				\ callback: function('s:selectedTag'),
-				\ })
-	return 1
-endfunction
-
-function s:getmatchtext(key,val)
-	return a:val.text
-endfunction
-
-function s:sortheadersfirst(a,b)
-	let ah = !empty(a:a->matchstr('.*\.hpp')) || !empty(a:a->matchstr('.*\.h'))
-	let bc = !empty(a:b->matchstr('.*\.cpp')) || !empty(a:b->matchstr('.*\.c'))
-	let ac = !empty(a:a->matchstr('.*\.cpp')) || !empty(a:a->matchstr('.*\.c'))
-	let bh = !empty(a:b->matchstr('.*\.hpp')) || !empty(a:b->matchstr('.*\.h'))
+def SortHeadersFirst(a: string, b: string): number
+	var ah = !!a->matchstr('.*\(\.hpp\|h\|H\)')
+	var bc = !!b->matchstr('.*\(\.cpp\|c\|C\)')
+	var ac = !!a->matchstr('.*\(\.cpp\|c\|C\)')
+	var bh = !!b->matchstr('.*\(\.hpp\|h\|H\)')
 
 	if ah && bc
 		return -1
@@ -89,50 +69,50 @@ function s:sortheadersfirst(a,b)
 	else
 		return 0
 	endif
-endfunction
+enddef
 
-function TagIncludeC(tagname, filter_header)
+def TagIncludeC(tagname: string, filter_header: bool): void
 	set tags-=/usr/include/tags
-	let tagfiles = GetTagFiles(a:tagname)
-	if a:filter_header
-		let tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\)\>')->map(function('s:getmatchtext'))
+	var tagfiles = GetTagFiles(tagname)
+	if filter_header
+		tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\).*\>')->map((_, val): string => val.text)
 	else
-		let tagfiles = tagfiles->sort(function('s:sortheadersfirst'))
+		tagfiles = tagfiles->sort(SortHeadersFirst)
 	endif
-	let first_append = AppendInclude(tagfiles,"#include \"", '"', v:true)
 
-	let old_tags_option=&tags
-	:if first_append != 0
-	return
-	:endif
+	var first_append = AppendInclude(tagfiles, '#include "', '"', true)
+	if first_append
+		return
+	endif
 
+	var old_tags_option = &tags
 	set tags=/usr/include/tags
-	let tagfiles = GetTagFiles(a:tagname)
-	:if a:filter_header
-		let tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\)\>')->map(function('s:getmatchtext'))
-	:endif
-	:if !AppendInclude(tagfiles,"#include <", '>', v:false)
-	echo 'No tags found for ' . a:tagname
-	:endif
-
-
-	let &tags = old_tags_option
-	set tags+=/usr/include/tags
-endfunction
-
-function TagInclude(name)
-	let n = shellescape(a:name)
-	if &ft == "c" || &ft == "cpp"
-		return TagIncludeC(a:name, v:false)
-	else
-		echo "No TagInclude function available for filetype: " . &ft
+	tagfiles = GetTagFiles(tagname)
+	if filter_header
+		tagfiles = matchstrlist(tagfiles, '\<\w\+\(\.h\|\.hpp\)\>')->map((_, val): string => val.text)
 	endif
-endfunction
+	if !AppendInclude(tagfiles, '#include <', '>', false)
+		echo $"No tags found for {tagname}"
+	endif
 
+	&tags = old_tags_option
+	set tags+=/usr/include/tags
+enddef
+
+def TagInclude(name: string): void
+	var n = shellescape(name)
+	if &ft == "c" || &ft == "cpp"
+		TagIncludeC(name, false)
+	else
+		echom $"No TagInclude function available for filetype: {&ft}" 
+	endif
+enddef
+
+defcompile
+
+set tags+=/usr/include/tags
 command -nargs=1 TagInclude :call TagInclude(<q-args>)
 command TagIncludeAtPoint :call TagInclude(expand('<cword>'))
-
 nnoremap <Leader>ti <Cmd>TagIncludeAtPoint<CR>
 
-
-" vim:foldmethod=marker:foldlevel=0
+# vim:foldmethod=marker:foldlevel=0
