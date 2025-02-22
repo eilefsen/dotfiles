@@ -26,47 +26,41 @@ def g:FindTagFilenames(tagname: string, globalTagsFiles: list<string> = []): Tup
 
 	var gp = join(globalTagsFiles, '\|')
 	gp = substitute(gp, '/', '\\/', 'g')
-	var local = matchstrlist(tl, '^\(' .. gp  .. '/.*\)\@!.*$')->map((_, val) => val.text)
+	var local = !!globalTagsFiles ? matchstrlist(tl, '^\(' .. gp  .. '/.*\)\@!.*$')->map((_, val) => val.text) : tl
 
-	if !empty(local)
-		var curfile = expand('%:p:h')
+	if !!local
+		var curdir = expand('%:p:h')
 		# Filter out choices which match the current file,
 		# then map with relative paths
 		var filenames = local->filter((_, val) => expand('%') != val)
-		filenames->map((_, val): string => system($"realpath -s --relative-to={curfile} {val}")->trim())
+		filenames->map((_, val): string => system($"realpath -s --relative-to={curdir} {val}")->trim())
 		return TupleFindTagFilenames.new(filenames, false)
 	elseif !!globalTagsFiles
 		var filenames = matchstrlist(tl, '^' .. gp .. '\/\zs.*\ze$')->map((_, val) => val.text)
-		return TupleFindTagFilenames.new(filenames, true)
+		if !!filenames
+			return TupleFindTagFilenames.new(filenames, true)
+		endif
 	endif
 
 	echom $"Could not find a file to include for {tagname}"
 	return TupleFindTagFilenames.newError()
 enddef
 
-def AppendInclude(filenames: list<string>, surround1: string, surround2: string): bool
+
+
+def AppendInclude(filenames: list<string>, AppendFunc: func): bool
 	if !filenames
 		return false
 	endif
 
-	def AppendToBuffer(idx: number)
-		var tfile = filenames[idx]
-
-		var toAppend = surround1 .. tfile .. surround2
-		var search_result = search($"^{toAppend}$", 'n')
-		if !search_result
-			append(0, toAppend)
-		else
-			echom $"'{tfile}' is already included, line: {search_result}"
-		endif
-	enddef
-
 	if len(filenames) == 1
-		AppendToBuffer(0)
+		AppendFunc(filenames[0])
 		return true
 	endif
 
-	call popup_menu(filenames, {'callback': (id, result) => AppendToBuffer(result - 1)})
+	call popup_menu(filenames, {
+		'callback': (id, result) => AppendFunc(filenames[result - 1])
+	})
 	return true
 enddef
 
@@ -85,6 +79,42 @@ def SortHeadersFirst(a: string, b: string): number
 	endif
 enddef
 
+def AppendFuncC(isGlobal: bool, allowDuplicate: bool = false): func
+	return (filename: string) => {
+		var toAppend = isGlobal ? '#include <' .. filename .. '>' : '#include "' .. filename .. '"'
+		if allowDuplicate
+			append(0, toAppend)
+		endif
+		var search_result = search($"^{toAppend}$", 'n')
+		if !search_result
+			append(0, toAppend)
+		else
+			if !filename
+				echom $"'{toAppend}' already exists, at line: {search_result}"
+			else
+				echom $"'{filename}' is already included, line: {search_result}"
+			endif
+		endif
+	}
+enddef
+
+def AppendFuncTypescript(tagname: string): func
+	return (filename: string) => {
+		var rx = $"^import \{.*\} from \\(\'{filename}\'\\|\"{filename}\"\\);\\?$"
+		echom rx
+		var res = matchbufline(bufnr('%'), rx, 1, '$')
+		echom res
+		if !!res
+			var existingImport = matchstr(res[0].text, '^import {\zs.*\ze} from .*$')
+			var toAppend = $"import \{ {existingImport->trim()}, {tagname} \} from \'{filename}\';"
+			setline(res[0].lnum, toAppend)
+		else
+			var toAppend = $"import \{ {tagname} \} from \'{filename}\';"
+			append(0, toAppend)
+		endif
+	}
+enddef
+
 def TagIncludeC(tagname: string, onlyHeaders: bool): void
 	var tuple = g:FindTagFilenames(tagname, g:globalIncludePaths)
 	if tuple.error
@@ -92,22 +122,28 @@ def TagIncludeC(tagname: string, onlyHeaders: bool): void
 	endif
 	var filenames = tuple.filenames
 	if onlyHeaders
-		filenames = matchstrlist(filenames, '\<\w\+\(\.h\|\.hpp\).*\>')->map((_, val): string => val.text)
+		filenames = matchstrlist(filenames, '^.*\(\.h\|\.hpp\)$')->map((_, val): string => val.text)
 	else
 		filenames = filenames->sort(SortHeadersFirst)
 	endif
+	AppendInclude(filenames, AppendFuncC(tuple.isGlobal))
+enddef
 
-	if tuple.isGlobal
-		AppendInclude(filenames, '#include <', '>')
-	else
-		AppendInclude(filenames, '#include "', '"')
+def TagIncludeTypescript(tagname: string): void
+	var tuple = g:FindTagFilenames(tagname, ['node_modules'])
+	if tuple.error
+		return
 	endif
+	var filenames = tuple.filenames
+	AppendInclude(filenames, AppendFuncTypescript(tagname))
 enddef
 
 def TagInclude(name: string): void
 	var n = shellescape(name)
 	if &ft == "c" || &ft == "cpp"
-		TagIncludeC(name, false)
+		TagIncludeC(name, true)
+	elseif &ft == "javascript" || &ft == "typescript"
+		TagIncludeTypescript(name)
 	else
 		echom $"No TagInclude function available for filetype: {&ft}" 
 	endif
