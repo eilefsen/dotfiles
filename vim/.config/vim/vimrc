@@ -6,6 +6,7 @@ set tabpagemax=50
 set ruler
 set nowrap
 set incsearch
+set ignorecase
 set autoread
 set smarttab 
 set nrformats-=octal
@@ -22,6 +23,7 @@ set undodir=~/.local/state/vim/undo/
 set viminfofile=~/.local/state/vim/viminfo
 let g:netrw_home = '~/.local/state/vim/'
 
+set shell=/bin/sh
 
 if has('path_extra') && (',' . &g:tags . ',') =~# ',\./tags,'
 	" Replace the check for a tags file in the parent directory of the current
