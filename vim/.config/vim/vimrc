@@ -13,17 +13,17 @@ set nrformats-=octal
 set ttimeout
 set ttimeoutlen=100
 set mouse=a
-
 set tabstop=4
 set shiftwidth=4
 
+let g:netrw_home = '~/.local/state/vim/'
 set backupdir=~/.local/state/vim/backup/
 set directory=~/.local/state/vim/swap/
-set undodir=~/.local/state/vim/undo/
 set viminfofile=~/.local/state/vim/viminfo
-let g:netrw_home = '~/.local/state/vim/'
+set undodir=~/.local/state/vim/undo/
+set undofile
 
-set shell=/bin/sh
+set shell=/bin/bash
 
 if has('path_extra') && (',' . &g:tags . ',') =~# ',\./tags,'
 	" Replace the check for a tags file in the parent directory of the current
@@ -72,8 +72,51 @@ colorscheme noctu
 nnoremap <SPACE> <Nop>
 map <SPACE> <Leader>
 
+" disable annoying command history window, use Ctrl+F in Ex mode instead
+nnoremap q: <Nop>
+" disable redundant replace map
+map s <Nop>
+
 " clear search highlight
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
+tnoremap <C-w><C-q> <C-\>n:q!<CR>
+nmap <Leader>t :exec 'terminal ' .. 'fish'<CR>
+
+" Files {{{
+set path+=src/**
+nnoremap <leader>ff :find *
+nnoremap <leader>fs :sfind *
+nnoremap <leader>fv :vert sfind *
+" }}}
+
+" Buffers {{{
+nnoremap <leader>b :ls<CR>:b<Space>
+" }}}
+
+" Quickfix {{{
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
+" }}}
+
+
+let g:globalIncludePathsC = ['/usr/include']
+
+
+" Functions {{{
+def g:Relpath(filename: string): string
+	return substitute(filename, getcwd() .. "/", "./", "")
+enddef
+"}}}
+
+" Wildmenu {{{
+set wildignore=*.swp,*.bak
+set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
+set wildignore+=tags
+set wildignore+=*.tar.*
+
+set wildignorecase
+"}}}
 
 " vim:foldmethod=marker:foldlevel=0
