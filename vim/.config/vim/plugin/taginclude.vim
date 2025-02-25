@@ -1,5 +1,6 @@
 vim9script
 
+
 class TupleFindTagFilenames
 	public var filenames: list<string>
 	public var isGlobal: bool
@@ -26,9 +27,11 @@ def g:FindTagFilenames(tagname: string, globalTagsFiles: list<string> = []): Tup
 
 	var gp = join(globalTagsFiles, '\|')
 	gp = substitute(gp, '/', '\\/', 'g')
+
 	var local = !!globalTagsFiles ? matchstrlist(tl, '^\(' .. gp  .. '/.*\)\@!.*$')->map((_, val) => val.text) : tl
 
 	if !!local
+		local = uniq(local)
 		var curdir = expand('%:p:h')
 		# Filter out choices which match the current file,
 		# then map with relative paths
@@ -38,6 +41,7 @@ def g:FindTagFilenames(tagname: string, globalTagsFiles: list<string> = []): Tup
 	elseif !!globalTagsFiles
 		var filenames = matchstrlist(tl, '^' .. gp .. '\/\zs.*\ze$')->map((_, val) => val.text)
 		if !!filenames
+			filenames = uniq(filenames)
 			return TupleFindTagFilenames.new(filenames, true)
 		endif
 	endif
@@ -101,9 +105,7 @@ enddef
 def AppendFuncTypescript(tagname: string): func
 	return (filename: string) => {
 		var rx = $"^import \{.*\} from \\(\'{filename}\'\\|\"{filename}\"\\);\\?$"
-		echom rx
 		var res = matchbufline(bufnr('%'), rx, 1, '$')
-		echom res
 		if !!res
 			var existingImport = matchstr(res[0].text, '^import {\zs.*\ze} from .*$')
 			var toAppend = $"import \{ {existingImport->trim()}, {tagname} \} from \'{filename}\';"
@@ -116,7 +118,7 @@ def AppendFuncTypescript(tagname: string): func
 enddef
 
 def TagIncludeC(tagname: string, onlyHeaders: bool): void
-	var tuple = g:FindTagFilenames(tagname, g:globalIncludePaths)
+	var tuple = g:FindTagFilenames(tagname, g:globalIncludePathsC)
 	if tuple.error
 		return
 	endif
@@ -142,16 +144,12 @@ def TagInclude(name: string): void
 	var n = shellescape(name)
 	if &ft == "c" || &ft == "cpp"
 		TagIncludeC(name, true)
-	elseif &ft == "javascript" || &ft == "typescript"
+	elseif &ft == "javascript" || &ft == "typescript" || &ft == 'javascriptreact' || &ft == 'typescriptreact'
 		TagIncludeTypescript(name)
 	else
 		echom $"No TagInclude function available for filetype: {&ft}" 
 	endif
 enddef
-
-# List of paths to consider for global tags. Path cannot have a trailing slash
-g:globalIncludePaths = ['/usr/include']
-&tags =  &tags .. join(g:globalIncludePaths->copy()->map((_, val) => $",{val}/tags"), ',')
 
 command -nargs=1 TagInclude :call TagInclude(<q-args>)
 command TagIncludeAtPoint :call TagInclude(expand('<cword>'))
