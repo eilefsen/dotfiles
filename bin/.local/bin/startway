@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo $(slstatus -s | dwl -s dwl_startup.sh)
+
+echo 0 > /run/lidlock-active
