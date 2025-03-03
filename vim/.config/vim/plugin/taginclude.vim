@@ -1,5 +1,10 @@
 vim9script
 
+if (exists('g:loaded_taginclude'))
+	finish
+endif
+g:loaded_taginclude = 1
+g:globalIncludePathsC = ['/usr/include']
 
 class TupleFindTagFilenames
 	public var filenames: list<string>
@@ -154,5 +159,6 @@ enddef
 command -nargs=1 TagInclude :call TagInclude(<q-args>)
 command TagIncludeAtPoint :call TagInclude(expand('<cword>'))
 nnoremap <Leader>ti <Cmd>TagIncludeAtPoint<CR>
+
 
 # vim:foldmethod=marker:foldlevel=0

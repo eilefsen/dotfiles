@@ -15,12 +15,13 @@ set ttimeoutlen=100
 set mouse=a
 set tabstop=4
 set shiftwidth=4
+set relativenumber
 
-let g:netrw_home = '~/.local/state/vim/'
-set backupdir=~/.local/state/vim/backup/
-set directory=~/.local/state/vim/swap/
-set viminfofile=~/.local/state/vim/viminfo
-set undodir=~/.local/state/vim/undo/
+let g:netrw_home = $XDG_STATE_HOME .. '/vim/'
+set backupdir=$XDG_STATE_HOME/vim/backup/
+set directory=$XDG_STATE_HOME/vim/swap/
+set viminfofile=$XDG_STATE_HOME/vim/viminfo
+set undodir=$XDG_STATE_HOME/vim/undo/
 set undofile
 
 set shell=/bin/bash
@@ -69,6 +70,8 @@ endif
 colorscheme noctu
 " }}}
 
+set splitbelow
+
 nnoremap <SPACE> <Nop>
 map <SPACE> <Leader>
 
@@ -80,8 +83,31 @@ map s <Nop>
 " clear search highlight
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
-tnoremap <C-w><C-q> <C-\>n:q!<CR>
-nmap <Leader>t :exec 'terminal ' .. 'fish'<CR>
+" Terminal {{{
+let g:term_open = 0
+let g:term_bufnr = 0
+
+function CloseTerm(channel)
+	let g:term_open = 0
+	let g:term_bufnr = 0
+endfunction
+
+function OpenTerm()
+	if (g:term_open)
+		" switch to already open terminal window
+		:call win_gotoid(bufwinid(g:term_bufnr))
+	else
+		:botright 10sp
+		let g:term_open = 1
+		" open $SHELL in terminal at bottom (full width), with a fixed height of 10 rows
+		let g:term_bufnr = term_start($SHELL, #{ term_finish: 'close', curwin: 1, close_cb: function('CloseTerm')})
+		:set winfixheight
+		:set winfixbuf
+	endif
+endfunction
+
+nnoremap <leader>sh :call OpenTerm()<CR>
+"}}}
 
 " Files {{{
 set path+=src/**
@@ -99,11 +125,7 @@ nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
 " }}}
 
-
-let g:globalIncludePathsC = ['/usr/include']
-
-
-" Functions {{{
+" Functions {{{..
 def g:Relpath(filename: string): string
 	return substitute(filename, getcwd() .. "/", "./", "")
 enddef
@@ -118,5 +140,7 @@ set wildignore+=*.tar.*
 
 set wildignorecase
 "}}}
+
+let g:ft_man_open_mode = 'vert'
 
 " vim:foldmethod=marker:foldlevel=0

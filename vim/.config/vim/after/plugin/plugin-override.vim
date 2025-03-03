@@ -60,3 +60,7 @@ endif
 if exists('g:loaded_fugitive')
 	set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 endif
+
+if exists('g:loaded_taginclude')
+	g:globalIncludePathsC = ['/usr/include']
+endif
