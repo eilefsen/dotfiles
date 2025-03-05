@@ -36,4 +36,7 @@ vim.api.nvim_create_autocmd({"TextYankPost"}, { callback = function(ev)
 	vim.highlight.on_yank({higroup='CurSearch', timeout=150})
 end,})
 
+local taginclude = require('emma.taginclude')
+taginclude.setup({})
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
