@@ -22,9 +22,6 @@ M.telescope = {
 	{
 		"neovim/nvim-lspconfig",
 		opts = function()
-			if LazyVim.pick.want() ~= "telescope" then
-				return
-			end
 			local Keys = require("lazyvim.plugins.lsp.keymaps").get()
 			-- stylua: ignore
 			vim.list_extend(Keys, {
