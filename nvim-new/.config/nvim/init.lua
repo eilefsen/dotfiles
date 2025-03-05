@@ -23,6 +23,8 @@ vim.g.mapleader = " "
 vim.keymap.set({'n', 'v'}, 'q:', '<Nop>') -- use Ctrl+F in Ex mode instead
 vim.keymap.set({'n', 'x'}, 's', '<Nop>') -- disable redundant replace map
 
+vim.api.nvim_create_user_command('E', 'Explore', {})
+
 -- Wildmenu {{{
 vim.opt.wildignore= {
 	'*.swp', '*.bak', '*.pyc','*.class', '*.sln','*.Master', '*.csproj',
@@ -30,6 +32,8 @@ vim.opt.wildignore= {
 	'*/.hg/**/*', '*/.svn/**/*' , 'tags', '*.tar.*'
 }
 vim.opt.wildignorecase = true
+vim.opt.wildoptions = {'fuzzy', 'tagfile'}
+
 -- }}}
 
 vim.api.nvim_create_autocmd({"TextYankPost"}, {
