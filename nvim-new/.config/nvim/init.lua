@@ -32,11 +32,35 @@ vim.opt.wildignore= {
 vim.opt.wildignorecase = true
 -- }}}
 
-vim.api.nvim_create_autocmd({"TextYankPost"}, { callback = function(ev) 
-	vim.highlight.on_yank({higroup='CurSearch', timeout=150})
-end,})
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+	callback = function(ev) 
+		vim.highlight.on_yank({higroup='CurSearch', timeout=150})
+	end,
+})
 
-local taginclude = require('emma.taginclude')
-taginclude.setup({})
+vim.api.nvim_create_autocmd({"BufReadPost"}, { 
+	once = true,
+	callback = function(ev) 
+		vim.cmd.packadd('nvim-treesitter')
+		require'nvim-treesitter.configs'.setup({
+			ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
+			indent = {
+				enable = true
+			}
+		})
+	end,
+})
+
+vim.api.nvim_create_autocmd({"BufReadPost"}, { 
+	once = true,
+	callback = function(ev) 
+		local taginclude = require('emma.taginclude')
+		taginclude.setup({})
+	end,
+})
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
