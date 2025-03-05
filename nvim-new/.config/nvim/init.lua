@@ -32,4 +32,8 @@ vim.opt.wildignore= {
 vim.opt.wildignorecase = true
 -- }}}
 
+vim.api.nvim_create_autocmd({"TextYankPost"}, { callback = function(ev) 
+	vim.highlight.on_yank({higroup='CurSearch', timeout=150})
+end,})
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
