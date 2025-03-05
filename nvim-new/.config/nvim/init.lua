@@ -32,4 +32,4 @@ vim.opt.wildignore= {
 vim.opt.wildignorecase = true
 -- }}}
 
--- vim:foldmethod=marker:foldlevel=0
+-- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua

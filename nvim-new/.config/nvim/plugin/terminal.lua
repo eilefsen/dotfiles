@@ -49,3 +49,5 @@ end
 vim.api.nvim_create_user_command('TermUnique', M.open_unique_terminal, {})
 
 return M
+
+-- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
