@@ -1,8 +1,7 @@
-set PATH $PATH "$HOME/.local/bin"
-set XDG_CONFIG_HOME "$HOME/.config"
-set XDG_DATA_HOME "$HOME/.local/share"
-set XDG_CACHE_HOME "$HOME/.cache"
-set XDG_STATE_HOME "$HOME/.local/state"
+#set XDG_CONFIG_HOME "$HOME/.config"
+#set XDG_DATA_HOME "$HOME/.local/share"
+#set XDG_CACHE_HOME "$HOME/.cache"
+#set XDG_STATE_HOME "$HOME/.local/state"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
