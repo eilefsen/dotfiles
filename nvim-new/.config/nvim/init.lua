@@ -67,4 +67,6 @@ vim.api.nvim_create_autocmd({"BufReadPost"}, {
 	end,
 })
 
+require('emma.quickfix-tools')
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
