@@ -5,13 +5,44 @@ local M = {
 		c = {
 			global_include_paths = {'/usr/include'}, -- must be without trailing slash
 		},
-	}
+	},
 }
-vim.g.taginclude_config = M._config
 
 function M.setup(config)
 	local merged = vim.tbl_deep_extend('force', M._config, config)
-	vim.g.taginclude_config = merged
+
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = {"c", "cpp"},
+		callback = function(args)
+			vim.bo.tags = vim.go.tags
+			for _, gp in ipairs(M._config.c.global_include_paths) do
+				vim.opt_local.tags:append({ gp .. '/tags'})
+			end
+		end
+	})
+
+	vim.api.nvim_create_user_command('TagInclude', 
+		function(opts) 
+			if opts.fargs[1] ~= nil then
+				M.include_tag_wrapper(opts.fargs[1])
+				return
+			end
+
+			mode = vim.fn.mode()
+			if mode == 'v' or mode == 'vs' or mode == 'V' or mode == 'Vs' then
+				-- yank into register then reset the register to its prior value
+				local a_save = vim.fn.getreg('a')
+				vim.cmd.normal([["ay]])
+				M.include_tag_wrapper(vim.fn.getreg('a'))
+				vim.fn.setreg('a', a_save)
+				return
+			end
+
+			M.include_tag_wrapper(vim.fn.expand("<cword>"))
+			return
+		end, {nargs = '?', range = true})
+
+
 	return merged
 end
 
@@ -25,27 +56,27 @@ function M.c.find_tag_filenames(tagname)
 	local gp = vim.fn.join(M._config.c.global_include_paths, [[\|]])
 	gp = vim.fn.substitute(gp, '/', [[\\/]], 'g')
 
-	local is_local = false
+	local local_tl = {}
 	if #M._config.c.global_include_paths > 0 then 
-		local mls = vim.fn.matchstrlist(tl, [[^\(]] .. gp  .. [[/.*\)\@!.*$]])
-		is_local = #mls > 0
-		if is_local then
-			tl = vim.tbl_map(function(val) return val.text end, mls)
-		end
+		local_tl = vim.tbl_map(function(val) return val.text end, vim.fn.matchstrlist(tl, [[^\(]] .. gp  .. [[/.*\)\@!.*$]]))
+		local_tl = vim.tbl_filter(function (val) return vim.fn.expand('%') ~= val end , local_tl)
 	end
 
 	tl = vim.fn.uniq(tl)
 
-	if is_local then
+	if #local_tl > 0 then
+		local_tl = vim.fn.uniq(tl)
 		local curdir = vim.fn.expand('%:p:h')
-		local filenames = vim.tbl_filter(function (val) return vim.fn.expand('%') ~= val end , tl)
 		filenames = vim.tbl_map(
 			function(val) 
 				local rel = vim.fn.system('realpath -s --relative-to=' .. curdir .. ' ' .. val)
 				return vim.fn.trim(rel) 
 			end, filenames)
-		return filenames, false
-	elseif #M._config.c.global_include_paths then
+		if #filenames > 0 then 
+			return filenames, false
+		end
+	end
+	if #M._config.c.global_include_paths then
 		local filenames = vim.fn.matchstrlist(tl, '^' .. gp .. [[/\zs.*\ze$]])
 		filenames = vim.tbl_map(function(val) return val.text end, filenames)
 		if #filenames > 0 then 
@@ -53,28 +84,31 @@ function M.c.find_tag_filenames(tagname)
 		end
 	end
 
-	vim.api.nvim_echo({{ "Could not find a file to include for " .. tagname }}, true, {})
 	return {}, false
 end
 
 function M.c.include_tag(tagname, onlyHeaders)
 	local filenames, is_global = M.c.find_tag_filenames(tagname)
+	if #filenames == 0 then
+		vim.cmd.echom([["Could not find a file to include for: ]] .. tagname .. [["]] )
+		return 
+	end
+
 	if onlyHeaders then
 		local matched = vim.fn.matchstrlist(filenames, [[^.*\(\.h\|\.hpp\)$]])
 		filenames = vim.tbl_map(function (val) return val.text end, matched)
-	else
+	elseif #filenames > 1 then
 		filenames = vim.fn.sort(filenames, M.util.sort_headers_first)
 	end
 
-	if #filenames == 0  then
-	return 
-	elseif #filenames == 1 then
+	if #filenames == 1 then
 		M.c.append_include(filenames[1], is_global, false)
 		return
 	end
+
 	vim.ui.select(filenames, {
-		prompt = "Select file to include:",
-		}, function(f, idx)
+		prompt = "Select file to include '" .. tagname .. "' from:",
+	}, function(f, idx)
 			if idx == nil then
 				return
 			else
@@ -111,11 +145,6 @@ function M.c.append_include(filename, is_global, allow_duplicate)
 	end
 end
 
-
-function M.file_menu(filenames)
-	return filenames[1]
-end
-
 local function string_is_empty(s)
 	return s == " " or s == nil
 end
@@ -137,11 +166,6 @@ function M.util.sort_headers_first(a, b)
 		return 0
 	end
 end
-
-vim.api.nvim_create_user_command('TagInclude', 
-		function(opts) M.include_tag_wrapper(opts.fargs[1]) end, {nargs = 1})
-vim.api.nvim_create_user_command('TagIncludeAtPoint', 
-		function() M.include_tag_wrapper(vim.fn.expand('<cword>')) end, {})
 
 return M
 

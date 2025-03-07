@@ -13,7 +13,6 @@ vim.opt.relativenumber = true
 vim.opt.backupdir = vim.fn.getenv('XDG_STATE_HOME') .. "/nvim/backup//"
 vim.opt.undofile = true
 
-vim.g.ft_man_open_mode = 'vert'
 
 -- remap space to Leader
 vim.keymap.set('n', '<Space>', '<Nop>')
@@ -36,6 +35,7 @@ vim.opt.wildoptions = {'fuzzy', 'tagfile'}
 
 -- }}}
 
+-- highlight yanked text
 vim.api.nvim_create_autocmd({"TextYankPost"}, {
 	callback = function(ev) 
 		vim.highlight.on_yank({higroup='CurSearch', timeout=150})
@@ -53,8 +53,8 @@ vim.api.nvim_create_autocmd({"BufReadPost"}, {
 				additional_vim_regex_highlighting = false,
 			},
 			indent = {
-				enable = true
-			}
+				enable = true,
+			},
 		})
 	end,
 })
@@ -64,6 +64,7 @@ vim.api.nvim_create_autocmd({"BufReadPost"}, {
 	callback = function(ev) 
 		local taginclude = require('emma.taginclude')
 		taginclude.setup({})
+		vim.keymap.set({'n', 'v'}, '<Leader>ti', '<Cmd>TagInclude<CR>')
 	end,
 })
 
