@@ -10,6 +10,7 @@
 workaliases.zsh
 .project.el
 
+tags
 .DS_Store
 secrets.zsh
 localaliases.zsh

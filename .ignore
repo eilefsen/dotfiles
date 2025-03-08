@@ -1,0 +1,2 @@
+# Ignore nvim pack directory (only submodules should exist here)
+pack/
