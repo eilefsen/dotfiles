@@ -3,13 +3,34 @@ local M = {
 	util = {},
 	_config = {
 		c = {
-			global_include_paths = {'/usr/include'}, -- must be without trailing slash
+			global_include_paths = {'/usr/include'},
 		},
+	},
+	cmd = {
+		-- table of functions that take an `opts` argument, for user commands.
 	},
 }
 
+function M.util.trim_trailing_slashes(tbl)
+	return vim.tbl_map(function(val)
+		return vim.fn.trim(val, '/', 2) 
+	end, tbl)
+end
+
+function M.util.process_config(cfg) 
+	-- Remove trailing slashes from paths
+	cfg.c.global_include_paths = M.util.trim_trailing_slashes(
+		cfg.c.global_include_paths
+	)
+
+	return cfg
+end
+
 function M.setup(config)
-	local merged = vim.tbl_deep_extend('force', M._config, config)
+	if config ~= nil then
+		local merged = vim.tbl_deep_extend('force', M._config, config)
+		M._config = M.util.process_config(merged)
+	end
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = {"c", "cpp"},
@@ -43,7 +64,27 @@ function M.setup(config)
 		end, {nargs = '?', range = true})
 
 
-	return merged
+	return M._config
+end
+
+function M.cmd.tag_include(opts)
+	if opts.fargs[1] ~= nil then
+		M.include_tag_wrapper(opts.fargs[1])
+		return
+	end
+
+	mode = vim.fn.mode()
+	if mode == 'v' or mode == 'vs' or mode == 'V' or mode == 'Vs' then
+		-- yank into register then reset the register to its prior value
+		local a_save = vim.fn.getreg('a')
+		vim.cmd.normal([["ay]])
+		M.include_tag_wrapper(vim.fn.getreg('a'))
+		vim.fn.setreg('a', a_save)
+		return
+	end
+
+	M.include_tag_wrapper(vim.fn.expand("<cword>"))
+	return
 end
 
 function M.c.find_tag_filenames(tagname) 
