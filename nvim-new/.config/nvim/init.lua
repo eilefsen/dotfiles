@@ -20,6 +20,10 @@ vim.g.mapleader = " "
 vim.keymap.set({'n', 'v'}, 'q:', '<Nop>') -- use Ctrl+F in Ex mode instead
 vim.keymap.set({'n', 'x'}, 's', '<Nop>') -- disable redundant replace map
 
+ -- remap C-c to Esc
+vim.keymap.set({'n', 'v', 'i', 'o'}, '<C-c>', '<Esc>')
+vim.keymap.set({'n', 'v'}, '<C-w><C-c>', '<Nop>') -- preserve default behaviour
+
 vim.api.nvim_create_user_command('E', 'Explore', {})
 
 if vim.fn.executable('rg') == 1 then 
@@ -107,5 +111,8 @@ if lazygit_avail then
 end
 vim.keymap.set({'n'}, '<Leader>tu', '<Cmd>TermUnique<CR>')
 --}}}
+
+
+
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
