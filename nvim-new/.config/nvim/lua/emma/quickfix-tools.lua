@@ -7,8 +7,19 @@ local M = {
 	},
 }
 
-local function git_ls()
+function M.git_ls()
 	local files = vim.fn.split(vim.fn.system('git ls-files'), '\n')
+	return vim.tbl_map(
+		function(val) 
+			return {
+				filename = val,
+				valid = true,
+			} 
+		end, files)
+end
+
+function M.ls()
+	local files = vim.fn.split(vim.fn.system("find -type f | sed 's|^./||'"), '\n')
 	return vim.tbl_map(
 		function(val) 
 			return {
@@ -33,12 +44,23 @@ function M.filename_filter(pat, list)
 end
 
 function M.qf.find_git_files()
-	vim.fn.setqflist({}, ' ', {title = 'git ls-files', items = git_ls()} )
+	vim.fn.setqflist({}, ' ', {title = 'git ls-files', items = M.git_ls()} )
 	vim.cmd.copen()
 	vim.fn.feedkeys(':Cfuzzy! ')
 end
 function M.loc.find_git_files()
-	vim.fn.setloclist(0, {}, ' ', {title = 'git ls-files', items = git_ls()} )
+	vim.fn.setloclist(0, {}, ' ', {title = 'git ls-files', items = M.git_ls()} )
+	vim.cmd.lopen()
+	vim.fn.feedkeys(':Lfuzzy! ')
+end
+
+function M.qf.find_files()
+	vim.fn.setqflist({}, ' ', {title = 'find -type f', items = M.ls()} )
+	vim.cmd.copen()
+	vim.fn.feedkeys(':Cfuzzy! ')
+end
+function M.loc.find_files()
+	vim.fn.setloclist(0, {}, ' ', {title = 'find -type f', items = M.ls()} )
 	vim.cmd.lopen()
 	vim.fn.feedkeys(':Lfuzzy! ')
 end
@@ -95,12 +117,18 @@ function M.setup(cfg)
 		M.loc.find_git_files() 
 	end, {})
 
+	vim.api.nvim_create_user_command('Files', function(opts)
+		M.qf.find_files() 
+	end, {})
+	vim.api.nvim_create_user_command('LFiles', function(opts)
+		M.loc.find_files() 
+	end, {})
+
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = "qf",
 		callback = function(args)
-			local wininfo = vim.fn.getwininfo(vim.fn.win_getid())
 			-- abstraction to make up for missing loclist filetype plugin
-			if wininfo[1]['loclist'] == 1 then
+			if vim.fn.win_gettype(vim.fn.win_getid()) == 'loclist' then
 				M._config.on_loc_ft(args)
 			else
 				M._config.on_qf_ft(args)
