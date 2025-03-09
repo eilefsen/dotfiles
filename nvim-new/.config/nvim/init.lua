@@ -18,6 +18,7 @@ vim.keymap.set('n', '<Space>', '<Nop>')
 vim.g.mapleader = " "
 -- unmap some annoying defaults
 vim.keymap.set({'n', 'v'}, 'q:', '<Nop>') -- use Ctrl+F in Ex mode instead
+vim.keymap.set({'n'}, '<C-q>', '<Nop>') -- preserve default behaviour
 vim.keymap.set({'n', 'x'}, 's', '<Nop>') -- disable redundant replace map
 
  -- remap C-c to Esc
@@ -85,6 +86,7 @@ local qf_tools = require('emma.quickfix-tools')
 qf_tools.setup({
 	on_qf_ft = function(args) 
 		vim.keymap.set('n', '<leader>fz', ':Cfuzzy ', {buffer = args.buf})
+		vim.keymap.set('n', '<C-f>', ':Cfuzzy! ', {buffer = args.buf})
 		vim.keymap.set('n', '<Left>', '<Cmd>colder<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<Right>', '<Cmd>cnewer<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-o>', '<Cmd>colder<CR>', {buffer = args.buf})
@@ -92,6 +94,7 @@ qf_tools.setup({
 	end,
 	on_loc_ft = function(args) 
 		vim.keymap.set('n', '<leader>fz', ':Lfuzzy ', {buffer = args.buf})
+		vim.keymap.set('n', '<C-f>', ':Lfuzzy! ', {buffer = args.buf})
 		vim.keymap.set('n', '<Left>', '<Cmd>lolder<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<Right>', '<Cmd>lnewer<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-o>', '<Cmd>lolder<CR>', {buffer = args.buf})
@@ -100,6 +103,37 @@ qf_tools.setup({
 })
 vim.keymap.set('n', '<leader>fg', '<Cmd>GitFiles<CR>')
 vim.keymap.set('n', '<leader>flg', '<Cmd>LGitFiles<CR>')
+vim.keymap.set('n', '<leader>ff', '<Cmd>Files<CR>')
+vim.keymap.set('n', '<leader>flf', '<Cmd>LFiles<CR>')
+--}}}
+
+-- Grep {{{
+vim.api.nvim_create_user_command('Grep', function(opts)
+	vim.cmd([[silent grep! ]].. opts.args)
+	vim.cmd.copen()
+end, {nargs = '+'})
+
+vim.api.nvim_create_user_command('GrepGit', function(opts)
+	local files = vim.fn.substitute(vim.fn.system('git ls-files'), '\n', ' ', 'g')
+	vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
+	vim.cmd.copen()
+end, {nargs = '+'})
+
+vim.api.nvim_create_user_command('GrepCwd', function(opts)
+	local files = vim.fn.substitute(
+		vim.fn.system("find -type f | sed 's|^./||'"), '\n', ' ', 'g')
+	vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
+	vim.cmd.copen()
+end, {nargs = '+'})
+
+vim.keymap.set('n', '<leader>/', ':GrepGit ')
+vim.keymap.set('n', '<leader>sg', ':GrepGit ')
+vim.keymap.set('n', '<leader>ss', ':GrepCwd ')
+
+vim.api.nvim_create_user_command('LGrep', function(opts)
+	vim.cmd([[silent lgrep! ]] .. opts.args)
+	vim.cmd.lopen()
+end, {nargs = '+'})
 --}}}
 
 -- Terminal {{{
@@ -111,8 +145,5 @@ if lazygit_avail then
 end
 vim.keymap.set({'n'}, '<Leader>tu', '<Cmd>TermUnique<CR>')
 --}}}
-
-
-
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
