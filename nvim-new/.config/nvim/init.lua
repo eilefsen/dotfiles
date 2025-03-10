@@ -146,4 +146,13 @@ end
 vim.keymap.set({'n'}, '<Leader>tu', '<Cmd>TermUnique<CR>')
 --}}}
 
+-- LSP {{{
+
+vim.lsp.set_log_level('debug')
+vim.lsp.enable('vue_ls')
+vim.lsp.enable('ts_ls')
+
+
+--}}}
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
