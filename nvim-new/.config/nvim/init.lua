@@ -146,4 +146,66 @@ end
 vim.keymap.set({'n'}, '<Leader>tu', '<Cmd>TermUnique<CR>')
 --}}}
 
+-- LSP {{{
+
+vim.lsp.config('*', {
+	capabilities = {
+		textDocument = {
+			semanticTokens = {
+				-- multilineTokenSupport = false,
+			}
+		}
+	},
+	root_markers = { '.git' },
+})
+
+vim.lsp.config('vue_ls', {
+	cmd = { 'vue-language-server', '--stdio' },
+	filetypes = {
+		'vue',
+	},
+	root_markers = {'package.json'},
+	settings = {
+		vue = {
+			typescript = {
+			    tsdk = '',
+			},
+		}
+	}
+})
+
+vim.lsp.config('ts_ls', {
+	cmd = { 'typescript-language-server', '--stdio' },
+	filetypes = {
+		'javascript',
+		'javascriptreact',
+		'javascript.jsx',
+		'typescript',
+		'typescriptreact',
+		'typescript.tsx',
+		'vue',
+	},
+	root_markers = {'package.json'},
+	settings = {
+		typescript = {
+			initializationOptions =  {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = "/usr/local/lib/node_modules/@vue/language-server",
+						languages = {"javascript", "typescript", "vue"},
+						configNamespace = "typescript",
+						enableForWorkspaceTypeScriptVersions = true,
+					},
+				},
+				tsserver = {},
+			},
+		},
+	},
+})
+vim.lsp.enable('vue_ls')
+vim.lsp.enable('ts_ls')
+
+--}}}
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
