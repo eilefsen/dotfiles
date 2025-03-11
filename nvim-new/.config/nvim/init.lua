@@ -2,7 +2,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
 vim.opt.termguicolors = false
-vim.cmd.colorscheme('noctu')
+vim.cmd.colorscheme('emma')
 
 vim.opt.clipboard="unnamedplus"
 vim.opt.wrap = false
