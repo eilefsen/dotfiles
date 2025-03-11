@@ -152,7 +152,27 @@ vim.lsp.set_log_level('debug')
 vim.lsp.enable('vue_ls')
 vim.lsp.enable('ts_ls')
 
-
 --}}}
+
+vim.opt.completeopt = {'menuone'}
+
+vim.keymap.set("i", "<CR>", function()
+	if vim.fn.pumvisible() == 1 then 
+		return '<C-y>'
+	end
+	return '<CR>'
+end, { expr = true })
+vim.keymap.set("i", "<Esc>", function()
+	if vim.fn.pumvisible() == 1 then 
+		return '<C-e><Esc>'
+	end
+	return '<Esc>'
+end, { expr = true })
+vim.keymap.set("i", "<C-c>", function()
+	if vim.fn.pumvisible() == 1 then 
+		return '<C-e><C-c>'
+	end
+	return '<C-c>'
+end, { expr = true })
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua

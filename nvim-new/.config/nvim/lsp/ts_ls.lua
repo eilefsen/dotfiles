@@ -14,6 +14,11 @@ return {
 			},
 		},
     },
+	on_attach = function(client,bufnr) 
+		vim.lsp.completion.enable(true, client.id, bufnr, {
+			autotrigger = false,
+		})
+	end
 }
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
