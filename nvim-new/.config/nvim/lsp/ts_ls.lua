@@ -8,10 +8,11 @@ return {
 			{
 				name = "@vue/typescript-plugin",
 				location = "/usr/local/lib/node_modules/@vue/language-server",
-				languages = {"vue"},
-				configNamespace = "typescript",
-				enableForWorkspaceTypeScriptVersions = true,
+				languages = {"typescript", "javascript","vue"},
 			},
+		},
+		tsserver = {
+			path = "/usr/local/lib/node_modules/typescript/lib/tsserver.js"
 		},
     },
 	on_attach = function(client,bufnr) 
