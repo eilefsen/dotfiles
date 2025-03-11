@@ -51,11 +51,11 @@ vim.opt.wildoptions = {'fuzzy', 'tagfile'}
 -- }}}
 
 -- Treesitter {{{
-vim.api.nvim_create_autocmd({"BufReadPost"}, { 
+vim.api.nvim_create_autocmd({"VimEnter"}, { 
 	once = true,
 	callback = function(ev) 
 		vim.cmd.packadd('nvim-treesitter')
-		require'nvim-treesitter.configs'.setup({
+		require('nvim-treesitter.configs').setup({
 			ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 			highlight = {
 				enable = true,
@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd({"BufReadPost"}, {
 --}}}
 
 -- Tags {{{
-vim.api.nvim_create_autocmd({"BufReadPost"}, { 
+vim.api.nvim_create_autocmd({"VimEnter"}, { 
 	once = true,
 	callback = function(ev) 
 		local taginclude = require('emma.taginclude')
@@ -105,35 +105,18 @@ vim.keymap.set('n', '<leader>fg', '<Cmd>GitFiles<CR>')
 vim.keymap.set('n', '<leader>flg', '<Cmd>LGitFiles<CR>')
 vim.keymap.set('n', '<leader>ff', '<Cmd>Files<CR>')
 vim.keymap.set('n', '<leader>flf', '<Cmd>LFiles<CR>')
+vim.keymap.set('n', '<leader>fb', '<Cmd>Buffers<CR>')
+vim.keymap.set('n', '<leader>flb', '<Cmd>LBuffers<CR>')
+vim.keymap.set('n', '<leader>,', '<Cmd>LBuffers<CR>')
 --}}}
 
 -- Grep {{{
-vim.api.nvim_create_user_command('Grep', function(opts)
-	vim.cmd([[silent grep! ]].. opts.args)
-	vim.cmd.copen()
-end, {nargs = '+'})
+local grep_tools = require('emma.grep-tools')
+grep_tools.setup()
 
-vim.api.nvim_create_user_command('GrepGit', function(opts)
-	local files = vim.fn.substitute(vim.fn.system('git ls-files'), '\n', ' ', 'g')
-	vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
-	vim.cmd.copen()
-end, {nargs = '+'})
-
-vim.api.nvim_create_user_command('GrepCwd', function(opts)
-	local files = vim.fn.substitute(
-		vim.fn.system("find -type f | sed 's|^./||'"), '\n', ' ', 'g')
-	vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
-	vim.cmd.copen()
-end, {nargs = '+'})
-
-vim.keymap.set('n', '<leader>/', ':GrepGit ')
-vim.keymap.set('n', '<leader>sg', ':GrepGit ')
-vim.keymap.set('n', '<leader>ss', ':GrepCwd ')
-
-vim.api.nvim_create_user_command('LGrep', function(opts)
-	vim.cmd([[silent lgrep! ]] .. opts.args)
-	vim.cmd.lopen()
-end, {nargs = '+'})
+vim.keymap.set('n', '<leader>ss', ':LGrepCwd ')
+vim.keymap.set('n', '<leader>sg', ':LGrepGit ')
+vim.keymap.set('n', '<leader>/', ':LGrepGit ')
 --}}}
 
 -- Terminal {{{

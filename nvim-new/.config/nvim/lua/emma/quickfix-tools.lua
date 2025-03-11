@@ -7,7 +7,7 @@ local M = {
 	},
 }
 
-function M.git_ls()
+local function git_ls()
 	local files = vim.fn.split(vim.fn.system('git ls-files'), '\n')
 	return vim.tbl_map(
 		function(val) 
@@ -18,7 +18,7 @@ function M.git_ls()
 		end, files)
 end
 
-function M.ls()
+local function ls()
 	local files = vim.fn.split(vim.fn.system("find -type f | sed 's|^./||'"), '\n')
 	return vim.tbl_map(
 		function(val) 
@@ -28,6 +28,19 @@ function M.ls()
 			} 
 		end, files)
 end
+
+local function ls_buffers()
+	local bufs = vim.fn.getbufinfo({buflisted = 1})
+	return vim.tbl_map(
+		function(val) 
+			return {
+				bufnr = val.bufnr,
+				lnum = val.lnum,
+				valid = true,
+			} 
+		end, bufs)
+end
+
 
 function M.text_filter(pat, list)
 	return vim.fn.matchfuzzy(list, pat, {
@@ -44,23 +57,34 @@ function M.filename_filter(pat, list)
 end
 
 function M.qf.find_git_files()
-	vim.fn.setqflist({}, ' ', {title = 'git ls-files', items = M.git_ls()} )
+	vim.fn.setqflist({}, ' ', {title = 'git ls-files', items = git_ls()} )
 	vim.cmd.copen()
 	vim.fn.feedkeys(':Cfuzzy! ')
 end
 function M.loc.find_git_files()
-	vim.fn.setloclist(0, {}, ' ', {title = 'git ls-files', items = M.git_ls()} )
+	vim.fn.setloclist(0, {}, ' ', {title = 'git ls-files', items = git_ls()} )
 	vim.cmd.lopen()
 	vim.fn.feedkeys(':Lfuzzy! ')
 end
 
 function M.qf.find_files()
-	vim.fn.setqflist({}, ' ', {title = 'find -type f', items = M.ls()} )
+	vim.fn.setqflist({}, ' ', {title = 'find -type f', items = ls()} )
 	vim.cmd.copen()
 	vim.fn.feedkeys(':Cfuzzy! ')
 end
 function M.loc.find_files()
-	vim.fn.setloclist(0, {}, ' ', {title = 'find -type f', items = M.ls()} )
+	vim.fn.setloclist(0, {}, ' ', {title = 'find -type f', items = ls()} )
+	vim.cmd.lopen()
+	vim.fn.feedkeys(':Lfuzzy! ')
+end
+
+function M.qf.find_buffers()
+	vim.fn.setqflist({}, ' ', {title = 'Listed buffers', items = ls_buffers() })
+	vim.cmd.copen()
+	vim.fn.feedkeys(':Cfuzzy! ')
+end
+function M.loc.find_buffers()
+	vim.fn.setloclist(0, {}, ' ', {title = 'Listed buffers', items = ls_buffers() })
 	vim.cmd.lopen()
 	vim.fn.feedkeys(':Lfuzzy! ')
 end
@@ -122,6 +146,13 @@ function M.setup(cfg)
 	end, {})
 	vim.api.nvim_create_user_command('LFiles', function(opts)
 		M.loc.find_files() 
+	end, {})
+
+	vim.api.nvim_create_user_command('Buffers', function(opts)
+		M.qf.find_buffers() 
+	end, {})
+	vim.api.nvim_create_user_command('LBuffers', function(opts)
+		M.loc.find_buffers() 
 	end, {})
 
 	vim.api.nvim_create_autocmd("FileType", {
