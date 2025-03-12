@@ -1,2 +1,4 @@
 .project.el
 .DS_Store
+Session.vim
+tags
