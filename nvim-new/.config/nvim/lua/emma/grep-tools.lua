@@ -39,13 +39,13 @@ function M.setup(cfg)
 	end, {nargs = '+'})
 
 	vim.api.nvim_create_user_command('GrepGit', function(opts)
-		local files = git_files
+		local files = git_files()
 		vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
 		vim.cmd.copen()
 	end, {nargs = '+'})
 	vim.api.nvim_create_user_command('LGrepGit', function(opts)
-		local files = git_files
-		vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
+		local files = git_files()
+		vim.cmd([[LGrep ]] .. opts.args .. ' ' .. files)
 		vim.cmd.lopen()
 	end, {nargs = '+'})
 end
