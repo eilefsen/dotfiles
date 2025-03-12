@@ -1,5 +1,5 @@
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 0     -- 0 to follow the 'tabstop' value
 
 vim.opt.termguicolors = false
 vim.cmd.colorscheme('emma')
@@ -12,6 +12,13 @@ vim.opt.relativenumber = true
 
 vim.opt.backupdir = vim.fn.getenv('XDG_STATE_HOME') .. "/nvim/backup//"
 vim.opt.undofile = true
+
+vim.opt.foldenable = true   -- enable fold
+vim.opt.foldlevel = 99      -- start editing with all folds opened
+vim.opt.foldmethod = "expr" -- use tree-sitter for folding method
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+vim.opt.signcolumn = "no" -- never show signcol
 
 -- remap space to Leader
 vim.keymap.set('n', '<Space>', '<Nop>')
