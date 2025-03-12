@@ -97,7 +97,7 @@ hi Boolean         ctermfg=13
 hi Special         ctermfg=13
 hi Ignore          ctermfg=0
 hi PreProc         ctermfg=8   cterm=bold
-hi Tag             ctermfg=2
+hi Tag             ctermfg=6
 hi @property.css   ctermfg=13
 hi! link Operator  Delimiter
 hi! link Error     ErrorMsg
