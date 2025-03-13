@@ -17,7 +17,6 @@ vim.opt.foldenable = true   -- enable fold
 vim.opt.foldlevel = 99      -- start editing with all folds opened
 vim.opt.foldmethod = "expr" -- use tree-sitter for folding method
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
 vim.opt.signcolumn = "no" -- never show signcol
 
 -- remap space to Leader
@@ -34,10 +33,6 @@ vim.keymap.set({'n', 'v'}, '<C-w><C-c>', '<Nop>') -- preserve default behaviour
 
 vim.api.nvim_create_user_command('E', 'Explore', {})
 
-if vim.fn.executable('rg') == 1 then 
-	vim.opt.grepformat:append('%f:%l:%c:%m')
-	vim.opt.grepprg='rg --vimgrep --smart-case --no-heading'
-end
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd({"TextYankPost"}, {
@@ -45,6 +40,13 @@ vim.api.nvim_create_autocmd({"TextYankPost"}, {
 		vim.highlight.on_yank({higroup='CurSearch', timeout=150})
 	end,
 })
+
+--  Window {{{
+vim.keymap.set("n", "<M-,>", "<c-w>5<")
+vim.keymap.set("n", "<M-.>", "<c-w>5>")
+vim.keymap.set("n", "<M-t>", "<C-W>+")
+vim.keymap.set("n", "<M-s>", "<C-W>-")
+--}}}
 
 -- Wildmenu {{{
 vim.opt.wildignore= {
@@ -54,7 +56,6 @@ vim.opt.wildignore= {
 }
 vim.opt.wildignorecase = true
 vim.opt.wildoptions = {'fuzzy', 'tagfile'}
-
 -- }}}
 
 -- Treesitter {{{
@@ -82,7 +83,7 @@ vim.api.nvim_create_autocmd({"VimEnter"}, {
 	callback = function(ev) 
 		local taginclude = require('emma.taginclude')
 		taginclude.setup()
-		vim.keymap.set({'n', 'v'}, '<Leader>ti', '<Cmd>TagInclude<CR>')
+		vim.keymap.set({'n', 'v'}, 'gti', '<Cmd>TagInclude<CR>')
 	end,
 })
 --}}}
@@ -92,32 +93,29 @@ vim.cmd.packadd('cfilter')
 local qf_tools = require('emma.quickfix-tools')
 qf_tools.setup({
 	on_qf_ft = function(args) 
-		vim.keymap.set('n', '<leader>fz', ':Cfuzzy ', {buffer = args.buf})
+		vim.keymap.set('n', '<C-s>', ':Cfuzzy ', {buffer = args.buf})
 		vim.keymap.set('n', '<C-f>', ':Cfuzzy! ', {buffer = args.buf})
-		vim.keymap.set('n', '<Left>', '<Cmd>colder<CR>', {buffer = args.buf})
-		vim.keymap.set('n', '<Right>', '<Cmd>cnewer<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-o>', '<Cmd>colder<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-i>', '<Cmd>cnewer<CR>', {buffer = args.buf})
 	end,
 	on_loc_ft = function(args) 
-		vim.keymap.set('n', '<leader>fz', ':Lfuzzy ', {buffer = args.buf})
+		vim.keymap.set('n', '<C-s>', ':Lfuzzy ', {buffer = args.buf})
 		vim.keymap.set('n', '<C-f>', ':Lfuzzy! ', {buffer = args.buf})
-		vim.keymap.set('n', '<Left>', '<Cmd>lolder<CR>', {buffer = args.buf})
-		vim.keymap.set('n', '<Right>', '<Cmd>lnewer<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-o>', '<Cmd>lolder<CR>', {buffer = args.buf})
 		vim.keymap.set('n', '<C-i>', '<Cmd>lnewer<CR>', {buffer = args.buf})
 	end,
 })
-vim.keymap.set('n', '<leader>fg', '<Cmd>GitFiles<CR>')
-vim.keymap.set('n', '<leader>flg', '<Cmd>LGitFiles<CR>')
-vim.keymap.set('n', '<leader>ff', '<Cmd>Files<CR>')
-vim.keymap.set('n', '<leader>flf', '<Cmd>LFiles<CR>')
-vim.keymap.set('n', '<leader>fb', '<Cmd>Buffers<CR>')
-vim.keymap.set('n', '<leader>flb', '<Cmd>LBuffers<CR>')
+vim.keymap.set('n', '<leader>fg', '<Cmd>LGitFiles<CR>')
+vim.keymap.set('n', '<leader>ff', '<Cmd>LFiles<CR>')
+vim.keymap.set('n', '<leader>fb', '<Cmd>LBuffers<CR>')
 vim.keymap.set('n', '<leader>,', '<Cmd>LBuffers<CR>')
 --}}}
 
 -- Grep {{{
+if vim.fn.executable('rg') == 1 then 
+	vim.opt.grepformat:append('%f:%l:%c:%m')
+	vim.opt.grepprg='rg --vimgrep --smart-case --no-heading'
+end
 local grep_tools = require('emma.grep-tools')
 grep_tools.setup()
 
