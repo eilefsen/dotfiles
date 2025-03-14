@@ -142,6 +142,7 @@ vim.lsp.enable('vue_ls')
 vim.lsp.enable('ts_ls')
 --}}}
 
+-- Completion {{{
 vim.opt.completeopt = {'menuone'}
 
 vim.keymap.set("i", "<CR>", function()
@@ -162,5 +163,6 @@ vim.keymap.set("i", "<C-c>", function()
 	end
 	return '<C-c>'
 end, { expr = true })
+-- }}}
 
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
