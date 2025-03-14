@@ -1,5 +1,5 @@
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 0     -- 0 to follow the 'tabstop' value
+vim.opt.shiftwidth = 0 -- 0 to follow the 'tabstop' value
 
 vim.opt.termguicolors = false
 vim.cmd.colorscheme('emma')
@@ -29,12 +29,11 @@ vim.keymap.set({'n', 'v'}, 'q:', '<Nop>') -- use Ctrl+F in Ex mode instead
 vim.keymap.set({'n'}, '<C-q>', '<Nop>') -- preserve default behaviour
 vim.keymap.set({'n', 'x'}, 's', '<Nop>') -- disable redundant replace map
 
- -- remap C-c to Esc
+-- remap C-c to Esc
 vim.keymap.set({'n', 'v', 'i', 'o'}, '<C-c>', '<Esc>')
 vim.keymap.set({'n', 'v'}, '<C-w><C-c>', '<Nop>') -- preserve default behaviour
 
 vim.api.nvim_create_user_command('E', 'Explore', {})
-
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd({"TextYankPost"}, {
