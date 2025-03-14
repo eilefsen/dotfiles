@@ -165,4 +165,7 @@ vim.keymap.set("i", "<C-c>", function()
 end, { expr = true })
 -- }}}
 
+local async_make = require('emma.async-make')
+async_make.setup()
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
