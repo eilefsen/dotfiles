@@ -19,6 +19,8 @@ vim.opt.foldmethod = "expr" -- use tree-sitter for folding method
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.signcolumn = "no" -- never show signcol
 
+vim.opt.exrc = true -- automatically execute vimrc in cwd
+
 -- remap space to Leader
 vim.keymap.set('n', '<Space>', '<Nop>')
 vim.g.mapleader = " "
@@ -135,11 +137,9 @@ vim.keymap.set({'n'}, '<Leader>tu', '<Cmd>TermUnique<CR>')
 --}}}
 
 -- LSP {{{
-
 vim.lsp.set_log_level('debug')
 vim.lsp.enable('vue_ls')
 vim.lsp.enable('ts_ls')
-
 --}}}
 
 vim.opt.completeopt = {'menuone'}
