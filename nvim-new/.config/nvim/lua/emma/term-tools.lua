@@ -35,6 +35,7 @@ function M.open_unique_terminal()
 	elseif term_buffer ~= nil then
 		vim.api.nvim_command("botright 10 split")
 		vim.api.nvim_set_current_buf(term_buffer)
+		vim.wo.winfixheight = true
 		vim.wo.winfixbuf = true
 		term_opened = true
 		term_window = vim.api.nvim_get_current_win()
@@ -43,6 +44,7 @@ function M.open_unique_terminal()
 		-- vim.api.nvim_command("terminal")
 		vim.api.nvim_command("terminal" .. vim.fn.getenv("SHELL"))
 		vim.wo.winfixbuf = true
+		vim.wo.winfixheight = true
 		term_opened = true
 		term_buffer = vim.api.nvim_get_current_buf()
 		term_window = vim.api.nvim_get_current_win()
