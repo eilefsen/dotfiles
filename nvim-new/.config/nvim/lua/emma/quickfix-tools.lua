@@ -4,6 +4,7 @@ local M = {
 	_config = {
 		on_loc_ft = function(args) end, -- autocommand to run when opening loclist
 		on_qf_ft = function(args) end, -- autocommand to run when opening qflist
+		list_files_cmd = "find -type f | sed 's|^./||'"
 	},
 }
 
@@ -19,7 +20,7 @@ local function git_ls()
 end
 
 local function ls()
-	local files = vim.fn.split(vim.fn.system("find -type f | sed 's|^./||'"), '\n')
+	local files = vim.fn.split(vim.fn.system(M._config.cmd), '\n')
 	return vim.tbl_map(
 		function(val) 
 			return {
@@ -98,11 +99,7 @@ local function get_title(opts)
 	return title
 end
 
-function M.setup(cfg) 
-	if cfg ~= nil then
-		M._config = vim.tbl_deep_extend('force', M._config, cfg)
-	end
-
+local function setup_commands()
 	vim.api.nvim_create_user_command('Cfuzzy', function(opts)
 		if opts.args == '' then
 			return
@@ -154,6 +151,18 @@ function M.setup(cfg)
 	vim.api.nvim_create_user_command('LBuffers', function(opts)
 		M.loc.find_buffers() 
 	end, {})
+
+end
+
+function M.setup(cfg) 
+	if vim.fn.executable('rg') == 1 then 
+		M._config.list_files_cmd = "rg --files"
+	end
+	if cfg ~= nil then
+		M._config = vim.tbl_deep_extend('force', M._config, cfg)
+	end
+
+	setup_commands()
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = "qf",
