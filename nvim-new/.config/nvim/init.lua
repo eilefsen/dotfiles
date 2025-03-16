@@ -106,10 +106,12 @@ qf_tools.setup({
 		vim.keymap.set('n', '<C-i>', '<Cmd>lnewer<CR>', {buffer = args.buf})
 	end,
 })
-vim.keymap.set('n', '<leader>fg', '<Cmd>LGitFiles<CR>')
-vim.keymap.set('n', '<leader>ff', '<Cmd>LFiles<CR>')
-vim.keymap.set('n', '<leader>fb', '<Cmd>LBuffers<CR>')
-vim.keymap.set('n', '<leader>,', '<Cmd>LBuffers<CR>')
+vim.keymap.set('n', '<leader>lg', '<Cmd>LGitFiles<CR>')
+vim.keymap.set('n', '<leader>lf', '<Cmd>LFiles<CR>')
+vim.keymap.set('n', '<leader>lb', '<Cmd>LBuffers<CR>')
+vim.keymap.set('n', '<leader>qg', '<Cmd>GitFiles<CR>')
+vim.keymap.set('n', '<leader>qf', '<Cmd>Files<CR>')
+vim.keymap.set('n', '<leader>qb', '<Cmd>Buffers<CR>')
 --}}}
 
 -- Grep {{{
@@ -125,10 +127,53 @@ vim.keymap.set('n', '<leader>sg', ':LGrepGit ')
 vim.keymap.set('n', '<leader>/', ':LGrepGit ')
 --}}}
 
+-- fzy {{{
+local fzy = require('emma.fzy')
+local fzy_avail = vim.fn.executable('fzy') == 1
+if fzy_avail then 
+	fzy.setup()
+	vim.ui.select = fzy.select
+end
+-- }}}
+
+-- Pickers {{{
+local function pick_files() 
+	return vim.ui.select(vim.fn.split(vim.fn.system('rg --files'), '\n'), 
+		{ prompt = 'Select file to edit: ' }, 
+		function(choice) 
+			if choice == nil then 
+				return
+			end
+			local f = vim.fn.trim(choice)
+			vim.cmd.edit(f)
+			-- for some reason filetype is not detected, manually detect here
+			vim.cmd.filetype('detect')
+		end) 
+end
+local function pick_buffers() 
+	local bufs = vim.fn.getbufinfo({buflisted = 1})
+	return vim.ui.select(
+		vim.tbl_map(function(v) return vim.fn.bufname(v.bufnr) end, bufs), 
+		{ prompt = 'Select buffer to open: ' }, 
+		function(choice) 
+			if choice == nil then 
+				return
+			end
+			local b = vim.fn.trim(choice)
+			vim.cmd.buffer(b)
+		end) 
+end
+vim.keymap.set({'n'}, '<Leader>f', pick_files)
+vim.keymap.set({'n'}, '<Leader>,', pick_buffers)
+
+-- }}}
+
 -- Terminal {{{
 local term_tools = require('emma.term-tools')
 local lazygit_avail = vim.fn.executable('lazygit') == 1
-term_tools.setup({enable_lazygit = lazygit_avail})
+term_tools.setup({
+	enable_lazygit = lazygit_avail
+})
 if lazygit_avail then 
 	vim.keymap.set({'n'}, '<Leader>gg', '<Cmd>LazyGit<CR>')
 end
@@ -163,6 +208,7 @@ vim.keymap.set("i", "<C-c>", function()
 	return '<C-c>'
 end, { expr = true })
 -- }}}
+
 
 local async_make = require('emma.async-make')
 async_make.setup()

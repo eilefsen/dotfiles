@@ -74,6 +74,12 @@ end
 function M.setup(cfg)
 	if cfg ~= nil then
 		M._config = vim.tbl_deep_extend('force', M._config, cfg)
+		if cfg.enable_lazygit == nil then
+			M._config.enable_lazygit = vim.fn.executable('lazygit')
+		end
+		if cfg.enable_fzy == nil then
+			M._config.enable_fzy = vim.fn.executable('fzy')
+		end
 	end
 
 	if M._config.disable_line_numbers then

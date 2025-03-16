@@ -42,19 +42,73 @@ local function ls_buffers()
 		end, bufs)
 end
 
+local function fzy_file_filter(pat,list)
+	local files = {}
+	for idx, val in ipairs(list) do
+		table.insert(files, val.bufnr .. '\t' .. vim.fn.bufname(val.bufnr) .. '\n')
+	end
+
+	local tmp = vim.fn.tempname()
+	local fh = io.open(tmp, 'w')
+	fh:write(unpack(files))
+	fh:flush()
+	fh:close()
+	local matches = vim.fn.split(vim.fn.system([[cat ]] .. tmp .. [[ | fzy -d\t -F1 -f2 -e ]] .. pat), '\n')
+	print(vim.inspect(matches))
+
+	local new_list = vim.iter(list):filter(function(v)
+		return vim.iter(matches):map(function(b)
+			return tonumber(b)
+		end):find(v.bufnr) ~= nil
+	end)
+
+	return new_list:totable()
+end
+
+local function fzy_text_filter(pat, list)
+	local texts = {}
+	for idx, val in ipairs(list) do
+		if val.valid == 1 then
+			table.insert(texts, val.text .. '\n')
+		end
+	end
+	print(vim.inspect(texts))
+
+	local tmp = vim.fn.tempname()
+	local fh = io.open(tmp, 'w')
+	fh:write(unpack(texts))
+	fh:flush()
+	local cmd = [[cat ]] .. tmp .. " | fzy -e " .. pat
+	local matches = vim.fn.split(vim.fn.system(cmd), '\n')
+	fh:close()
+	print(vim.inspect(matches))
+
+	local new_list = vim.iter(list):filter(function(v)
+		return vim.iter(matches):find(v.text) ~= nil
+	end)
+
+	return new_list:totable()
+end
+
 
 function M.text_filter(pat, list)
-	return vim.fn.matchfuzzy(list, pat, {
-		text_cb = function(val) return val.text end,
-		matchseq = true
-	})
+	if vim.fn.executable('fzy') == 1 then
+		return fzy_text_filter(pat, list)
+	else
+		return vim.fn.matchfuzzy(list, pat, {
+			text_cb = function(v) return v.text end
+		})
+	end
 end
 
 function M.filename_filter(pat, list)
-	return vim.fn.matchfuzzy(list, pat, {
-		text_cb = function(val) return vim.fn.bufname(val.bufnr) end,
-		matchseq = true
-	})
+	if vim.fn.executable('fzy') == 1 then
+		return fzy_file_filter(pat, list)
+	else
+		return vim.fn.matchfuzzy(list, pat, {
+			text_cb = function(v) return vim.fn.bufname(v.bufnr) end
+		})
+	end
 end
 
 function M.qf.find_git_files()
