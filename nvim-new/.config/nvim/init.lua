@@ -84,7 +84,7 @@ vim.api.nvim_create_autocmd({"VimEnter"}, {
 	callback = function(ev) 
 		local taginclude = require('emma.taginclude')
 		taginclude.setup()
-		vim.keymap.set({'n', 'v'}, 'gti', '<Cmd>TagInclude<CR>')
+		vim.keymap.set({'n', 'v'}, 'grti', '<Cmd>TagInclude<CR>')
 	end,
 })
 --}}}
