@@ -17,6 +17,9 @@
 	rebase = true
 [core]
 	excludesFile = /home/emma/.config/git/exclude
+	pager = nvim -R
+[color]
+	pager = no
 [alias]
     qs     = !echo staged: && git diff --cached --name-status && echo unstaged: && git diff --name-status
 [user]
