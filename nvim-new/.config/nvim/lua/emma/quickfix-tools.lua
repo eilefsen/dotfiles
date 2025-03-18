@@ -53,8 +53,8 @@ local function fzy_file_filter(pat,list)
 	fh:write(unpack(files))
 	fh:flush()
 	fh:close()
-	local matches = vim.fn.split(vim.fn.system([[cat ]] .. tmp .. [[ | fzy -d\t -F1 -f2 -e ]] .. pat), '\n')
-	print(vim.inspect(matches))
+	local matches = vim.fn.split(
+		vim.fn.system([[cat ]] .. tmp .. [[ | fzy -d\t -F1 -f2 -e ]] .. pat), '\n')
 
 	local new_list = vim.iter(list):filter(function(v)
 		return vim.iter(matches):map(function(b)
@@ -72,7 +72,6 @@ local function fzy_text_filter(pat, list)
 			table.insert(texts, val.text .. '\n')
 		end
 	end
-	print(vim.inspect(texts))
 
 	local tmp = vim.fn.tempname()
 	local fh = io.open(tmp, 'w')
