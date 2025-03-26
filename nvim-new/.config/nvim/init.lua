@@ -213,4 +213,9 @@ end, { expr = true })
 local async_make = require('emma.async-make')
 async_make.setup()
 
+
+-- This should probably always be sourced after everything else
+local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
+vim.cmd.source(vimrc)
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
