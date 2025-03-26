@@ -34,6 +34,8 @@ vim.keymap.set({'n', 'v', 'i', 'o'}, '<C-c>', '<Esc>')
 vim.keymap.set({'n', 'v'}, '<C-w><C-c>', '<Nop>') -- preserve default behaviour
 
 vim.api.nvim_create_user_command('E', 'Explore', {})
+vim.api.nvim_create_user_command('V', 'Vexplore', {})
+vim.api.nvim_create_user_command('H', 'Hexplore', {})
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd({"TextYankPost"}, {
