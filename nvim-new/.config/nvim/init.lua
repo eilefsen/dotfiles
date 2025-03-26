@@ -45,8 +45,8 @@ vim.api.nvim_create_autocmd({"TextYankPost"}, {
 --  Window {{{
 vim.keymap.set("n", "<M-,>", "<c-w>5<")
 vim.keymap.set("n", "<M-.>", "<c-w>5>")
-vim.keymap.set("n", "<M-t>", "<C-W>+")
-vim.keymap.set("n", "<M-s>", "<C-W>-")
+vim.keymap.set("n", "<M-i>", "<C-W>+")
+vim.keymap.set("n", "<M-d>", "<C-W>-")
 --}}}
 
 -- Wildmenu {{{
