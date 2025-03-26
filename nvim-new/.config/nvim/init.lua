@@ -42,6 +42,18 @@ vim.api.nvim_create_autocmd({"TextYankPost"}, {
 	end,
 })
 
+-- switch directory when opening new tab
+vim.api.nvim_create_autocmd({"TabNewEntered"}, {
+	callback = function(ev) 
+		if vim.fn.isdirectory(ev.match) == 1 then
+			vim.cmd.tcd(ev.match)
+		else
+			vim.cmd.tcd(vim.fn.fnamemodify(ev.match, ':h'))
+		end
+	end,
+})
+
+
 --  Window {{{
 vim.keymap.set("n", "<M-,>", "<c-w>5<")
 vim.keymap.set("n", "<M-.>", "<c-w>5>")
