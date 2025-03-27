@@ -26,6 +26,7 @@ end
 function M.open_lazygit()
 	vim.cmd([[tab terminal lazygit]])
 	vim.wo.winfixbuf = true
+	vim.bo.filetype = 'lazygit'
 	autocmd_skip_exit_msg()
 end
 

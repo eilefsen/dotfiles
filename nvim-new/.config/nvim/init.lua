@@ -229,4 +229,7 @@ async_make.setup()
 local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
 vim.cmd.source(vimrc)
 
+local tabline = require('emma.tabline')
+tabline.setup()
+
 -- vim:foldmethod=marker:foldlevel=0:filetype=nvimlua
