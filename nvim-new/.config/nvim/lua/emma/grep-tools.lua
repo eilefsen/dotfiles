@@ -9,8 +9,13 @@ local function git_files()
 end
 
 local function cwd_files()
-	return vim.fn.substitute(
-		vim.fn.system("find -type f | sed 's|^./||'"), '\n', ' ', 'g')
+	local files = {}
+	if vim.fn.executable('rg') then
+		files = vim.fn.system("rg --files | sed 's|^./||'")
+	else
+		files = vim.fn.system("find -type f | sed 's|^./||'")
+	end
+	return vim.fn.substitute(files, '\n', ' ', 'g')
 end
 
 function M.setup(cfg) 
@@ -19,33 +24,48 @@ function M.setup(cfg)
 	end
 
 	vim.api.nvim_create_user_command('Grep', function(opts)
-		vim.cmd([[silent grep! ]].. opts.args)
+		vim.cmd([[silent grep! ]] .. opts.args)
+		vim.fn.setqflist({}, 'a', {title = 'Grep ' .. opts.args })
 		vim.cmd.copen()
 	end, {nargs = '+'})
 	vim.api.nvim_create_user_command('LGrep', function(opts)
 		vim.cmd([[silent lgrep! ]] .. opts.args)
+		vim.fn.setloclist(
+			vim.api.nvim_get_current_win(), 
+			{},  'a', {title = 'LGrep ' .. opts.args}
+		)
 		vim.cmd.lopen()
 	end, {nargs = '+'})
 
 	vim.api.nvim_create_user_command('GrepCwd', function(opts)
-		local files = grep_cwd()
-		vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
+		local files = cwd_files()
+		vim.cmd([[silent grep! ]] .. opts.args .. ' ' .. files)
+		vim.fn.setqflist({}, 'a', {title = 'GrepCwd ' .. opts.args})
 		vim.cmd.copen()
 	end, {nargs = '+'})
 	vim.api.nvim_create_user_command('LGrepCwd', function(opts)
-		local files = grep_cwd()
-		vim.cmd([[LGrep ]] .. opts.args .. ' ' .. files)
+		local files = cwd_files()
+		vim.cmd([[silent lgrep! ]] .. opts.args .. ' ' .. files)
+		vim.fn.setloclist(
+			vim.api.nvim_get_current_win(),
+			{}, 'a', {title = 'LGrepCwd ' .. opts.args}
+		)
 		vim.cmd.lopen()
 	end, {nargs = '+'})
 
 	vim.api.nvim_create_user_command('GrepGit', function(opts)
 		local files = git_files()
-		vim.cmd([[Grep ]] .. opts.args .. ' ' .. files)
+		vim.cmd([[silent grep! ]] .. opts.args .. ' ' .. files)
+		vim.fn.setqflist({}, 'a', {title = 'GrepGit ' .. opts.args})
 		vim.cmd.copen()
 	end, {nargs = '+'})
 	vim.api.nvim_create_user_command('LGrepGit', function(opts)
 		local files = git_files()
-		vim.cmd([[LGrep ]] .. opts.args .. ' ' .. files)
+		vim.cmd([[silent lgrep! ]] .. opts.args .. ' ' .. files)
+		vim.fn.setloclist(
+			vim.api.nvim_get_current_win(), 
+			{}, 'a', {title = 'LGrepGit ' .. opts.args}
+		)
 		vim.cmd.lopen()
 	end, {nargs = '+'})
 end

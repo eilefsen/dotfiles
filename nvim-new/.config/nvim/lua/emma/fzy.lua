@@ -18,11 +18,16 @@ end
 local function format_items(items, format_fn, prompt)
 	local formatted = {}
 	for idx, val in ipairs(items) do
+		local name = ''
 		if format_fn then
-			table.insert(formatted, tostring(idx) .. [[:]] .. format_fn(val))
+			name = format_fn(val)
 		else
-			table.insert(formatted, tostring(idx) .. [[:]] .. tostring(val))
+			name = tostring(val)
 		end
+		if name == '' then
+			name = '[No Name]'
+		end
+		table.insert(formatted, tostring(idx) .. [[:]] .. name)
 	end
 	return formatted
 end

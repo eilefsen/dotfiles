@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd({"TabNewEntered"}, {
 })
 
 
---  Window {{{
+-- Window {{{
 vim.keymap.set("n", "<M-,>", "<c-w>5<")
 vim.keymap.set("n", "<M-.>", "<c-w>5>")
 vim.keymap.set("n", "<M-i>", "<C-W>+")
@@ -93,14 +93,9 @@ vim.api.nvim_create_autocmd({"VimEnter"}, {
 --}}}
 
 -- Tags {{{
-vim.api.nvim_create_autocmd({"VimEnter"}, { 
-	once = true,
-	callback = function(ev) 
-		local taginclude = require('emma.taginclude')
-		taginclude.setup()
-		vim.keymap.set({'n', 'v'}, 'grti', '<Cmd>TagInclude<CR>')
-	end,
-})
+local taginclude = require('emma.taginclude')
+taginclude.setup()
+vim.keymap.set({'n', 'v'}, 'grti', '<Cmd>TagInclude<CR>')
 --}}}
 
 -- Quickfix {{{
@@ -152,6 +147,7 @@ end
 
 -- Pickers {{{
 local function pick_files() 
+	local window = vim.api.nvim_get_current_win()
 	return vim.ui.select(vim.fn.split(vim.fn.system('rg --files'), '\n'), 
 		{ prompt = 'Select file to edit: ' }, 
 		function(choice) 
@@ -159,6 +155,7 @@ local function pick_files()
 				return
 			end
 			local f = vim.fn.trim(choice)
+			vim.api.nvim_set_current_win(window)
 			vim.cmd.edit(f)
 			-- for some reason filetype is not detected, manually detect here
 			vim.cmd.filetype('detect')
@@ -166,6 +163,7 @@ local function pick_files()
 end
 local function pick_buffers() 
 	local bufs = vim.fn.getbufinfo({buflisted = 1})
+	local window = vim.api.nvim_get_current_win()
 	return vim.ui.select(
 		vim.tbl_map(function(v) return vim.fn.bufname(v.bufnr) end, bufs), 
 		{ prompt = 'Select buffer to open: ' }, 
@@ -174,6 +172,7 @@ local function pick_buffers()
 				return
 			end
 			local b = vim.fn.trim(choice)
+			vim.api.nvim_set_current_win(window)
 			vim.cmd.buffer(b)
 		end) 
 end
@@ -223,10 +222,8 @@ vim.keymap.set("i", "<C-c>", function()
 end, { expr = true })
 -- }}}
 
-
 local async_make = require('emma.async-make')
 async_make.setup()
-
 
 -- This should probably always be sourced after everything else
 local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
